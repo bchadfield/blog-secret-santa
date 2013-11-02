@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= yield :title %></title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="open">
+<header>
+  <div class="col-sm-5 centered">
+    <div class="brand">
+    	<%= link_to root_path, class: "logo" do %>
+    		<%= image_tag "logo-dark.png", alt: "CS Workflow logo" %>
+    	<% end %>
+    </div>
+  </div>
+</header>
+<%= render "layouts/flash" %>
+<%= yield %>
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+<% if Rails.env.production? %>
+  <%= render "layouts/google_analytics"  %>
+<% end %>
+</body>
+</html>

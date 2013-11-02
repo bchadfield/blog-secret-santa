@@ -1,0 +1,27 @@
+module ApplicationHelper  
+  # Return a title on a per-page basis. 
+  def title(page_title)
+    base_title = "Blog Secret Santa" 
+    content_for(:title) { "#{page_title} | #{base_title}" }
+    content_for(:heading) { page_title }
+  end 
+
+  def match_flash_key(key)
+  	case key
+  	when :success
+  		key = "success"
+  	when :error
+  		key = "danger"
+  	else
+  		key = "info"
+  	end
+  	key
+  end
+
+  # Returns the Gravatar (http://gravatar.com/) for the given user.
+  def gravatar_for(user)
+    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=80&d=identicon"
+    image_tag(gravatar_url, alt: user.name, class: "gravatar")
+  end
+end
