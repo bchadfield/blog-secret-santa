@@ -1,0 +1,33 @@
+<% title "Edit your details" %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h1><%= yield :heading %></h1>
+			<%= form_for @user do |f| %>
+				<fieldset>
+					<div class="form-group input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+					</div>
+					<div class="form-group input-group">
+						<span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+						<%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+					</div>
+					<div class="checkbox">
+						<%= f.label :available do %>
+							<%= f.check_box :available %> Are you available for Secret Santa?
+						<% end %>
+					</div>
+					<div class="form-group">
+						<%= link_to "Delete yourself", @user,
+																					class: "btn btn-danger pull-right",
+																					method: :delete,
+																					data: { confirm: "You can change your mind and hit cancel before it's too late." } %>
+						<%= f.submit "Save", class: "btn btn-success" %>
+					</div>
+				</fieldset>
+			<% end %>
+		</div>
+	</div>
+</div>

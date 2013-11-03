@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:show, :edit, :update, :email, :set_email, :destroy]
   def index
   end
 
@@ -9,17 +10,42 @@ class UsersController < ApplicationController
   end
 
   def update
-  	@user = User.find(params[:id])
   	if @user.update_attributes(user_params)
-  		redirect_to root_path
+      flash[:success] = "Updated without a hitch!"
+  		redirect_to edit_user_path(@user)
   	else
-  		render "sessions/create"
+  		render "edit"
   	end
+  end
+
+  def email
+
+  end
+
+  def set_email
+    if !@user.update_attributes(user_params) || user_params[:email].blank?
+      flash[:error] = "Nope. You have to enter an email address or we can't be friends."
+      render "email"
+    else
+      flash.clear
+      redirect_to root_path
+    end
+  end
+
+  def destroy
+    session[:user_id] = nil
+    @user.destroy
+    flash[:success] = "Well, you went removed yourself. Now it's just you against the world."
+    redirect_to root_path
   end
 
   private
 
   	def user_params
-  		params.require(:user).permit(:name, :email)
+  		params.require(:user).permit(:name, :email, :available)
   	end
+
+    def find_user
+      @user = User.find(params[:id])
+    end
 end

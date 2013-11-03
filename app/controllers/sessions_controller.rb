@@ -10,6 +10,8 @@ class SessionsController < ApplicationController
 	  session[:user_id] = @user.id
 	  if @user.email
 	  	redirect_to root_path
+	  else
+	  	redirect_to email_user_path(@user)
 	  end
 	end
 

@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-  	<% if signed_in? %>
-  		Hi, <%= current_user.name %>
-  	<% else %>
-  		<%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login col-sm-3 centered" do %>
-	  		<i class="fa fa-twitter"></i> Log in with Twitter
-	  	<% end %>
-  	<% end %>
-  	
+	  <div class="col-sm-12">
+	  	<div id="countdown" data-until="<%= @draw.draw_time %>"></div>
+	  	<% if !signed_in? %>
+        <%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login col-sm-3 centered" do %>
+          <i class="fa fa-twitter"></i> Log in with Twitter
+        <% end %>
+    	<% end %>
+  	</div>
  	</div>
 </div>

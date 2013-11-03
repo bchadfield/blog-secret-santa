@@ -1,7 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+Draw.create(draw_time: Time.utc(2013,11,20,14,00,00), status: "open")
+User.create([{name: "Bill", email: "bill@csworkflow.com"},
+							{name: "Frank", email: "frank@csworkflow.com"},
+							{name: "Jill", email: "jill@csworkflow.com"},
+							{name: "Ben", email: "ben@csworkflow.com"},
+							{name: "Wendy", email: "wendy@csworkflow.com"},
+							{name: "Gill", email: "gill@csworkflow.com"},
+							{name: "Peter", email: "peter@csworkflow.com"},
+							{name: "Nigel", email: "nigel@csworkflow.com"},
+							{name: "Frances", email: "frances@csworkflow.com"},
+							{name: "Jill", email: "jill@csworkflow.com"},
+							{name: "Jane", email: "jane@csworkflow.com"},
+							{name: "Sara", email: "sara@csworkflow.com"}])

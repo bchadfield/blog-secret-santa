@@ -9,10 +9,19 @@
       <a class="navbar-brand" href="/">Blog Secret Santa</a>
     </div>
     <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav pull-right">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
+        <% if signed_in? %>
+          <li class="user">
+            <%= link_to edit_user_path(current_user) do %>
+              <%= image_tag current_user.image %>
+              <%= current_user.first_name %>
+            <% end %>
+          </li>
+        <% end %>
+        
       </ul>
     </div><!--/.nav-collapse -->
   </div>

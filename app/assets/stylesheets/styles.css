@@ -1,4 +1,6 @@
 .navbar { border-radius: 0; }
+.navbar .user img { width: 24px; height: 24px; margin-top: -5px; }
+i { width: 16px; text-align: center; }
 .centered { margin-left: auto; margin-right: auto; }
 .twitter-login { }
 .twitter-login i.fa-twitter { color: #00aced; }

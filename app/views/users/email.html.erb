@@ -2,9 +2,10 @@
 
 <div class="container">
 	<div class="row">
-		<div class="centered well col-sm-5">
+		<div class="col-sm-12">
 			<h1><%= yield :heading %></h1>
-			<%= form_for @user do |f| %>
+			<p>Enter your email address so you can be sent updates for the secret santa</p>
+			<%= form_for @user, url: set_email_user_path(@user) do |f| %>
 				<fieldset>
 					<div class="form-group input-group">
 						<span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>

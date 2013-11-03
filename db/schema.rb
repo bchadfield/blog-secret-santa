@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20131102003558) do
     t.datetime "updated_at"
   end
 
-  create_table "secret_santa", force: true do |t|
+  create_table "matches", force: true do |t|
     t.integer  "draw_id"
     t.integer  "giver_id"
     t.integer  "receiver_id"
@@ -43,9 +43,9 @@ ActiveRecord::Schema.define(version: 20131102003558) do
     t.datetime "updated_at"
   end
 
-  add_index "secret_santa", ["draw_id"], name: "index_secret_santa_on_draw_id", using: :btree
-  add_index "secret_santa", ["giver_id"], name: "index_secret_santa_on_giver_id", using: :btree
-  add_index "secret_santa", ["receiver_id"], name: "index_secret_santa_on_receiver_id", using: :btree
+  add_index "matches", ["draw_id"], name: "index_matches_on_draw_id", using: :btree
+  add_index "matches", ["giver_id"], name: "index_matches_on_giver_id", using: :btree
+  add_index "matches", ["receiver_id"], name: "index_matches_on_receiver_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
