@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title><%= yield :title %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css", media: "all" %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <%= render "layouts/header" %>
-<%= render "layouts/left_nav" %>
 <div class="main-wrapper">
 	<%= render "layouts/flash" %>
 	<div class="content">
@@ -17,7 +17,6 @@
 </div>
 <%= render "layouts/modal" %>
 <% if Rails.env.production? %>
-	<%= render "layouts/uservoice_widget" %>
 	<%= render "layouts/google_analytics"  %>
 <% end %>
 </body>
