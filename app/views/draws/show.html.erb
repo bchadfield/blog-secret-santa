@@ -1,9 +1,9 @@
 <div class="container">
   <div class="row">
-	  <div class="col-sm-12">
-	  	<div id="countdown" data-until="<%= @draw.draw_time %>"></div>
+	  <div class="col-sm-12 center">
+	  	<%= CountdownPresenter.new(@draw, self).render_countdown %>
 	  	<% if !signed_in? %>
-        <%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login col-sm-3 centered" do %>
+        <%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login" do %>
           <i class="fa fa-twitter"></i> Log in with Twitter
         <% end %>
     	<% end %>
