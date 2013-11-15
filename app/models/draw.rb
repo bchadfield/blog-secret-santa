@@ -18,4 +18,17 @@ class Draw < ActiveRecord::Base
 	  	print "Not enough available users for a draw. Need at least 3."
 	  end
 	end
+
+	def in_the_future?
+		match_time.future? || gift_time.future?
+	end
+
+	def draw_time
+		case status
+		when "open"
+			match_time
+		when "matched"
+			gift_time
+		end
+	end
 end

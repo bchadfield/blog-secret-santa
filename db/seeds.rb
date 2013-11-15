@@ -1,4 +1,4 @@
-Draw.create(draw_time: Time.utc(2013,11,20,14,00,00), status: "open")
+Draw.create(match_time: Time.utc(2013,11,20,14,00,00), gift_time: Time.utc(2013,12,25,14,00,00), status: "open")
 User.create([{name: "Bill", email: "bill@csworkflow.com"},
 							{name: "Frank", email: "frank@csworkflow.com"},
 							{name: "Jill", email: "jill@csworkflow.com"},

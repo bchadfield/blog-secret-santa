@@ -5,6 +5,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :provider
       t.string :uid
       t.string :email
+      t.string :location
+      t.string :url
       t.string :image
       t.boolean :admin
       t.boolean :available

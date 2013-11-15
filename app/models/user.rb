@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 	    user.uid = auth["uid"]
 	    user.name = auth["info"]["name"]
 	    user.image = auth["info"]["image"]
+	    user.location = auth["info"]["location"]
+	    user.url = auth["info"]["urls"]["Twitter"]
 	  end
 	end
 

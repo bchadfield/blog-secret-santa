@@ -6,6 +6,7 @@ class DrawsController < ApplicationController
 
   def show
     @draw = Draw.open.first
+    @users = User.available
   end
 
   def create

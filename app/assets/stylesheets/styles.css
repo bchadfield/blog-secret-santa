@@ -1,9 +1,16 @@
 .navbar { border-radius: 0; }
-.navbar .user img { width: 24px; height: 24px; margin-top: -5px; }
+.navbar .current-user img, ul.users li img { width: 24px; height: 24px; }
+.navbar .current-user img { margin-top : -5px; }
 i { width: 16px; text-align: center; }
 .center { text-align: center; }
 .twitter-login { }
 .twitter-login i.fa-twitter { color: #00aced; }
-#countdown { font-size: 1.25em; font-weight: 300; }
-#countdown .clock { font-size: 1.5em; }
-#until-text { font-size: 1.5em; font-weight: 500; margin-bottom: 50px; }
+#countdown { font-size: 1em; font-weight: 300; }
+#countdown .clock { font-size: 1.25em; }
+#until-text { font-size: 1.25em; font-weight: 500; margin-bottom: 50px; }
+ul.users { list-style: none; margin: 0 auto; float: none; }
+ul.users li { text-align: left; padding: 5px 0;}
+@media (min-width: 768px) {
+	#countdown { font-size: 1.25em; }
+	#countdown .clock, #until-text { font-size: 1.5em; }
+}

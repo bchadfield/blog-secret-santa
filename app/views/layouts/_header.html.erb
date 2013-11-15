@@ -1,28 +1,17 @@
 <div class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="/">Blog Secret Santa</a>
     </div>
-    <div class="collapse navbar-collapse">
+    <% if signed_in? %>
       <ul class="nav navbar-nav pull-right">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <% if signed_in? %>
-          <li class="user">
-            <%= link_to edit_user_path(current_user) do %>
-              <%= image_tag current_user.image %>
-              <%= current_user.first_name %>
-            <% end %>
-          </li>
-        <% end %>
-        
+        <li class="current-user">
+          <%= link_to edit_user_path(current_user) do %>
+            <%= image_tag current_user.image %>
+            <%= current_user.first_name %>
+          <% end %>
+        </li>
       </ul>
-    </div><!--/.nav-collapse -->
+    <% end %>
   </div>
 </div>

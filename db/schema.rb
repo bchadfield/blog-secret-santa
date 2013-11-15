@@ -29,7 +29,8 @@ ActiveRecord::Schema.define(version: 20131102003558) do
   add_index "content", ["user_id"], name: "index_content_on_user_id", using: :btree
 
   create_table "draws", force: true do |t|
-    t.datetime "draw_time"
+    t.datetime "match_time"
+    t.datetime "gift_time"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -52,6 +53,8 @@ ActiveRecord::Schema.define(version: 20131102003558) do
     t.string   "provider"
     t.string   "uid"
     t.string   "email"
+    t.string   "location"
+    t.string   "url"
     t.string   "image"
     t.boolean  "admin"
     t.boolean  "available"
