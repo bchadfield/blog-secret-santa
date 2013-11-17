@@ -159,7 +159,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller (~> 0.7.1)
-  capistrano (~> 2.15.4)
+  capistrano (~> 2.15.5)
   jbuilder (~> 1.2)
   jquery-rails
   letter_opener

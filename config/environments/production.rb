@@ -64,6 +64,17 @@ Secretsanta::Application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { host: 'secretsanta.csworkflow.com' }
+  config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = { 
+    address: ENV["AWS_SES_ADDRESS"],
+    port: 587,
+    domain: "csworkflow.com",
+    user_name: ENV["AWS_SES_USERNAME"],
+    password: ENV["AWS_SES_PASSWORD"],
+    authentication: :login,
+    enable_starttls_auto: true
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
