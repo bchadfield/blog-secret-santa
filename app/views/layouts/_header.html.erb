@@ -4,14 +4,14 @@
       <a class="navbar-brand" href="/">Blog Secret Santa</a>
     </div>
     <% if signed_in? %>
-      <ul class="nav navbar-nav pull-right">
-        <li class="current-user">
-          <%= link_to edit_user_path(current_user) do %>
-            <%= image_tag current_user.image %>
-            <%= current_user.first_name %>
-          <% end %>
-        </li>
-      </ul>
-    <% end %>
+        <ul class="nav navbar-nav pull-right">
+          <li class="current-user">
+            <%= link_to edit_user_path(current_user) do %>
+              <%= image_tag current_user.image %>
+              <%= current_user.first_name %>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
   </div>
 </div>

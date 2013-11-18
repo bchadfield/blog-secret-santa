@@ -6,7 +6,7 @@
 	  	<%= CountdownPresenter.new(@draw, self).render_countdown %>
 	  	<% if !signed_in? %>
         <%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login" do %>
-          <i class="fa fa-twitter"></i> Log in with Twitter
+          <%= image_tag 'twitter-logo.png' %> Log in with Twitter
         <% end %>
       <% else %>
         <% if @draw.status == "matched" && @match %>

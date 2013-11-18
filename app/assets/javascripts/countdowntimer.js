@@ -6,7 +6,9 @@ window.CountDownTimer = (function() {
 
   function CountDownTimer(selector) {
     this.el = $(selector);
-    this.countUntil = Date.parse(this.el.data('until'));
+    console.log(this.el.data('until').replace(/-/g,"/"));
+    console.log(Date.parse(this.el.data('until').replace(/-/g,"/")));
+    this.countUntil = Date.parse(this.el.data('until').replace(/-/g,"/"));
     this.createElements();
     this.startCounting();
   }
@@ -78,7 +80,7 @@ window.CountDownTimer = (function() {
 
   CountDownTimer.prototype.write = function(section, number) {
     var hundreds, ones, sectionElement, tens;
-    sectionElement = this.el.find("." + section);
+    sectionElement = this.el.find(".clock." + section);
     if (parseInt(sectionElement.data('num')) === number) {
       return;
     }
