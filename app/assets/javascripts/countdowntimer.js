@@ -6,9 +6,7 @@ window.CountDownTimer = (function() {
 
   function CountDownTimer(selector) {
     this.el = $(selector);
-    console.log(this.el.data('until').replace(/-/g,"/"));
-    console.log(Date.parse(this.el.data('until').replace(/-/g,"/")));
-    this.countUntil = Date.parse(this.el.data('until').replace(/-/g,"/"));
+    this.countUntil = Date.parse(this.el.data('until'));
     this.createElements();
     this.startCounting();
   }

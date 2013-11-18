@@ -14,7 +14,7 @@ class CountdownPresenter < SimpleDelegator
 
   	def render_counter
   		if @draw.draw_time.future?
-  			content_tag(:div, nil, id: "countdown", data: { until: "#{@draw.draw_time}" })
+  			content_tag(:div, nil, id: "countdown", data: { until: "#{@draw.draw_time.strftime('%Y/%m/%d %H:%M %Z')}" })
   		else
   			if @draw.status == "closed"
   				content_tag(:div, "Sign up now for the next draw", id: "countdown")
