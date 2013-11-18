@@ -3,7 +3,8 @@ Secretsanta::Application.routes.draw do
   get "/logout", to: "sessions#destroy", as: :logout
   get "/login", to: "sessions#new", as: :login
 
-  resources :content, :draws
+  resources :content, only: [:new, :show, :update]
+  resources :draws, only: :show
   resources :users do
   	member do
   		get "email"

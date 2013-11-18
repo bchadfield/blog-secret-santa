@@ -7,6 +7,7 @@ class DrawsController < ApplicationController
   def show
     @draw = Draw.first
     @users = User.available
+    @match = Match.find_by(draw_id: @draw.id, giver_id: current_user.id)
   end
 
   def create

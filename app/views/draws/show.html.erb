@@ -9,12 +9,17 @@
           <i class="fa fa-twitter"></i> Log in with Twitter
         <% end %>
       <% else %>
-      	<h3>In the draw</h3>
-      	<ul class="users col-sm-4">
-	      	<% @users.each do |user| %>
-	      		<%= render "users/user", user: user %>
-	      	<% end %>
-      	</ul>	
+        <% if @draw.status == "matched" && @match %>
+          <h3>You're match is <strong><%= link_to @match.receiver.name, @match.receiver.url, target: "_blank" %></strong></h3>
+          <%= link_to "Work on your content gift", new_content_path, class: "btn btn-lg btn-success" %>
+        <% elsif @draw.status == "open" %>
+        	<h3>In the draw</h3>
+        	<ul class="users col-sm-4">
+  	      	<% @users.each do |user| %>
+  	      		<%= render "users/user", user: user %>
+  	      	<% end %>
+        	</ul>	
+        <% end %>
     	<% end %>
   	</div>
  	</div>

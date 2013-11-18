@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap.min
+//= require redactor-rails
+//= require jquery.simplyCountable
 //= require countdowntimer
 //= require actions

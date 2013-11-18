@@ -13,7 +13,7 @@ class CountdownPresenter < SimpleDelegator
   private
 
   	def render_counter
-  		if @draw.in_the_future?
+  		if @draw.draw_time.future?
   			content_tag(:div, nil, id: "countdown", data: { until: "#{@draw.draw_time}" })
   		else
   			if @draw.status == "closed"
@@ -29,7 +29,7 @@ class CountdownPresenter < SimpleDelegator
   		when "open"
   			"Until secret santas matches are drawn."
   		when "matched"
-  			"Until blog gifts are given. Add your gift now."
+  			"Until blog gifts are given."
   		end
   	end
 end

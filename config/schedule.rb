@@ -13,7 +13,7 @@
 #   rake "some:great:rake:task"
 # end
 #
-every 1.minute do
+every :day, at: "12:00am" do
   runner "Draw.check_if_time_for_draw"
 end
 

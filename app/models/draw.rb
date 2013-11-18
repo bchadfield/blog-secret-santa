@@ -6,7 +6,7 @@ class Draw < ActiveRecord::Base
 
 	def self.check_if_time_for_draw
 		draw = self.open.first
-		if draw && draw.draw_time.past?
+		if draw && !draw.draw_time.future?
 			draw.draw_secret_santas
 		end
 
@@ -30,10 +30,6 @@ class Draw < ActiveRecord::Base
 	  else
 	  	print "Not enough available users for a draw. Need at least 3."
 	  end
-	end
-
-	def in_the_future?
-		match_time.future? || gift_time.future?
 	end
 
 	def draw_time

@@ -1,0 +1,43 @@
+html, body { height: 100%; }
+.navbar { border-radius: 0; }
+.navbar .current-user img, ul.users li img { width: 24px; height: 24px; }
+.navbar .current-user img { margin-top : -5px; }
+i { width: 16px; text-align: center; }
+.center { text-align: center; }
+.twitter-login { }
+.twitter-login i.fa-twitter { color: #00aced; }
+#countdown { font-size: 1em; font-weight: 300; }
+#countdown .clock { font-size: 1.25em; }
+#until-text { font-size: 1.25em; font-weight: 500; margin-bottom: 50px; }
+ul.users { list-style: none; margin: 0 auto; float: none; }
+ul.users li { text-align: left; padding: 5px 0;}
+.footer { 
+	margin: 40px 0 5px 0; 
+	font-size: 0.9em; 
+	color: #777; 
+ 	/*position: absolute;*/
+ 	/*bottom: 0;*/
+ 	width: 100%;
+ 	height: 2em;
+}
+.main-wrapper { 
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -2em; 
+}
+/*.content { padding-bottom: 2.2em; }*/
+@media (min-width: 768px) {
+	#countdown { font-size: 1.25em; }
+	#countdown .clock, #until-text { font-size: 1.5em; }
+}
+
+
+textarea#content_body { width: 99%; height: 500px; border: 0; box-shadow: none; resize: none; outline: none; }
+textarea#content_body[disabled] { background-color: #fff; cursor: text; }
+textarea#comment_body { width: 100%; height: 5em; border-color: #ccc; }
+.redactor_editor { overflow-y: scroll;}
+#save-content.white-text { color: #fff; }
+#counter { z-index: 100; float: right; position: relative; top: 5px; right: 10px; }
+#counter.over { color: #dd0000;}
+@font-face{font-family:'Glyphicons Halflings';src:url(<%= asset_path 'glyphicons-halflings-regular.eot' %>);src:url(<%= asset_path 'glyphicons-halflings-regular.eot?#iefix' %>) format('embedded-opentype'),url(<%= asset_path 'glyphicons-halflings-regular.woff' %>) format('woff'),url(<%= asset_path 'glyphicons-halflings-regular.ttf' %>) format('truetype'),url(<%= asset_path 'glyphicons-halflings-regular.svg#glyphicons-halflingsregular' %>) format('svg')}
