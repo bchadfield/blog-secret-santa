@@ -6,7 +6,8 @@ class DrawsController < ApplicationController
 
   def show
     @draw = Draw.first
-    @users = User.available
+    @users = User.available.order(created_at: :desc).limit(10)
+    @total_users = User.available.count
     @match = Match.find_by(draw_id: @draw.id, giver_id: current_user.id) if current_user
   end
 

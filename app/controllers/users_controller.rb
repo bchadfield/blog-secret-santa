@@ -2,7 +2,9 @@ class UsersController < ApplicationController
   skip_before_action :check_for_email, only: [:email, :set_email]
   before_action :find_user, only: [:show, :edit, :update, :email, :set_email, :destroy]
   before_action :authorize, only: [:edit, :update, :email, :set_email, :destroy]
+
   def index
+    @users = User.available.order(created_at: :asc)
   end
 
   def show

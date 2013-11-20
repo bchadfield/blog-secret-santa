@@ -1,7 +1,6 @@
-html, body { height: 100%; }
 h1 { font-size: 26px; }
 .navbar { border-radius: 0; }
-.navbar .current-user img, ul.users li img { width: 24px; height: 24px; }
+.navbar .current-user img, ul.users li img { width: 24px; height: 24px; border: 1px solid #777; }
 .navbar .current-user img { margin-top : -5px; }
 i { width: 16px; text-align: center; }
 .center { text-align: center; }
@@ -10,22 +9,12 @@ i { width: 16px; text-align: center; }
 #countdown { font-size: 1em; font-weight: 300; }
 #countdown .clock { font-size: 1.25em; }
 #until-text { font-size: 1.25em; font-weight: 500; }
-ul.users { list-style: none; margin: 0 auto; float: none; }
+ul.users { list-style: none; margin: 0 auto 10px auto; float: none; }
 ul.users li { text-align: left; padding: 5px 0;}
-.footer { 
-	margin: 40px 0 5px 0; 
-	font-size: 0.9em; 
-	color: #777; 
- 	width: 100%;
- 	height: 2em;
-}
-.main-wrapper { 
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	margin: 0 auto -2em; 
-}
-.navbar-header { float: left; }
+ul.users li img { position: relative; top: 5px; float: left; margin-right: 5px; }
+ul.users li .user-name { text-indent: 2px; font-weight: bold; }
+ul.users li .user-location { color: #888; }
+.main-wrapper { padding-bottom: 20px; }
 /*.content.narrow { width: 600px; margin: 0 auto;}*/
 .center .content p { text-align: left; }
 textarea#content_body { width: 99%; height: 500px; border: 0; box-shadow: none; resize: none; outline: none; }

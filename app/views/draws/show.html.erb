@@ -27,12 +27,15 @@
           <h3>You're match is <strong><%= link_to @match.receiver.name, @match.receiver.url, target: "_blank" %></strong></h3>
           <%= link_to "Work on your content gift", new_content_path, class: "btn btn-lg btn-success" %>
         <% elsif @draw.status == "open" %>
-        	<h3>In the draw</h3>
+        	<h3>Santa's list of good children</h3>
         	<ul class="users col-sm-4">
   	      	<% @users.each do |user| %>
   	      		<%= render "users/user", user: user %>
   	      	<% end %>
-        	</ul>	
+        	</ul>
+          <% if @total_users > @users.length %>
+            <p><%= link_to "See all #{@total_users} good children", users_path %></p>
+          <% end %>
         <% end %>
     	<% end %>
   	</div>
