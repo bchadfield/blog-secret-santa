@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "\"Blog Secret Santa\" <notifications@csworkflow.com>"
+  default from: "\"Blog Secret Santa\" <secretsanta@csworkflow.com>"
 
   def match_notification(giver, receiver)
     @giver = giver

@@ -1,13 +1,15 @@
 html, body { height: 100%; }
+h1 { font-size: 26px; }
 .navbar { border-radius: 0; }
 .navbar .current-user img, ul.users li img { width: 24px; height: 24px; }
 .navbar .current-user img { margin-top : -5px; }
 i { width: 16px; text-align: center; }
 .center { text-align: center; }
+.twitter-login { margin-bottom: 20px; }
 .twitter-login img { margin-top: -3px; height: 17px; width: 21px; }
 #countdown { font-size: 1em; font-weight: 300; }
 #countdown .clock { font-size: 1.25em; }
-#until-text { font-size: 1.25em; font-weight: 500; margin-bottom: 50px; }
+#until-text { font-size: 1.25em; font-weight: 500; }
 ul.users { list-style: none; margin: 0 auto; float: none; }
 ul.users li { text-align: left; padding: 5px 0;}
 .footer { 
@@ -24,6 +26,8 @@ ul.users li { text-align: left; padding: 5px 0;}
 	margin: 0 auto -2em; 
 }
 .navbar-header { float: left; }
+/*.content.narrow { width: 600px; margin: 0 auto;}*/
+.center .content p { text-align: left; }
 textarea#content_body { width: 99%; height: 500px; border: 0; box-shadow: none; resize: none; outline: none; }
 textarea#content_body[disabled] { background-color: #fff; cursor: text; }
 textarea#comment_body { width: 100%; height: 5em; border-color: #ccc; }
@@ -35,4 +39,6 @@ textarea#comment_body { width: 100%; height: 5em; border-color: #ccc; }
 @media (min-width: 768px) {
 	#countdown { font-size: 1.25em; }
 	#countdown .clock, #until-text { font-size: 1.5em; }
+	.content.narrow { width: 600px; margin: 0 auto;}
+	h1 { font-size: 36px; }
 }

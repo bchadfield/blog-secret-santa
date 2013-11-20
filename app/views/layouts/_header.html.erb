@@ -3,15 +3,16 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/">Blog Secret Santa</a>
     </div>
-    <% if signed_in? %>
-        <ul class="nav navbar-nav pull-right">
+      <ul class="nav navbar-nav pull-right">
+        <li><%= link_to "How it works", about_path %></li>
+        <% if signed_in? %>
           <li class="current-user">
             <%= link_to edit_user_path(current_user) do %>
               <%= image_tag current_user.image %>
               <%= current_user.first_name %>
             <% end %>
           </li>
-        </ul>
-      <% end %>
+        <% end %>
+      </ul>
   </div>
 </div>
