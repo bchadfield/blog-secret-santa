@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       flash[:success] = "Updated without a hitch!"
   		redirect_to edit_user_path(@user)
   	else
+      flash[:error] = @user.errors.full_messages
   		render "edit"
   	end
   end
@@ -28,6 +29,7 @@ class UsersController < ApplicationController
       render "email"
     else
       flash.clear
+      UserMailer.signup_info(@user).deliver
       redirect_to root_path
     end
   end
@@ -42,7 +44,7 @@ class UsersController < ApplicationController
   private
 
   	def user_params
-  		params.require(:user).permit(:name, :email, :available)
+  		params.require(:user).permit(:name, :email, :url, :available)
   	end
 
     def find_user

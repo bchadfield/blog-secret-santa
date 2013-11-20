@@ -7,6 +7,11 @@ class User < ActiveRecord::Base
 
 	before_create :set_availability
 
+	validates :name, presence: true
+	validates :url, presence: true
+	validates :email, presence: true, on: :update
+
+
 	def self.create_with_omniauth(auth)
 	  create! do |user|
 	    user.provider = auth["provider"]
@@ -14,7 +19,7 @@ class User < ActiveRecord::Base
 	    user.name = auth["info"]["name"]
 	    user.image = auth["info"]["image"]
 	    user.location = auth["info"]["location"]
-	    user.url = auth["info"]["urls"]["Twitter"]
+	    user.url = auth["info"]["urls"]["Website"] ? Unshorten[auth["info"]["urls"]["Website"]] : auth["info"]["urls"]["Twitter"]
 	  end
 	end
 

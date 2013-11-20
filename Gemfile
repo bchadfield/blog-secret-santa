@@ -29,6 +29,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'omniauth-twitter', '~> 1.0.1'
 gem 'whenever', :require => false
+gem "unshorten", "~> 0.2.1"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

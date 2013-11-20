@@ -6,18 +6,6 @@ module ApplicationHelper
     content_for(:heading) { page_title }
   end 
 
-  def match_flash_key(key)
-  	case key
-  	when :success
-  		key = "success"
-  	when :error
-  		key = "danger"
-  	else
-  		key = "info"
-  	end
-  	key
-  end
-
   # Returns the Gravatar (http://gravatar.com/) for the given user.
   def gravatar_for(user)
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
