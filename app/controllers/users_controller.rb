@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  skip_before_action :check_for_email, only: [:email, :set_email]
   before_action :find_user, only: [:show, :edit, :update, :email, :set_email, :destroy]
+  before_action :authorize, only: [:edit, :update, :email, :set_email, :destroy]
   def index
   end
 
@@ -20,7 +22,9 @@ class UsersController < ApplicationController
   end
 
   def email
-
+    unless @user.email.blank?
+      redirect_to edit_user_path(@user)
+    end
   end
 
   def set_email
@@ -49,5 +53,12 @@ class UsersController < ApplicationController
 
     def find_user
       @user = User.find(params[:id])
+    end
+
+    def authorize
+      unless @user == current_user
+        flash[:error] = "You don't have access."
+        redirect_to root_path
+      end
     end
 end
