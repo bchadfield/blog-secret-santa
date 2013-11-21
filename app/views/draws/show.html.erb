@@ -5,7 +5,7 @@
 	  <div class="col-sm-12 center">
       <% if !signed_in? %>
         <div class="content narrow">
-          <h1>Hey you! Yes, the content strategy blogger! Play Blog Secret Santa this Christmas!</h1>
+          <h1>Play Blog Secret Santa this Christmas</h1>
         </div>
       <% end %>
 	  	<%= CountdownPresenter.new(@draw, self).render_countdown %>
@@ -15,11 +15,11 @@
           <%= image_tag 'twitter-logo.png' %> Log in with Twitter
         <% end %>
         <div class="content narrow">
-          <p>Let's face it, writing for your same old blog day in, day out is a grind. Sure, you enjoy writing and all, but wouldn't it be great to write something else for a change, and let a specially selected, unknown individual from the internet look after your blog? Wouldn't that be like the best Christmas ever?</p>
+          <p>You've traded Secret Santa presents before, but you probably only got crumbly chocolates or some plastic crap. Blog Secret Santa is way amazinger. It's a chance for content strategists from all around the world to gift each other blog posts. And it's all anonymous, so you can say what you really think!</p>
+
+          <p>Let's face it, writing for your same old blog day in, day out is a grind. Sure, you enjoy writing and all, but wouldn't it be great to write something else for a change, and let a specially selected, unknown individual from the internet look after your blog? Wouldn't that be like the best, funnest Christmas ever?</p>
 
           <p>Blog Secret Santa uses the bestness of Christmas to save you from the grindness of blogging. (That's our elevator pitch, even though there aren't many elevators in the North Pole.)</p>
-
-          <p>You've traded Secret Santa presents before, but you probably only got crumbly chocolates or some plastic crap. Blog Secret Santa is way amazinger. It's a chance for content strategists from all around the world to gift each other blog posts. And it's all anonymous, so you can say what you really think!</p>
           <%= link_to "More information about how it works", about_path %>
         </div>
       <% else %>
