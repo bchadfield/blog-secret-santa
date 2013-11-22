@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 	has_many :receiving_matches, class_name: "Match", foreign_key: "receiver_id"
 	has_many :content
 
-	scope :available, -> { where(available: true) }
+	scope :available, -> { where("available = ? AND email IS NOT NULL", true) }
 
 	before_create :set_availability
 
