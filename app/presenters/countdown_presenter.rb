@@ -27,7 +27,7 @@ class CountdownPresenter < SimpleDelegator
   	def until_text
   		case @draw.status
   		when "open"
-  			"until secret santas matches are drawn."
+  			"until Secret Santa matches are drawn."
   		when "matched"
   			"until blog gifts are given."
   		end
