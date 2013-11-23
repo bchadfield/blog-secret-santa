@@ -12,9 +12,11 @@ class UserMailer < ActionMailer::Base
     mail to: giver.email, subject: "The Blog Secret Santa that you've drawn" 
   end
   
-  def send_gift(user, content)
+  def send_gift(user, content, draw)
     @user = user
     @content = content
-    mail to: user.email, subject: "Your Blog Secret Santa content gift"
+    @draw = draw
+    @subject = "Your Blog Secret Santa gift"
+    mail to: user.email, subject: @subject
   end
 end

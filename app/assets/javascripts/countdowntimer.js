@@ -7,8 +7,10 @@ window.CountDownTimer = (function() {
   function CountDownTimer(selector) {
     this.el = $(selector);
     this.countUntil = Date.parse(this.el.data('until'));
-    this.createElements();
-    this.startCounting();
+    if(this.countUntil){
+      this.createElements();
+      this.startCounting();
+    }
   }
 
   CountDownTimer.prototype.startCounting = function() {

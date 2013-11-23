@@ -1,0 +1,19 @@
+ <% title "Blog gifts for #{@draw.gift_time.strftime('%d %B, %Y')}" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="content narrow">
+        <h1><%= yield :heading %></h1>
+        <ul class="all_content">
+          <% @content_items.each do |content| %>
+            <li>
+              <h4><%= link_to content.title, content %></h4>
+              <%= truncate(strip_tags(content.body), length: 150, separator: ' ') %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>     
+  </div>
+</div>

@@ -2,17 +2,30 @@ class Draw < ActiveRecord::Base
 	has_many :matches
 	has_many :content
 
-	scope :open, -> { where(status: "open") }
+	scope :drawing, -> { where("status != 'closed'") }
 
 	def self.check_if_time_for_draw
-		draw = self.open.first
-		if draw && !draw.draw_time.future?
-			draw.draw_secret_santas
+		draw = Draw.drawing.first
+		if draw.open? && draw.draw_time.past?
+			draw.match_secret_santas
+		elsif draw.matched? && draw.draw_time.past?
+			draw.give_gifts
 		end
-
 	end
 
-	def draw_secret_santas
+	def open?
+		status == "open"
+	end
+
+	def matched?
+		status == "matched"
+	end
+
+	def closed?
+		status == "closed"
+	end
+
+	def match_secret_santas
 		user_ids = User.available.map(&:id)
 		if user_ids.length > 2
 			matches = loop do
@@ -23,13 +36,22 @@ class Draw < ActiveRecord::Base
 	    	giver = User.find(match[0])
 	    	receiver = User.find(match[1])
 	    	Match.create(draw_id: self.id, giver_id: giver.id, receiver_id: receiver.id)
-	    	logger.debug UserMailer.match_notification(giver, receiver).deliver
-	    	logger.debug "Giver: #{giver.name}, receiver: #{receiver.name}"
+				UserMailer.match_notification(giver, receiver).deliver
 	    end
 	    self.update(status: "matched")
 	  else
 	  	print "Not enough available users for a draw. Need at least 3."
 	  end
+	end
+
+	def give_gifts
+		matches = Match.where(draw_id: self.id)
+		matches.each do |match|
+			receiver = User.find(match.receiver_id)
+			content = Content.find_by(user_id: match.giver_id, draw_id: self.id)
+			UserMailer.send_gift(receiver, content, self).deliver if content
+		end
+		self.update(status: "closed")
 	end
 
 	def draw_time
@@ -38,6 +60,8 @@ class Draw < ActiveRecord::Base
 			match_time
 		when "matched"
 			gift_time
+		else
+			Time.new(0)
 		end
 	end
 end

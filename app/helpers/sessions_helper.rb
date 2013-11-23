@@ -17,7 +17,7 @@ module SessionsHelper
   
   def deny_access 
     store_location 
-    redirect_to login_path, notice: "Please log in to access this page."
+    redirect_to root_path, notice: "Please log in to access this page."
   end
   
   def current_user?(user)

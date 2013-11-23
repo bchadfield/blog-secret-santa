@@ -42,16 +42,14 @@
 			<table>
 				<tr>
 					<td>
-						<h3>Hi <%= @giver.name %></h3>
-						<p class="lead">You've drawn <strong><%= link_to @receiver.name, @receiver.url %></strong>.</p>
-				<p>The next step is to write them a short piece they can post on their blog. Once you've done that log back in to <%= link_to "Blog Secret Santa", root_url %> and add your content.</p>
-<p>Someone has drawn your name. You'll receive their anonymous content gift on Christmas Day</p>
-<p>
-	Bye for now,
-</p>
-<p>
-	Blog Secret Santa.
-</p>
+						<h3>Hi <%= @user.name %></h3>
+						<p class="lead">It's finally here! Your Blog Secret Santa gift has arrived.</p>
+						<!-- Callout Panel -->
+						<div class="callout">
+							<h4><%= @content.title %></h4>
+							<%= @content.body.html_safe %>
+							<p>Read <%= link_to "all the other gifts", content_index_url(@draw) %> all the other gifts that were written for Blog Secret Santa <%= @draw.gift_time.strftime("%d %B, %Y") %></p>
+						</div><!-- /Callout Panel -->					
 												
 						<!-- social & contact -->
 						<table class="social" width="100%">

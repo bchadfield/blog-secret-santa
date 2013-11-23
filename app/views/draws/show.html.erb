@@ -10,18 +10,21 @@
       <% end %>
 	  	<%= CountdownPresenter.new(@draw, self).render_countdown %>
 	  	<% if !signed_in? %>
-        
-        <%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login" do %>
-          <%= image_tag 'twitter-logo.png' %> Log in with Twitter
+        <% if @draw.closed? %>
+          
+        <% else %>
+          <%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login" do %>
+            <%= image_tag 'twitter-logo.png' %> Log in with Twitter
+          <% end %>
+          <div class="content narrow">
+            <p>You've traded Secret Santa presents before, but you probably only got crumbly chocolates or some plastic crap. Blog Secret Santa is way amazinger. It's a chance for content strategists from all around the world to gift each other blog posts. And it's all anonymous, so you can say what you really think!</p>
+
+            <p>Let's face it, writing for your same old blog day in, day out is a grind. Sure, you enjoy writing and all, but wouldn't it be great to write something else for a change, and let a specially selected, unknown individual from the internet look after your blog? Wouldn't that be like the best, funnest Christmas ever?</p>
+
+            <p>Blog Secret Santa uses the bestness of Christmas to save you from the grindness of blogging. (That's our elevator pitch, even though there aren't many elevators in the North Pole.)</p>
+            <%= link_to "More information about how it works", about_path %>
+          </div>
         <% end %>
-        <div class="content narrow">
-          <p>You've traded Secret Santa presents before, but you probably only got crumbly chocolates or some plastic crap. Blog Secret Santa is way amazinger. It's a chance for content strategists from all around the world to gift each other blog posts. And it's all anonymous, so you can say what you really think!</p>
-
-          <p>Let's face it, writing for your same old blog day in, day out is a grind. Sure, you enjoy writing and all, but wouldn't it be great to write something else for a change, and let a specially selected, unknown individual from the internet look after your blog? Wouldn't that be like the best, funnest Christmas ever?</p>
-
-          <p>Blog Secret Santa uses the bestness of Christmas to save you from the grindness of blogging. (That's our elevator pitch, even though there aren't many elevators in the North Pole.)</p>
-          <%= link_to "More information about how it works", about_path %>
-        </div>
       <% else %>
         <% if @draw.status == "matched" && @match %>
           <h3>You're match is <strong><%= link_to @match.receiver.name, @match.receiver.url, target: "_blank" %></strong></h3>
