@@ -3,13 +3,15 @@ class UserMailer < ActionMailer::Base
 
   def signup_info(user)
     @user = user
-    mail to: user.email, subject: "Thanks for joining Blog Secret Santa"
+    @subject = "Thanks for joining Blog Secret Santa"
+    mail to: user.email, subject: @subject
   end
 
   def match_notification(giver, receiver)
     @giver = giver
     @receiver = receiver
-    mail to: giver.email, subject: "The Blog Secret Santa that you've drawn" 
+    @subject = "Blog Secret Santa draw: Here's who'll receive your gift post" 
+    mail to: giver.email, subject: @subject
   end
   
   def send_gift(user, content, draw)

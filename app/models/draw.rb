@@ -47,9 +47,9 @@ class Draw < ActiveRecord::Base
 	def give_gifts
 		matches = Match.where(draw_id: self.id)
 		matches.each do |match|
-			receiver = User.find(match.receiver_id)
+			receiver = User.find_by(id: match.receiver_id)
 			content = Content.find_by(user_id: match.giver_id, draw_id: self.id)
-			UserMailer.send_gift(receiver, content, self).deliver if content
+			UserMailer.send_gift(receiver, content, self).deliver if receiver && content
 		end
 		self.update(status: "closed")
 	end

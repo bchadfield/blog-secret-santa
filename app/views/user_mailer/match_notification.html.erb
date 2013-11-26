@@ -43,16 +43,13 @@
 				<tr>
 					<td>
 						<h3>Hi <%= @giver.name %></h3>
-						<p class="lead">You've drawn <strong><%= link_to @receiver.name, @receiver.url %></strong>.</p>
-				<p>The next step is to write them a short piece they can post on their blog. Once you've done that log back in to <%= link_to "Blog Secret Santa", root_url %> and add your content.</p>
-<p>Someone has drawn your name. You'll receive their anonymous content gift on Christmas Day</p>
-<p>
-	Bye for now,
-</p>
-<p>
-	Blog Secret Santa.
-</p>
-												
+						<p class="lead">Christmas is only 3 weeks away, so I've just made the Blog Secret Santa draw.</p>
+						<p class="lead">You'll be secretly gifting a blog post to <strong><%= link_to @receiver.name, @receiver.url %></strong>. 'Tis the season to start writing!</p>
+						<p>When you're ready to, log into <%= link_to "Blog Secret Santa", root_url %> and submit your blog post. Submissions close on Christmas Eve, so be sure to finish your Christmas blogging before then.</p>
+						<p>I'll gift wrap your post and pass it on to <%= @receiver.name %> on Christmas Day.
+						<p>Someone else has drawn your name. It could be anyone on my <%= link_to "list of good children", users_url %></a>. You'll receive your anonymous gift post on Christmas Day too.</p>
+						<p>Merry Christmas, and happy blogging!</p>
+						<p>Blog Secret Santa</p>
 						<!-- social & contact -->
 						<table class="social" width="100%">
 							<tr>

@@ -42,13 +42,16 @@
 			<table>
 				<tr>
 					<td>
-						<h3>Hi <%= @user.name %></h3>
-						<p class="lead">It's finally here! Your Blog Secret Santa gift has arrived.</p>
+						<h3>Merry Christmas,  <%= @user.name %>!</h3>
+						<p class="lead">It's time to unwrap and publish your Secret Santa gift post. I hope it's everything you ever wanted.</p>
+						<p>Once you've published this post on your blog let me know by tweeting @blogsecretsanta or replying to this email. I'll keep an up-to-date list of all the secret posts as they go live.</p>
+						<p>Have a great Christmas day!</p>
+						<p>Blog Secret Santa.</p>
 						<!-- Callout Panel -->
 						<div class="callout">
 							<h4><%= @content.title %></h4>
+							<p style="font-style: italic">This post was anonymously written as part of Blog Secret Santa. There's a list of all Secret Santa posts, including one written by this blog's regular author, on <%= link_to "Santa's list of <%= @draw.gift_time.strftime('%Y') %> gift posts", draw_content_index_url(@draw) %>.</p>
 							<%= @content.body.html_safe %>
-							<p>Read <%= link_to "all the other gifts", content_index_url(@draw) %> all the other gifts that were written for Blog Secret Santa <%= @draw.gift_time.strftime("%d %B, %Y") %></p>
 						</div><!-- /Callout Panel -->					
 												
 						<!-- social & contact -->

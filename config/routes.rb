@@ -3,12 +3,10 @@ Secretsanta::Application.routes.draw do
   get "/logout", to: "sessions#destroy", as: :logout
   get "/about", to: "pages#about", as: :about
 
-  resources :content, only: [:new, :show, :update] do
-    collection do
-      get "/:draw_id", to: "content#index", as: ""
-    end
+  resources :content, only: [:new, :show, :update]
+  resources :draws, only: :show do
+    resources :content, only: :index
   end
-  resources :draws, only: :show
   resources :users do
   	member do
   		get "email"
