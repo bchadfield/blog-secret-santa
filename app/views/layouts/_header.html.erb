@@ -13,11 +13,13 @@
         <ul class="nav navbar-nav pull-right">
           <li><%= link_to "How it works", about_path %></li>
           <% if signed_in? %>
-            <li class="current-user">
-              <%= link_to edit_user_path(current_user) do %>
-                <%= gravatar_for(current_user) %>
-              <% end %>
-            </li>
+            <% if current_user.email %>
+              <li class="current-user">
+                <%= link_to edit_user_path(current_user) do %>
+                  <%= gravatar_for(current_user) %>
+                <% end %>
+              </li>
+            <% end %>
             <li>
               <%= link_to "Logout", logout_path %>
             </li>
