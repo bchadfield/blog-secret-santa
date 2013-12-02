@@ -3,25 +3,40 @@
 <div class="container">
   <div class="content narrow">
 	  	<h1><%= yield :heading %></h1>
-			<h2>If you blog about content strategy, sign up today</h2>
+	  	<% if @draw.matched? %>
+	  		<h2>Log in to see who you're writing for</h2>
+				<p>I made the Secret Santa draw on December 4, so you should have received an email with your gift recipient's details. Or you log in <%= link_to "on our home page", root_path %> to see your match there.</p>
+				<p>No, there's no way to find out who's writing a post for your blog.</p>
+
+				<h2>Blogging time lasts 3 weeks</h2>
+				<p>So, what are you going to write about? Have a look at the blog you're contributing to, or take the chance to anonymously tell everyone in the world of content strategy what you really think!</p>
+				<p>Don't worry about the length of your gift post. If Santa cared about word limits, his catch phrase would just be "Ho!"</p>
+	  	<% else %>
+	  		<h2>If you blog about content strategy, sign up today</h2>
+				<p>
+					  You log in with your Twitter details <%= link_to "on our home page", root_path %>, so Santa knows who you are. Yes, you're already on his global master-list - the S in "NSA" stands for Santa - but he needs a little help cutting it down to just content strategy bloggers. Santa sometimes struggles with data quality.
+				</p>
+				<h2>Blogging starts on December 4th </h2>
+				<p>
+					   3 weeks before Christmas, on December 4th (GMT, because Santa loves his international standards), Santa makes the draw to decide who you're writing your gift post for. You'll get an email, or you can log back into secretsanta.csworkflow.com for details.
+				</p>
+				<p>
+					   Then Santa sits back and has a beer while content strategists all over the world write nice blog posts for each other. (This is what was once known as a "Christmas miracle".)
+				</p>
+				<p>
+					   Don't worry about the length of your gift post. If Santa cared about word limits, his catch phrase would just be "Ho!"
+				</p>
+	  	<% end %>
+			
+			<h2>Posts are due by Christmas Eve</h2>
 			<p>
-				  You log in with your Twitter details <%= link_to "on our home page", root_path %>, so Santa knows who you are. Yes, you're already on his global master-list - the S in "NSA" stands for Santa - but he needs a little help cutting it down to just content strategy bloggers. Santa sometimes struggles with data quality.
+				  To avoid last-minute relegation to Santa's Naughty List, you need to submit your gift post to <%= link_to "secretsanta.csworkflow.com", root_path %> by Christmas Eve.
 			</p>
-			<h2>Blogging starts on December 4th </h2>
-			<p>
-				   3 weeks before Christmas, on December 4th (GMT, because Santa loves his international standards), Santa makes the draw to decide who you're writing your gift post for. You'll get an email, or you can log back into secretsanta.csworkflow.com for details.
-			</p>
-			<p>
-				   Then Santa sits back and has a beer while content strategists all over the world write nice blog posts for each other. (This is what was once known as a "Christmas miracle".)
-			</p>
-			<p>
-				   Don't worry about the length of your gift post. If Santa cared about word limits, his catch phrase would just be "Ho!"
-			</p>
-			<h2>Posts are due by Christmas Eve </h2>
-			<p>
-				  To avoid last-minute relegation to Santa's Naughty List, you need to submit your gift post to secretsanta.csworkflow.com by Christmas Eve.
-			</p>
-			<h2>Santa delivers gift posts on Christmas Day </h2>
+			<% if @draw.matched? %>
+				<h2>Gift posts are coming on Christmas Day</h2>
+			<% else %>
+				<h2>Santa delivers gift posts on Christmas Day</h2>
+			<% end %>
 			<p>
 				   At midnight on Christmas Day, Santa will drop your anonymously-authored gift post down the chimney of your inbox. As is traditional.
 			</p>

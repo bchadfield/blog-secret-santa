@@ -7,7 +7,7 @@
         <%= form_for @content do |f| %>
           <div class="row">
             <div class="col-xs-11 form-group">
-              <%= f.text_field :title, class: "form-control" %>
+              <%= f.text_field :title, class: "form-control", placeholder: "Title" %>
             </div>
             <div class="col-xs-1 actions">
               <%= f.button type: "submit", class: "btn btn-default", id: "save-content" do %>

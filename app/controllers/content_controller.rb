@@ -1,11 +1,11 @@
 class ContentController < ApplicationController
-  before_action :find_content, :authorize, only: [:show, :update]
+  before_action :find_content, :authorize, only: [:edit, :update]
   skip_before_action :authenticate, only: :index
+
   def new
     @draw = Draw.first
-    @content = Content.create_with(title: "Blog for draw #{@draw.draw_time.strftime('%Y')}")
-                      .find_or_create_by(draw_id: @draw.id, user_id: current_user.id)
-    redirect_to @content
+    @content = Content.find_or_create_by(draw_id: @draw.id, user_id: current_user.id)
+    redirect_to edit_content_path(@content)
   end
 
   def index
@@ -18,6 +18,10 @@ class ContentController < ApplicationController
   end
 
   def show
+    @content = Content.find(params[:id])
+  end
+
+  def edit
     @content = Content.find(params[:id])
   end
 

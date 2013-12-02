@@ -3,9 +3,9 @@ Secretsanta::Application.routes.draw do
   get "/logout", to: "sessions#destroy", as: :logout
   get "/about", to: "pages#about", as: :about
 
-  resources :content, only: [:new, :show, :update]
+  resources :content, path: "gifts", only: [:new, :show, :edit, :update]
   resources :draws, only: :show do
-    resources :content, only: :index
+    resources :content, path: "gifts", only: :index
   end
   resources :users do
   	member do
