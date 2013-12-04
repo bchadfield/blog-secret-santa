@@ -32,7 +32,7 @@
         </div>
       <% else %>
         <% if @draw.matched? && @match %>
-          <h3>You're match is <strong><%= link_to @match.receiver.name, @match.receiver.url, target: "_blank" %></strong></h3>
+          <h3>Your match is <strong><%= link_to @match.receiver.name, @match.receiver.url, target: "_blank" %></strong></h3>
           <%= link_to "Work on your content gift", new_content_path, class: "btn btn-lg btn-success" %>
         <% elsif @draw.open? %>
         	<h3>Santa's list of good children</h3>
