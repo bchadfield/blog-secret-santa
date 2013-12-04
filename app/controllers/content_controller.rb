@@ -29,7 +29,7 @@ class ContentController < ApplicationController
     @content.update_attributes(content_params)
     respond_to do |format|
       if @content.save
-        format.html { redirect_to @content }
+        format.html { redirect_to edit_content_path(@content) }
         format.json { head :no_content }
       else
         format.html { render "show" }
