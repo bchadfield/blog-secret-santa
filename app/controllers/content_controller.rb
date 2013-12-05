@@ -29,7 +29,10 @@ class ContentController < ApplicationController
     @content.update_attributes(content_params)
     respond_to do |format|
       if @content.save
-        format.html { redirect_to edit_content_path(@content) }
+        format.html { 
+          flash[:success] = "You saved your content. Well, I saved it for you. All you did was click the button."
+          redirect_to edit_content_path(@content) 
+        }
         format.json { head :no_content }
       else
         format.html { render "show" }
