@@ -331,6 +331,10 @@
 			// selection saved
 			this.savedSel = false;
 
+			// autosave state
+			this.unsavedState;
+			this.unsaved(false);
+
 			// clean setup
 			this.cleanlineBefore = new RegExp('^<(/?' + this.opts.ownLine.join('|/?' ) + '|' + this.opts.contOwnLine.join('|') + ')[ >]');
 			this.cleanlineAfter = new RegExp('^<(br|/?' + this.opts.ownLine.join('|/?' ) + '|/' + this.opts.contOwnLine.join('|/') + ')[ >]');
@@ -1632,11 +1636,16 @@
 
 				this.observeStart();
 				this.buttonActiveVisual();
-				this.buttonInactive('html');
+				this.buttonInactive('html'); 
 				this.opts.visual = true;
 			}
 		},
 
+		unsaved: function(state)
+		{
+			if (state) this.unsavedState = state;
+			return this.unsavedState;
+		},
 
 		// AUTOSAVE
 		autosave: function()
@@ -1645,9 +1654,9 @@
 			this.autosaveInterval = setInterval($.proxy(function()
 			{
 				var html = this.get();
-				if (savedHtml !== html)
+				if (savedHtml !== html || this.unsaved())
 				{
-					startingAutosave();
+					startingSave();
 					$.ajax({
 						url: this.opts.autosave,
 						type: 'put',
@@ -1657,7 +1666,7 @@
 						{
 							this.callback('autosave', false, data);
 							savedHtml = html;
-
+							this.unsaved(false);
 						}, this)
 					});
 				}

@@ -33,9 +33,11 @@ class ContentController < ApplicationController
           flash[:success] = "You saved your content. Well, I saved it for you. All you did was click the button."
           redirect_to edit_content_path(@content) 
         }
+        format.js
         format.json { head :no_content }
       else
         format.html { render "show" }
+        format.js
         format.json { render json: @content.errors, status: :unprocessable_entity }
       end
     end

@@ -1,0 +1,9 @@
+$(".alert").remove();
+<% if @content.errors.any? %>
+	<% @content.errors.full_messages.each do |message| %>
+		<% flash.now[:error] = message %>
+		$('.main-wrapper').prepend('<%=j render 'layouts/flash', flash: flash %>');
+	<% end %>
+<% else %>
+	successfulSave();
+<% end %>
