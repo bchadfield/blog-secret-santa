@@ -14,7 +14,7 @@ class ContentController < ApplicationController
       flash[:info] = "This isn't ready yet."
       redirect_to root_path
     end
-    @content_items = Content.where(draw_id: @draw.id)
+    @content_items = Content.published.where(draw_id: @draw.id)
   end
 
   def show
@@ -22,6 +22,7 @@ class ContentController < ApplicationController
   end
 
   def edit
+    @draw = Draw.first
     @content = Content.find(params[:id])
   end
 
@@ -46,7 +47,7 @@ class ContentController < ApplicationController
   private
 
     def content_params
-      params.require(:content).permit(:body, :title)
+      params.require(:content).permit(:body, :title, :url)
     end
 
     def find_content

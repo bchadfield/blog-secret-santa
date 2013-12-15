@@ -4,22 +4,47 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="content">
-        <p>You can work on your gift post here as much as you want between now and Christmas Eve. Click the 'Save' icon before you exit and your post will be here waiting for you next time you log in. On Christmas Eve we'll take your saved post and send it to its lucky recipient.</p>
+        <% if @draw.matched? %>
+          <p>You can work on your gift post here as much as you want between now and Christmas Eve. Click the 'Save' icon before you exit and your post will be here waiting for you next time you log in. On Christmas Eve we'll take your saved post and send it to its lucky recipient.</p>
+        <% end %>
         <%= form_for @content, remote: true do |f| %>
-          <div class="row">
-            <div class="col-xs-11 form-group">
-              <%= f.text_field :title, class: "form-control property-input", placeholder: "Title" %>
+          <% if @draw.matched? %>
+            <div class="row">
+              <div class="col-xs-11 form-group">
+                <%= f.text_field :title, class: "form-control property-input", placeholder: "Title" %>
+              </div>
+              <div class="col-xs-1 actions">
+                <%= f.button type: "submit", class: "btn btn-default", id: "save-content" do %>
+                  <span class="glyphicon glyphicon-floppy-disk"></span>
+                <% end %>
+              </div>
             </div>
-            <div class="col-xs-1 actions">
-              <%= f.button type: "submit", class: "btn btn-default", id: "save-content" do %>
-                <span class="glyphicon glyphicon-floppy-disk"></span>
+            <div class="content-body">
+              <div id="counter"></div>
+              <%= f.text_area :body, value: @content.body, class: "redactor" %>
+            </div>
+          <% elsif @draw.closed? %>
+            <div class="row">
+              <div class="col-xs-11 form-group">
+                <%= f.text_field :url, class: "form-control property-input", placeholder: "Where is your gift published? (E.g. http://example.com/my-secret-santa-gift)" %>
+              </div>
+              <div class="col-xs-1 actions">
+                <%= f.button type: "submit", class: "btn btn-default", id: "save-content" do %>
+                  <span class="glyphicon glyphicon-floppy-disk"></span>
+                <% end %>
+              </div>
+            </div>
+            <h3><%= @content.title %></h3>
+            <div class="approved-buttons">
+              <%= link_to nil, class: "btn btn-default btn-sm", id: "toggle-content-body" do %>
+                <span class="glyphicon glyphicon-unchecked"></span> Show HTML
               <% end %>
             </div>
-          </div>
-          <div class="content-body">
-            <div id="counter"></div>
-            <%= f.text_area :body, value: @content.body, class: "redactor" %>
-          </div>
+            <pre class="content-body no-edit markedup hide"><%= @content.body %></pre>
+            <div class="content-body no-edit redactor_editor plain">
+              <%= raw(@content.body) %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     </div>     
