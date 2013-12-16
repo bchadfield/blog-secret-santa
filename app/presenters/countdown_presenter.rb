@@ -31,7 +31,7 @@ class CountdownPresenter < SimpleDelegator
   		when "matched"
   			"until blog gifts are given."
       when "closed"
-        "Read all the #{link_to 'gift blogs', draw_content_index_path(@draw)} for the last draw.".html_safe
+        "Read all the #{link_to 'gift blogs', draw_content_index_path(@draw.year)} for the last draw.".html_safe
   		end
   	end
 end

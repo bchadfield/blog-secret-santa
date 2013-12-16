@@ -12,8 +12,7 @@ module SessionsHelper
   end
   
   def authenticate 
-    session[:user_id] = User.first.id
-    # deny_access unless signed_in?
+    deny_access unless signed_in?
   end
   
   def deny_access 

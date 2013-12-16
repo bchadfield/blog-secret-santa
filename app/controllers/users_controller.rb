@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @can_delete = true unless Draw.first.matched? && Match.where("giver_id = #{@user.id}").exists?
   end
 
   def update

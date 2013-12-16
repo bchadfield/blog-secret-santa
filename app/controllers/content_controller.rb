@@ -1,4 +1,5 @@
 class ContentController < ApplicationController
+  before_action :find_draw, only: :index
   before_action :find_content, :authorize, only: [:edit, :update]
   skip_before_action :authenticate, only: :index
 
@@ -9,10 +10,15 @@ class ContentController < ApplicationController
   end
 
   def index
-    @draw = Draw.find(params[:draw_id])
     unless @draw && @draw.status == "closed"
       flash[:info] = "This isn't ready yet."
       redirect_to root_path
+    end
+    @total_count = Content.where(draw_id: @draw.id).count
+    @published_count = Content.published.where(draw_id: @draw.id).count
+    unless @draw.gift_time < (Time.now - 30.days) || @total_count == @published_count
+      @show_count = true 
+      @content = Content.find_by(user_id: current_user.id)
     end
     @content_items = Content.published.where(draw_id: @draw.id)
   end

@@ -1,0 +1,18 @@
+Merry Christmas, <%= @user.name %>!
+
+It's time to unwrap and publish your Secret Santa gift post. I hope it's everything you ever wanted.
+
+Your post is at the bottom of this email, or you can log in and pick it from <%= edit_content_url(@content) %>.
+
+Once you've published this post on your blog let me know by tweeting @blogsecretsanta (http://twitter.com/blogsecretsanta) or replying to this email. I'll keep an up-to-date list of all the secret posts as they go live (<%= draw_content_index_url(@draw.year) %>.
+
+Have a great Christmas day!
+
+Blog Secret Santa.
+
+
+### <%= @content.title %>
+
+This post was anonymously written as part of Blog Secret Santa. There's a list of all Secret Santa posts, including one written by <%= @user.name %>, on Santa's list of <%= @draw.year %> gift posts (<%= draw_content_index_url(@draw.year) %>).
+
+<%= strip_tags @content.body %>

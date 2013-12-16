@@ -1,4 +1,6 @@
-module ApplicationHelper  
+module ApplicationHelper
+  require 'uri'
+  
   # Return a title on a per-page basis. 
   def title(page_title)
     base_title = "Blog Secret Santa" 
@@ -11,5 +13,10 @@ module ApplicationHelper
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=48&d=monsterid"
     image_tag(gravatar_url, alt: user.name, class: "gravatar")
+  end
+
+  def host_only(url)
+    uri = URI(url)
+    uri.host
   end
 end

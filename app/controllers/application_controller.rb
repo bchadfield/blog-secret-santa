@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   			redirect_to email_user_path(current_user)
   		end
   	end
+
+  	def find_draw
+  		@draw = params[:id] || params[:draw_id] ? Draw.find_by(gift_time: Time.new(params[:id] || params[:draw_id]).all_year) : Draw.first
+  	end
 end
