@@ -53,7 +53,7 @@ class Draw < ActiveRecord::Base
 		matches.each do |match|
 			receiver = User.find_by(id: match.receiver_id)
 			content = Content.find_by(user_id: match.giver_id, draw_id: self.id, status: nil)
-			if receiver && content
+			if receiver && content && content.body
 				content.update(user_id: receiver.id, status: "given")
 				UserMailer.send_gift(receiver, content, self).deliver
 			end
