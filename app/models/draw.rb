@@ -6,10 +6,12 @@ class Draw < ActiveRecord::Base
 
 	def self.check_if_time_for_draw
 		draw = Draw.drawing.first
-		if draw.open? && draw.draw_time.past?
-			draw.match_secret_santas
-		elsif draw.matched? && draw.draw_time.past?
-			draw.give_gifts
+		if draw
+			if draw.open? && draw.draw_time.past?
+				draw.match_secret_santas
+			elsif draw.matched? && draw.draw_time.past?
+				draw.give_gifts
+			end
 		end
 	end
 
