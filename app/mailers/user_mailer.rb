@@ -31,4 +31,17 @@ class UserMailer < ActionMailer::Base
       format.html { render view }
     end
   end
+
+  def no_gift_for_you(user)
+    @user = user
+    @subject = "You're the blameless victim of a naughty child's actions"
+    mail to: @user.email, subject: @subject
+  end
+
+  def no_gift_from_you(user, receiver)
+    @user = user
+    @receiver = receiver
+    @subject = "We haven't received a gift blog post from you yet"
+    mail to: @user.email, subject: @subject
+  end
 end

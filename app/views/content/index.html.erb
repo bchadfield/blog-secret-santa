@@ -13,18 +13,22 @@
           <h1>Secret Santa's 2013 content strategy blogroll</h1>
           <p>Thanks to everyone who gifted these anonymous blog posts!</p>
         <% end %>
-        <ul class="all_content">
-          <% @content_items.each do |content| %>
-            <li>
-              <h2><%= link_to content.title, content.url, target: "_blank" %></h2>
-              <p>on <%= link_to host_only(content.url), "http://" << host_only(content.url), target: "_blank" %>
-              <p>
-                <%= truncate(strip_tags(content.body), length: 150, separator: ' ') %> 
-                <%= link_to "Read post", content.url, target: "_blank" %>
-              </p>
-            </li>
-          <% end %>
-        </ul>
+        <% if @content_items.count > 0 %>
+          <ul class="all_content">
+            <% @content_items.each do |content| %>
+              <li>
+                <h2><%= link_to content.title, content.url, target: "_blank" %></h2>
+                <p>on <%= link_to host_only(content.url), "http://" << host_only(content.url), target: "_blank" %>
+                <p>
+                  <%= truncate(strip_tags(content.body), length: 150, separator: ' ') %> 
+                  <%= link_to "Read post", content.url, target: "_blank" %>
+                </p>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>Check back soon.</p>
+        <% end %>
       </div>
     </div>     
   </div>

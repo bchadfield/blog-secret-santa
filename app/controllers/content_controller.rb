@@ -14,11 +14,11 @@ class ContentController < ApplicationController
       flash[:info] = "This isn't ready yet."
       redirect_to root_path
     end
-    @total_count = Content.where(draw_id: @draw.id).count
+    @total_count = Match.where(draw_id: @draw.id).count
     @published_count = Content.published.where(draw_id: @draw.id).count
     unless @draw.gift_time < (Time.now - 30.days) || @total_count == @published_count
       @show_count = true 
-      @content = Content.find_by(user_id: current_user.id)
+      @content = Content.find_by(user_id: current_user.id) if current_user
     end
     @content_items = Content.published.where(draw_id: @draw.id)
   end

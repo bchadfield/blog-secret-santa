@@ -1,0 +1,30 @@
+<div class="content narrow left">
+	<h1 class="center">Merry Christmas, <%= current_user.first_name %></h1>
+	<h2>It's time to publish your new gift blog post </h2>
+	<p>
+		I've emailed gift posts to everyone who played Blog Secret Santa, so check your inbox. Add your new post to your blog as soon as you can.
+	</p>
+	<% if @gift %>
+		<h2>Share your new post with everyone </h2>
+		<p>
+			I'm keeping a list of all the new posts as they go live. To add a link to your blog: <%= link_to "update your gift", edit_content_path(@gift) %>.
+		</p>
+	<% end %>
+	<h2>Read all the gift posts </h2>
+	<%= link_to "See my list of Secret Santa blog posts", draw_content_index_path(@draw.year) %>
+	<% if @content %>
+		<h2>Late delivery?</h2>
+		<p>
+			If you've been a bit naughty and still have to submit your gift post:
+		</p>
+		<p>
+			<%= link_to "Work on your content gift", new_content_path, class: "btn btn-lg btn-success" %>
+		</p>
+	<% end %>
+	<% if @not_written_count && @not_written_count > 0 %>
+		<h2>Still waiting for your gift?</h2>
+		<p>
+			There are <%= @not_written_count %> gifts still to be sent in. I wonder if those naughty children know that Rudolph can break kneecaps? Hopefully it won't come to that. Anyway, I'm working on it.
+		</p>
+	<% end %>
+</div>
