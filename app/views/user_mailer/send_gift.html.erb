@@ -6,7 +6,7 @@
 						<p>Blog Secret Santa.</p>
 						<!-- Callout Panel -->
 						<div class="callout">
-							<h4><%= @content.title %></h4>
+							<h4><%= @content.title ? @content.title : "No title" %></h4>
 							<p style="font-style: italic">This post was anonymously written as part of Blog Secret Santa. There's a list of all Secret Santa posts, including one written by <%= @user.name %>, on <%= link_to "Santa's list of #{@draw.year} gift posts", draw_content_index_url(@draw.year), target: "_blank" %>.</p>
 							<%= @content.body.html_safe %>
 						</div><!-- /Callout Panel -->

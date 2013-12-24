@@ -21,7 +21,7 @@
 			<%= link_to "Work on your content gift", new_content_path, class: "btn btn-lg btn-success" %>
 		</p>
 	<% end %>
-	<% if @not_written_count && @not_written_count > 0 %>
+	<% if @not_written_count && @not_written_count > 0 && !@gift %>
 		<h2>Still waiting for your gift?</h2>
 		<p>
 			There are <%= @not_written_count %> gifts still to be sent in. I wonder if those naughty children know that Rudolph can break kneecaps? Hopefully it won't come to that. Anyway, I'm working on it.

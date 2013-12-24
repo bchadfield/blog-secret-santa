@@ -31,7 +31,8 @@ gem 'jbuilder', '~> 1.2'
 gem 'omniauth-twitter', '~> 1.0.1'
 gem 'whenever', :require => false
 gem "unshorten", "~> 0.2.1"
-gem 'roadie', '~> 2.4.2'
+gem 'nokogiri'
+gem "premailer-rails", "~> 1.6.1"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
