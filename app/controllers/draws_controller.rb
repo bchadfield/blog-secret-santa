@@ -15,8 +15,13 @@ class DrawsController < ApplicationController
     @match = Match.find_by(draw_id: @draw.id, giver_id: current_user.id) if current_user
     if @draw.closed?
       @not_written_count = Match.count - Content.where("body is not null").count
-      @gift = Content.find_by(user_id: current_user, status: "given") if current_user
-      @content = Content.find_by(user_id: current_user, status: nil) if current_user
+      if current_user
+        @gift = Content.find_by(user_id: current_user, status: "given") 
+        
+        @content = Content.joins("INNER JOIN users ON users.id = content.user_id INNER JOIN matches ON users.id = matches.receiver_id")
+                          .where("content.status = 'given' AND matches.giver_id = ?", current_user.id)
+                          .first
+      end
     end
   end
 

@@ -5,8 +5,17 @@ class ContentController < ApplicationController
 
   def new
     @draw = Draw.first
-    @content = Content.find_or_create_by(draw_id: @draw.id, user_id: current_user.id)
-    redirect_to edit_content_path(@content)
+    if @draw.matched?
+      @content = Content.find_or_create_by(draw_id: @draw.id, user_id: current_user.id)
+    elsif @draw.closed? && !Content.joins("INNER JOIN users ON users.id = content.user_id INNER JOIN matches ON users.id = matches.receiver_id")
+                                    .where("content.status = 'given' AND matches.giver_id = ?", current_user.id).first
+      @content = Content.find_or_create_by(draw_id: @draw.id, user_id: current_user.id, status: nil)
+    end
+    if @content
+      redirect_to edit_content_path(@content)
+    else
+      redirect_to root_path, message: "There doesn't seem to be a reason for you to create content. Am I wrong?"
+    end
   end
 
   def index

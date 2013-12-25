@@ -4,6 +4,10 @@ class Content < ActiveRecord::Base
 
 	scope :published, -> { where("url is not null and status = 'given'").order("updated_at desc") }
 
-	validates :url, format: { with: /\A(http|https):\/\/.+/, message: "must start with http:// or https://" }
+	validates :url, format: { with: /\A(http|https):\/\/.+/, message: "must start with http:// or https://" }, allow_blank: true
+
+	def given?
+		status == "given"
+	end
 
 end
