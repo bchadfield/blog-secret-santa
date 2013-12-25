@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def prepare_snippet(body)
-    body = strip_tags(body)
-    truncate(body.sub(/This post is part of a creative.*Currently anonymous guest blogger/, ''), length: 150, separator: ' ')
+    stripped_body = strip_tags(body)
+    truncate(stripped_body.sub(/This post is part of a creative.*Currently anonymous guest blogger/, ''), length: 150, separator: ' ')
   end
 end
