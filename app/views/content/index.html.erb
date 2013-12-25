@@ -20,7 +20,7 @@
                 <h2><%= link_to content.title, content.url, target: "_blank" %></h2>
                 <p>on <%= link_to host_only(content.url), "http://" << host_only(content.url), target: "_blank" %>
                 <p>
-                  <%= truncate(strip_tags(content.body), length: 150, separator: ' ') %> 
+                  <%= prepare_snippet(content.body) %> 
                   <%= link_to "Read post", content.url, target: "_blank" %>
                 </p>
               </li>
