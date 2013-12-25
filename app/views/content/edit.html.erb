@@ -40,6 +40,14 @@
                 <% end %>
               </div>
             </div>
+            <% if @draw.closed? %>
+              <div class="row">
+                <div class="col-xs-12 form-group">
+                  You've missed being part of my delivery, but can send your gift when you're ready 
+                  <%= link_to "Send gift", send_gift_content_path(@content), method: :put, class: "btn btn-success" %>
+                </div>
+              </div>
+            <% end %>
             <div class="content-body">
               <div id="counter"></div>
               <%= f.text_area :body, value: @content.body, class: "redactor" %>

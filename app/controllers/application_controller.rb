@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   	end
 
   	def find_draw
-  		@draw = params[:id] || params[:draw_id] ? Draw.find_by(gift_time: Time.new(params[:id] || params[:draw_id]).all_year) : Draw.first
+      params_id = (params[:controller] == "draw" && params[:id]) || params[:draw_id]
+      puts params_id
+  		@draw = params_id ? Draw.find_by(gift_time: Time.new(params_id).all_year) : Draw.first
   	end
 end

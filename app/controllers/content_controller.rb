@@ -1,6 +1,6 @@
 class ContentController < ApplicationController
-  before_action :find_draw, only: :index
-  before_action :find_content, :authorize, only: [:edit, :update]
+  before_action :find_draw, only: [:index, :send_gift]
+  before_action :find_content, :authorize, only: [:edit, :update, :send_gift]
   skip_before_action :authenticate, only: :index
 
   def new
@@ -56,6 +56,23 @@ class ContentController < ApplicationController
         format.js
         format.json { render json: @content.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def send_gift
+    @receiver = User.joins("INNER JOIN matches ON matches.receiver_id = users.id").where("matches.giver_id = ?", current_user.id).first
+    if @draw && @receiver && @content && @content.body
+      @content.update(user_id: @receiver.id, status: "given")
+      UserMailer.send_gift(@receiver, @content, @draw).deliver
+      flash[:sucess] = "You're gift has been sent! Welcome back to the list of good children."
+      redirect_to root_path
+    else
+      puts "Starting..."
+      puts @draw
+      puts @receiver
+      puts @content
+      flash[:error] = "That didn't work out. If your gift is ready and you're still seeing this message then get in touch with Santa."
+      redirect_to edit_content_path(@content)
     end
   end
 

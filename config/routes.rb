@@ -7,6 +7,7 @@ Secretsanta::Application.routes.draw do
   resources :content, path: "gifts", only: [:new, :show, :edit, :update] do
     member do
       put "edit", to: "content#update"
+      put "send_gift"
     end
   end
   resources :draws, only: :show do
