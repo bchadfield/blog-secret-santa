@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 	  @user = User.find_by(provider: auth["provider"], uid: auth["uid"]) || User.create_with_omniauth(auth)
 	  session[:user_id] = @user.id
 	  if @user.email
-	  	redirect_to root_path
+	  	redirect_back_or root_path
 	  else
 	  	redirect_to email_user_path(@user)
 	  end
