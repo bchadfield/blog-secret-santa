@@ -1,6 +1,6 @@
 namespace :alert do
-	desc "Send users countdown alert emails"
-	task :countdown, [:view,:subject,:email] => :environment do |t, args|
+	desc "Send users alert emails"
+	task :send, [:view,:subject,:email] => :environment do |t, args|
 		if args.email == "all"
 			puts "Sending to all"
 			User.available.each do |user|
