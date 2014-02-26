@@ -13,8 +13,8 @@
 #   rake "some:great:rake:task"
 # end
 #
-every :day, at: "12:00am" do
-  runner "Draw.check_if_time_for_draw"
-end
+# every :day, at: "12:00am" do
+#   runner "Draw.check_if_time_for_draw"
+# end
 
 # Learn more: http://github.com/javan/whenever
