@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
   def send_gift(user, content, draw)
     @user = user
     @content = content
-    @draw = draw
+    @pool = draw
     @subject = "Your Blog Secret Santa gift"
     mail to: @user.email, subject: @subject
   end

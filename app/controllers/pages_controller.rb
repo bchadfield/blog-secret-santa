@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
-	skip_before_action :authenticate, only: :about  
+	skip_before_action :authenticate
 
 	def about
-		@draw = Draw.first
+		@pool = Pool.first
 	end
 end

@@ -11,7 +11,7 @@
 		</p>
 	<% end %>
 	<h2>Read all the gift posts </h2>
-	<%= link_to "See my list of Secret Santa blog posts", draw_content_index_path(@draw.year) %>
+	<%= link_to "See my list of Secret Santa blog posts", draw_content_index_path(@pool.year) %>
 	<% if !@content %>
 		<h2>Late delivery?</h2>
 		<p>

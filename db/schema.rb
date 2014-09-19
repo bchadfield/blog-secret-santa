@@ -11,46 +11,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131216025218) do
+ActiveRecord::Schema.define(version: 20131102003558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "content", force: true do |t|
-    t.integer  "draw_id"
-    t.integer  "user_id"
+    t.integer  "pool_id"
+    t.integer  "match_id"
+    t.string   "token"
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "url"
-    t.string   "status"
-  end
-
-  add_index "content", ["draw_id"], name: "index_content_on_draw_id", using: :btree
-  add_index "content", ["user_id"], name: "index_content_on_user_id", using: :btree
-
-  create_table "draws", force: true do |t|
-    t.datetime "match_time"
-    t.datetime "gift_time"
-    t.string   "status"
+    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "content", ["match_id"], name: "index_content_on_match_id", using: :btree
+  add_index "content", ["pool_id"], name: "index_content_on_pool_id", using: :btree
 
   create_table "matches", force: true do |t|
-    t.integer  "draw_id"
+    t.integer  "pool_id"
     t.integer  "giver_id"
     t.integer  "receiver_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "matches", ["draw_id"], name: "index_matches_on_draw_id", using: :btree
   add_index "matches", ["giver_id"], name: "index_matches_on_giver_id", using: :btree
+  add_index "matches", ["pool_id"], name: "index_matches_on_pool_id", using: :btree
   add_index "matches", ["receiver_id"], name: "index_matches_on_receiver_id", using: :btree
 
+  create_table "pools", force: true do |t|
+    t.string   "token"
+    t.string   "name"
+    t.string   "subdomain"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
+    t.integer  "pool_id"
+    t.string   "token"
     t.string   "name"
     t.string   "provider"
     t.string   "uid"
@@ -58,12 +62,13 @@ ActiveRecord::Schema.define(version: 20131216025218) do
     t.string   "location"
     t.string   "url"
     t.string   "image"
-    t.boolean  "admin"
+    t.integer  "role"
     t.boolean  "available"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "users", ["pool_id"], name: "index_users_on_pool_id", using: :btree
   add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", using: :btree
 
 end

@@ -5,22 +5,22 @@
 	  <div class="col-sm-12 center">
       <% if !signed_in? %>
         <div class="content narrow">
-          <% if @draw.matched? %>
+          <% if @pool.matched? %>
             <h1>Christmas is nearly here. It's blogging time!</h1>
           <% else %>
             <h1>Play Blog Secret Santa with other content strategists this Christmas</h1>          
           <% end %>
         </div>
       <% end %>
-      <% unless @draw.closed? && signed_in? %>
-	  	  <%= CountdownPresenter.new(@draw, self).render_countdown %>
+      <% unless @pool.closed? && signed_in? %>
+	  	  <%= CountdownPresenter.new(@pool, self).render_countdown %>
       <% end %>
 	  	<% if !signed_in? %>
         <%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login" do %>
           <%= image_tag 'twitter-logo.png' %> Register or log in with Twitter
         <% end %>
         <div class="content narrow">
-        <% if @draw.matched? %>
+        <% if @pool.matched? %>
           <p>Registrations are closed and I've emailed all <%= @total_users %> good children to let them know who they're secretly blogging for. You can submit your gift post any time before Christmas Eve. On Christmas Day I get to hand out all the gift posts!</p>
           <%= link_to "More about what happens next", about_path %>
         <% else %>          
@@ -33,10 +33,10 @@
         <% end %>
         </div>
       <% else %>
-        <% if @draw.matched? && @match %>
+        <% if @pool.matched? && @match %>
           <h3>Your match is <strong><%= link_to @match.receiver.name, @match.receiver.url, target: "_blank" %></strong></h3>
           <%= link_to "Work on your content gift", new_content_path, class: "btn btn-lg btn-success" %>
-        <% elsif @draw.open? %>
+        <% elsif @pool.open? %>
         	<h3>Santa's list of good children</h3>
         	<ul class="users col-sm-4">
   	      	<% @users.each do |user| %>
@@ -46,7 +46,7 @@
           <% if @total_users > @users.length %>
             <p><%= link_to "See all #{@total_users} good children", users_path %></p>
           <% end %>
-        <% elsif @draw.closed? %>
+        <% elsif @pool.closed? %>
           <%= render "closed_signed_in" %>
         <% end %>
     	<% end %>

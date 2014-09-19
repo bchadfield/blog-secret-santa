@@ -10,7 +10,7 @@ Secretsanta::Application.routes.draw do
       put "send_gift"
     end
   end
-  resources :draws, only: :show do
+  resources :pools, only: :show do
     resources :content, path: "gifts", only: :index
   end
   resources :users do
@@ -20,5 +20,5 @@ Secretsanta::Application.routes.draw do
   	end
   end
 
-  root to: "draws#show"
+  root to: "pages#about"
 end

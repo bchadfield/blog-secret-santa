@@ -1,12 +1,13 @@
 class Content < ActiveRecord::Base
-	belongs_to :draw
-	belongs_to :user
+  include Tokenfindable
+	acts_as_tenant(:pool)
 
-	scope :published, -> { where("url is not null and status = 'given'").order("updated_at desc") }
+	belongs_to :pool
+	belongs_to :match
+
+	scope :published, -> { given.where.not(url: nil).order(updated_at: :desc) }
 
 	validates :url, format: { with: /\A(http|https):\/\/.+/, message: "must start with http:// or https://" }, allow_nil: true
 
-	def given?
-		status == "given"
-	end
+	enum status: [ :draft, :ready, :given ]
 end

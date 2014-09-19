@@ -4,12 +4,12 @@ class ContentController < ApplicationController
   skip_before_action :authenticate, only: :index
 
   def new
-    @draw = Draw.first
-    if @draw.matched?
-      @content = Content.find_or_create_by(draw_id: @draw.id, user_id: current_user.id)
-    elsif @draw.closed? && !Content.joins("INNER JOIN users ON users.id = content.user_id INNER JOIN matches ON users.id = matches.receiver_id")
+    @pool = Pool.first
+    if @pool.matched?
+      @content = Content.find_or_create_by(draw_id: @pool.id, user_id: current_user.id)
+    elsif @pool.closed? && !Content.joins("INNER JOIN users ON users.id = content.user_id INNER JOIN matches ON users.id = matches.receiver_id")
                                     .where("content.status = 'given' AND matches.giver_id = ?", current_user.id).first
-      @content = Content.find_or_create_by(draw_id: @draw.id, user_id: current_user.id, status: nil)
+      @content = Content.find_or_create_by(draw_id: @pool.id, user_id: current_user.id, status: nil)
     end
     if @content
       redirect_to edit_content_path(@content)
@@ -19,17 +19,17 @@ class ContentController < ApplicationController
   end
 
   def index
-    unless @draw && @draw.status == "closed"
+    unless @pool && @pool.status == "closed"
       flash[:info] = "This isn't ready yet."
       redirect_to root_path
     end
-    @total_count = Match.where(draw_id: @draw.id).count
-    @published_count = Content.published.where(draw_id: @draw.id).count
-    unless @draw.gift_time < (Time.now - 30.days) || @total_count == @published_count
+    @total_count = Match.where(draw_id: @pool.id).count
+    @published_count = Content.published.where(draw_id: @pool.id).count
+    unless @pool.gift_time < (Time.now - 30.days) || @total_count == @published_count
       @show_count = true 
       @content = Content.find_by(user_id: current_user.id) if current_user
     end
-    @content_items = Content.published.where(draw_id: @draw.id)
+    @content_items = Content.published.where(draw_id: @pool.id)
   end
 
   def show
@@ -37,7 +37,7 @@ class ContentController < ApplicationController
   end
 
   def edit
-    @draw = Draw.first
+    @pool = Pool.first
     @content = Content.find(params[:id])
   end
 
@@ -61,14 +61,14 @@ class ContentController < ApplicationController
 
   def send_gift
     @receiver = User.joins("INNER JOIN matches ON matches.receiver_id = users.id").where("matches.giver_id = ?", current_user.id).first
-    if @draw && @receiver && @content && @content.body
+    if @pool && @receiver && @content && @content.body
       @content.update(user_id: @receiver.id, status: "given")
-      UserMailer.send_gift(@receiver, @content, @draw).deliver
+      UserMailer.send_gift(@receiver, @content, @pool).deliver
       flash[:sucess] = "You're gift has been sent! Welcome back to the list of good children."
       redirect_to root_path
     else
       puts "Starting..."
-      puts @draw
+      puts @pool
       puts @receiver
       puts @content
       flash[:error] = "That didn't work out. If your gift is ready and you're still seeing this message then get in touch with Santa."

@@ -3,7 +3,7 @@
 <div class="container">
   <div class="content narrow">
 	  	<h1><%= yield :heading %></h1>
-	  	<% if @draw.matched? %>
+	  	<% if @pool.matched? %>
 	  		<h2>Log in to see who you're writing for</h2>
 				<p>I made the Secret Santa draw on December 4, so you should have received an email with your gift recipient's details. Or you log in <%= link_to "on our home page", root_path %> to see your match there.</p>
 				<p>No, there's no way to find out who's writing a post for your blog.</p>
@@ -32,7 +32,7 @@
 			<p>
 				  To avoid last-minute relegation to Santa's Naughty List, you need to submit your gift post to <%= link_to "secretsanta.csworkflow.com", root_path %> by Christmas Eve.
 			</p>
-			<% if @draw.matched? %>
+			<% if @pool.matched? %>
 				<h2>Gift posts are coming on Christmas Day</h2>
 			<% else %>
 				<h2>Santa delivers gift posts on Christmas Day</h2>

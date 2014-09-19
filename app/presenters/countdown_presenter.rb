@@ -3,7 +3,7 @@ class CountdownPresenter < SimpleDelegator
 
   def initialize(draw, view)
     super(view)
-    @draw = draw
+    @pool = draw
   end
 
   def render_countdown
@@ -13,10 +13,10 @@ class CountdownPresenter < SimpleDelegator
   private
 
   	def render_counter
-  		if @draw.draw_time.future?
-  			content_tag(:div, nil, id: "countdown", data: { until: "#{@draw.draw_time.strftime('%Y/%m/%d %H:%M %Z')}" })
+  		if @pool.draw_time.future?
+  			content_tag(:div, nil, id: "countdown", data: { until: "#{@pool.draw_time.strftime('%Y/%m/%d %H:%M %Z')}" })
   		else
-  			if @draw.status == "closed"
+  			if @pool.status == "closed"
   				content_tag(:div, "We're all done. Sign up now for next time.", id: "countdown")
   			else
   				content_tag(:div, "Drawing now...", id: "countdown")
@@ -25,13 +25,13 @@ class CountdownPresenter < SimpleDelegator
   	end
 
   	def until_text
-  		case @draw.status
+  		case @pool.status
   		when "open"
   			"until Secret Santa matches are drawn."
   		when "matched"
   			"until blog gifts are given."
       when "closed"
-        "Read all the #{link_to 'gift blogs', draw_content_index_path(@draw.year)} for the last draw.".html_safe
+        "Read all the #{link_to 'gift blogs', draw_content_index_path(@pool.year)} for the last draw.".html_safe
   		end
   	end
 end

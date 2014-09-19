@@ -1,4 +1,4 @@
-class DrawsController < ApplicationController
+class PoolsController < ApplicationController
   skip_before_action :authenticate, only: :show
   before_action :find_draw, only: [:show, :edit, :update]
 
@@ -12,8 +12,8 @@ class DrawsController < ApplicationController
   def show
     @users = User.available.order(created_at: :desc).limit(10)
     @total_users = User.available.count
-    @match = Match.find_by(draw_id: @draw.id, giver_id: current_user.id) if current_user
-    if @draw.closed?
+    @match = Match.find_by(draw_id: @pool.id, giver_id: current_user.id) if current_user
+    if @pool.closed?
       @not_written_count = Match.count - Content.where("body is not null").count
       if current_user
         @gift = Content.find_by(user_id: current_user, status: "given") 

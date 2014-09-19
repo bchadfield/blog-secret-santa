@@ -25,9 +25,11 @@ config/database.yml
 public/assets
 
 # Ignore Capistrano files and recipes
-config/deploy.*
-Capfile
+config/deploy
 config/recipes
+config/deploy.rb
+Capfile
+lib/capistrano
 
 # Random cleaning
 .project
