@@ -55,6 +55,6 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0', require: false
   gem 'better_errors'
   gem 'binding_of_caller', '~> 0.7.1'
-  gem 'meta_request', '0.2.5'
+  gem 'meta_request', '0.3.4'
   gem "letter_opener"
 end

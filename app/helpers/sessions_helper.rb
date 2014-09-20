@@ -10,14 +10,22 @@ module SessionsHelper
   def signed_in?
     !current_user.nil? 
   end
-  
-  def authenticate 
-    deny_access unless signed_in?
+
+  def correct_pool?
+    current_tenant ? current_user.pool_id == current_tenant.id : true
   end
   
-  def deny_access 
-    store_location 
-    redirect_to root_path, notice: "Please log in to access this page."
+  def authenticate 
+    unless signed_in?
+      store_location
+      redirect_to root_url(subdomain: false), notice: "You'll have to log in to see that page"
+    end
+  end
+
+  def authorize
+    unless correct_pool?
+      redirect_to root_url(subdomain: false), notice: "You only have access to the pool you signed up for"
+    end
   end
   
   def current_user?(user)

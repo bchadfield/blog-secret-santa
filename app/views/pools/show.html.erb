@@ -3,53 +3,12 @@
 <div class="container">
   <div class="row">
 	  <div class="col-sm-12 center">
-      <% if !signed_in? %>
-        <div class="content narrow">
-          <% if @pool.matched? %>
-            <h1>Christmas is nearly here. It's blogging time!</h1>
-          <% else %>
-            <h1>Play Blog Secret Santa with other content strategists this Christmas</h1>          
-          <% end %>
-        </div>
-      <% end %>
-      <% unless @pool.closed? && signed_in? %>
-	  	  <%= CountdownPresenter.new(@pool, self).render_countdown %>
-      <% end %>
-	  	<% if !signed_in? %>
-        <%= link_to "/auth/twitter", class: "btn btn-default btn-lg twitter-login" do %>
-          <%= image_tag 'twitter-logo.png' %> Register or log in with Twitter
-        <% end %>
-        <div class="content narrow">
-        <% if @pool.matched? %>
-          <p>Registrations are closed and I've emailed all <%= @total_users %> good children to let them know who they're secretly blogging for. You can submit your gift post any time before Christmas Eve. On Christmas Day I get to hand out all the gift posts!</p>
-          <%= link_to "More about what happens next", about_path %>
-        <% else %>          
-            <p>You've traded Secret Santa presents before, but you probably only got crumbly chocolates or some plastic crap. Blog Secret Santa is way amazinger. It's a chance for content strategists from all around the world to gift each other blog posts. And it's all anonymous, so you can say what you really think!</p>
-
-            <p>Let's face it, writing for your same old blog day in, day out is a grind. Sure, you enjoy writing and all, but wouldn't it be great to write something else for a change, and let a specially selected, unknown individual from the internet look after your blog? Wouldn't that be like the best, funnest Christmas ever?</p>
-
-            <p>Blog Secret Santa uses the bestness of Christmas to save you from the grindness of blogging. (That's our elevator pitch, even though there aren't many elevators in the North Pole.)</p>
-            <%= link_to "More information about how it works", about_path %>
-        <% end %>
-        </div>
-      <% else %>
-        <% if @pool.matched? && @match %>
-          <h3>Your match is <strong><%= link_to @match.receiver.name, @match.receiver.url, target: "_blank" %></strong></h3>
-          <%= link_to "Work on your content gift", new_content_path, class: "btn btn-lg btn-success" %>
-        <% elsif @pool.open? %>
-        	<h3>Santa's list of good children</h3>
-        	<ul class="users col-sm-4">
-  	      	<% @users.each do |user| %>
-  	      		<%= render "users/user", user: user %>
-  	      	<% end %>
-        	</ul>
-          <% if @total_users > @users.length %>
-            <p><%= link_to "See all #{@total_users} good children", users_path %></p>
-          <% end %>
-        <% elsif @pool.closed? %>
-          <%= render "closed_signed_in" %>
-        <% end %>
-    	<% end %>
+      <h1><%= current_tenant.name %></h1>
+      <ul class="users">
+      	<% @users.each do |user| %>
+      		<%= render "users/user", user: user %>
+      	<% end %>
+      </ul>
   	</div>
  	</div>
 </div>

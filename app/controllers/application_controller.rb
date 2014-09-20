@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   set_current_tenant_by_subdomain(:pool, :subdomain)
   
-  before_action :authenticate, :check_for_email
+  before_action :authenticate, :authorize, :check_for_email
 
   private
 
