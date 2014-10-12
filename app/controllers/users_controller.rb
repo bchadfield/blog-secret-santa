@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :check_for_email, only: [:email, :set_email]
+  skip_before_action :check_profile, only: [:edit, :update]
   before_action :find_user, only: [:show, :edit, :update, :email, :set_email, :destroy]
   before_action :authorize, only: [:edit, :update, :email, :set_email, :destroy]
 
@@ -11,7 +11,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @can_delete = true unless Draw.first.matched? && Match.where("giver_id = #{@user.id}").exists?
   end
 
   def update
@@ -22,23 +21,6 @@ class UsersController < ApplicationController
       flash[:error] = @user.errors.full_messages
   		render "edit"
   	end
-  end
-
-  def email
-    unless @user.email.blank?
-      redirect_to edit_user_path(@user)
-    end
-  end
-
-  def set_email
-    if !@user.update_attributes(user_params) || user_params[:email].blank?
-      flash[:error] = "Nope. You have to enter an email address or we can't be friends."
-      render "email"
-    else
-      flash.clear
-      UserMailer.signup_info(@user).deliver
-      redirect_to root_path
-    end
   end
 
   def destroy
@@ -55,7 +37,7 @@ class UsersController < ApplicationController
   	end
 
     def find_user
-      @user = User.find(params[:id])
+      @user = User.find_by(token: params[:id])
     end
 
     def authorize

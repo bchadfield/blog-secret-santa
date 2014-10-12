@@ -13,12 +13,7 @@ Secretsanta::Application.routes.draw do
       end
     end
   end
-  resources :users do
-  	member do
-  		get "email"
-  		patch "set_email"
-  	end
-  end
+  resources :users
 
-  root to: "pages#about"
+  root to: "pages#home"
 end

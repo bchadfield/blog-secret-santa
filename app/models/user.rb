@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 	before_create :set_defaults
 
 	validates :name, presence: true
-	validates :url, presence: true
+	validates :blog, presence: true, on: :update
 	validates :email, presence: true, on: :update
 
 	enum role: { blogger: 0, admin: 1, super_admin: 2 }
@@ -21,9 +21,10 @@ class User < ActiveRecord::Base
 	    user.provider = auth["provider"]
 	    user.uid = auth["uid"]
 	    user.name = auth["info"]["name"]
+	    user.email = auth["info"]["email"]
 	    user.image = auth["info"]["image"]
 	    user.location = auth["info"]["location"]
-	    user.url = auth["info"]["urls"]["Website"] ? Unshorten[auth["info"]["urls"]["Website"]] : auth["info"]["urls"]["Twitter"]
+	    user.blog = auth["info"]["urls"]["Website"] ? Unshorten[auth["info"]["urls"]["Website"]] : auth["info"]["urls"]["Twitter"]
 	  end
 	end
 
@@ -33,6 +34,10 @@ class User < ActiveRecord::Base
 
 	def first_name
     name.split(' ')[0]
+  end
+
+  def incomplete_profile?
+  	!(email && blog)
   end
 
   private

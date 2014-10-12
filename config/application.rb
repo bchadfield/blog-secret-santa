@@ -28,5 +28,15 @@ module Secretsanta
         ENV[key.to_s] = value
       end if File.exists?(env_file)
     end
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
+      if html_tag =~ /<(input|label|textarea|select)/
+        html_field = Nokogiri::HTML::DocumentFragment.parse(html_tag)
+        html_field.children.add_class 'has-error'
+        html_field.to_s.html_safe
+      else
+        html_tag.html_safe
+      end
+    }
   end
 end

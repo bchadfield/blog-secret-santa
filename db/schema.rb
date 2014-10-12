@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20131102003558) do
     t.string   "uid"
     t.string   "email"
     t.string   "location"
-    t.string   "url"
+    t.string   "blog"
     t.string   "image"
     t.integer  "role"
     t.boolean  "available"

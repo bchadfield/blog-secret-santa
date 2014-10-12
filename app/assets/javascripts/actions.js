@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  // RAILS FORM ERROR DISPLAY FOR BOOTSTRAP
+  $('.has-error').parent('.form-group').not('.has-error').addClass('has-error');
+  
   window.timer = new CountDownTimer("#countdown");
 
   $('.content-body').initSimplyCountable('.redactor_editor');

@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-	skip_before_action :authenticate, only: [:new, :create, :destroy]
+	skip_before_action :authenticate, :check_profile, only: [:new, :create, :destroy]
 	def new
 
 	end
@@ -8,10 +8,10 @@ class SessionsController < ApplicationController
 	  auth = request.env["omniauth.auth"]
 	  @user = User.find_by(provider: auth["provider"], uid: auth["uid"]) || User.create_with_omniauth(auth)
 	  session[:user_id] = @user.id
-	  if @user.email
-	  	redirect_back_or root_path
+	  if @user.incomplete_profile?
+	  	incomplete_profile_redirect
 	  else
-	  	redirect_to email_user_path(@user)
+	  	redirect_back_or root_path
 	  end
 	end
 

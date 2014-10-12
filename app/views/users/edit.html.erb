@@ -1,13 +1,15 @@
-<% title "Edit your details" %>
+<% title "Your profile" %>
 
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
 			<h1><%= yield :heading %></h1>
-			<div class="edit-gravatar">
-            <%= gravatar_for(@current_user) %>
-            <p>Your image is based on the email address used for your profile. You can change or add an image for free at <a href="http://gravatar.com" target="_blank">gravatar.com</a>.</p>
-          </div>
+			<% unless @user.email.blank? %>
+				<div class="edit-gravatar">
+	        <%= gravatar_for(@user) %>
+	        <p>Your image is based on the email address used for your profile. You can change or add an image for free at <a href="http://gravatar.com" target="_blank">gravatar.com</a>.</p>
+	      </div>
+	    <% end %>
 			<%= form_for @user do |f| %>
 				<fieldset>
 					<div class="form-group input-group">
@@ -20,7 +22,7 @@
 					</div>
 					<div class="form-group input-group">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></span>
-						<%= f.url_field :url, class: "form-control", placeholder: "URL" %>
+						<%= f.url_field :blog, class: "form-control", placeholder: "Blog" %>
 					</div>
 					<div class="checkbox">
 						<%= f.label :available do %>
@@ -28,12 +30,6 @@
 						<% end %>
 					</div>
 					<div class="form-group">
-						<% if @can_delete %>
-							<%= link_to "Delete yourself", @user,
-																					class: "btn btn-danger pull-right",
-																					method: :delete,
-																					data: { confirm: "You can change your mind and hit cancel before it's too late." } %>
-						<% end %>
 						<%= f.submit "Save", class: "btn btn-success" %>
 					</div>
 				</fieldset>
