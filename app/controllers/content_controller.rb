@@ -1,7 +1,7 @@
 class ContentController < ApplicationController
   before_action :find_draw, only: [:index, :send_gift]
   before_action :find_content, :authorize, only: [:edit, :update, :send_gift]
-  skip_before_action :authenticate, only: :index
+  skip_before_action :authenticate_user!, only: :index
 
   def new
     @pool = Pool.first

@@ -31,7 +31,7 @@ gem 'turbolinks'
 
 gem 'omniauth-twitter', '~> 1.0.1'
 gem 'omniauth-facebook', '~> 2.0.0'
-gem 'omniauth-identity', '~> 1.1.1'
+gem 'devise', '~> 3.4.0'
 
 gem 'acts_as_tenant', '~> 0.3.5'
 gem 'whenever', :require => false

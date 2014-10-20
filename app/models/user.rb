@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :omniauthable
+
 	include Tokenfindable
 	acts_as_tenant(:pool)
 
@@ -10,16 +13,17 @@ class User < ActiveRecord::Base
 
 	before_create :set_defaults
 
-	validates :name, presence: true
+	validates :name, presence: true, on: :update
 	validates :blog, presence: true, on: :update
 	validates :email, presence: true, on: :update
 
 	enum role: { blogger: 0, admin: 1, super_admin: 2 }
 
-	def self.create_with_omniauth(auth)
-	  create! do |user|
+	def self.from_omniauth(auth)
+	  where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
 	    user.provider = auth["provider"]
 	    user.uid = auth["uid"]
+	    user.password = Devise.friendly_token[0,20]
 	    user.name = auth["info"]["name"]
 	    user.email = auth["info"]["email"]
 	    user.image = auth["info"]["image"]

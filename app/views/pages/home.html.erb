@@ -3,7 +3,7 @@
 <div class="container">
   <div class="content narrow">
 	  <h1><%= yield :heading %></h1>
-	  <p><%= link_to "TWITTER LOGIN", "/auth/twitter" %></p>
-	  <p><%= link_to "FACEBOOK LOGIN", "/auth/facebook" %></p>
+	  <p><%= link_to "TWITTER LOGIN", user_omniauth_authorize_path("twitter") %></p>
+	  <p><%= link_to "FACEBOOK LOGIN", user_omniauth_authorize_path("facebook") %></p>
 	</div>
 </div>

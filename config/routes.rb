@@ -1,6 +1,7 @@
 Secretsanta::Application.routes.draw do
-  get "/auth/:provider/callback", to: "sessions#create"
-  get "/logout", to: "sessions#destroy", as: :logout
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
+  # get "/auth/:provider/callback", to: "sessions#create"
+  # get "/logout", to: "sessions#destroy", as: :logout
   get "/about", to: "pages#about", as: :about
   get "/tips", to: "pages#tips", as: :tips
 
