@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
 	validates :name, presence: true, on: :update
 	validates :blog, presence: true, on: :update
+	validates :pool_id, presence: true, on: :update
 	validates :email, presence: true, on: :update
 
 	enum role: { blogger: 0, admin: 1, super_admin: 2 }
@@ -41,7 +42,7 @@ class User < ActiveRecord::Base
   end
 
   def incomplete_profile?
-  	!(email && blog)
+  	!(email && blog && name && pool_id)
   end
 
   private

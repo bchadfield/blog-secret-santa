@@ -2,8 +2,38 @@
 
 <div class="container">
   <div class="content narrow">
-	  <h1><%= yield :heading %></h1>
-	  <p><%= link_to "TWITTER LOGIN", user_omniauth_authorize_path("twitter") %></p>
-	  <p><%= link_to "FACEBOOK LOGIN", user_omniauth_authorize_path("facebook") %></p>
+  	<h1>Blog Secret Santa is back: Bigger, better, and Blitzenier!</h1>
+		<h2>
+			You know, Blitzen. The reindeer that starts with B. Yes? No? Forget it.
+		</h2>
+		<p><%= link_to "Register Now", new_user_registration_path %></p>
+		<p>Here's the thing: You blog. Well, you <em>have</em> a blog. But like most people with a blog, you could do with a few more posts.</p>
+		<p><%= link_to "No, seriously, Register Now", new_user_registration_path %></p>
+		<p>In fact, there's a special part of your brain dedicated to feeling kind of bad about the amount of blogging you do. Except at the end of the year, when that same part of your brain switches over to getting all excited about Christmas. You <strong>love</strong> Christmas.</p>
+		<p>That's where we come in. Blog Secret Santa is your annual chance to give someone else a blog post. We'll match you to someone who blogs about the same stuff as you, and you anonymously send them a post. Meanwhile, someone else wraps up a new post for you, and everyone shares the Christmassy blog love.</p>
+		<p><%= link_to "You <em>really</em> should Register Now".html_safe, new_user_registration_path %></p>
+		<p>As the old saying goes, 'tis better to give than write for your own blog.</p>
+		
+		<h2>How it works</h2>
+		<ol>
+			<li>Now: <%= link_to "Register to play. Feel excited.", new_user_registration_path %></li>
+			<li>December 5: Find who you're writing a gift post for. Feel generous.</li>
+			<li>Before Christmas Day: Log in and drop your gift post off. Feel awesome.</li>
+			<li>Christmas Day: Receive a shiny new gift post from a stranger. Feel loved.</li>
+			<li>When you're ready: Publish it on your blog. Feel good.</li>
+		</ol> 
+		<p>It's that easy, seriously. But just in case, here's <%= link_to "more about how it all works.", "" %></p>
+
+		<h2>New this year: Choose your pool</h2>
+		<p>Last year we started Blog Secret Santa among content strategists. This year we're running pools for a range of interests, so anyone can play.</p>
+		<p>Open pools:</p>
+		<ul>
+			<li>Content strategy (Elf: Max Johns)</li>
+			<li>Learning and development (Elf: Helen Blunden)</li>
+			<li>The future of work/Organisational change (Elf: Simon Terry)</li>
+		</ul>
+		<h3>Want to open a new pool?</h3>
+		<p>If your interest isn't in the mix yet, you could be the Pool Elf that makes it happen. It's easy - we do all the technical stuff, while you find fellow-bloggers to play Blog Secret Santa and encourage them to sign up.</p>
+		<p><%= link_to "More about running a pool", "" %></p>
 	</div>
 </div>

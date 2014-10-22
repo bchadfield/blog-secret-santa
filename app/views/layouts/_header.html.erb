@@ -11,8 +11,8 @@
     </div>
       <div id="main-navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav pull-right">
-          <li><%= link_to "Santa's tips", tips_url(subdomain: nil) %></li>
-          <li><%= link_to "How it works", about_url(subdomain: nil) %></li>
+          <li><%= link_to "Santa's tips", tips_path %></li>
+          <li><%= link_to "How it works", about_path %></li>
           <% if user_signed_in? %>
             <% if @current_user.email %>
               <li class="current-user">

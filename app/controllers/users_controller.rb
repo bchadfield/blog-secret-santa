@@ -16,7 +16,11 @@ class UsersController < ApplicationController
   def update
   	if @user.update_attributes(user_params)
       flash[:success] = "Updated without a hitch!"
-  		redirect_to edit_user_path(@user)
+      if @user.pool_id
+  		  redirect_to edit_user_url(@user, subdomain: @user.pool.subdomain)
+      else
+        redirect_to edit_user_path(@user)
+      end
   	else
       flash[:error] = @user.errors.full_messages
   		render "edit"
@@ -33,7 +37,7 @@ class UsersController < ApplicationController
   private
 
   	def user_params
-  		params.require(:user).permit(:name, :email, :blog, :available)
+  		params.require(:user).permit(:name, :email, :blog, :available, :pool_id)
   	end
 
     def find_user

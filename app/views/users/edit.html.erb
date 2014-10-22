@@ -1,4 +1,4 @@
-<% title "Your profile" %>
+<% title @user.incomplete_profile? ? "Complete your profile" : "Your profile" %>
 
 <div class="container">
 	<div class="row">
@@ -13,6 +13,14 @@
 			<%= form_for @user do |f| %>
 				<fieldset>
 					<div class="form-group">
+						<%= f.label :pool_id, "Blog pool" %>
+						<% if @user.incomplete_profile? %>
+							<%= f.select :pool_id, Pool.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select your pool'}, class: "form-control" %>
+						<% else %>
+							<p><%= link_to @user.pool.name, pool_url(subdomain: @user.pool.subdomain) %></p>
+						<% end %>
+					</div>
+					<div class="form-group">
 						<%= f.label :name %>
 						<%= f.text_field :name, class: "form-control", placeholder: "Name" %>
 					</div>
@@ -23,6 +31,10 @@
 					<div class="form-group">
 						<%= f.label :blog, "Blog URL" %>
 						<%= f.url_field :blog, class: "form-control", placeholder: "Blog" %>
+					</div>
+					<div class="form-group">
+						<%= f.label :location, "Location (optional)" %>
+						<%= f.text_field :location, class: "form-control", placeholder: "Location" %>
 					</div>
 					<div class="checkbox">
 						<%= f.label :available do %>

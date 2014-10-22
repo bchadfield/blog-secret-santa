@@ -6,7 +6,7 @@ Secretsanta::Application.routes.draw do
   get "/tips", to: "pages#tips", as: :tips
 
   constraints subdomain: /[a-zA-Z\-]+/ do
-    get "/", to: "pools#show"
+    get "/", to: "pools#show", as: "pool"
     resources :content, path: "gifts", only: [:new, :show, :edit, :update, :index] do
       member do
         put "edit", to: "content#update"

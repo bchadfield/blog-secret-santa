@@ -27,12 +27,10 @@ class ApplicationController < ActionController::Base
     end
 
     def correct_pool?
-      puts current_tenant.inspect
-      current_tenant ? current_user.pool_id == current_tenant.id : true
+      current_user && current_tenant ? current_user.pool_id == current_tenant.id : true
     end
 
   	def check_profile
-      puts current_user.inspect
   		incomplete_profile_redirect if current_user && current_user.incomplete_profile?
   	end
 
