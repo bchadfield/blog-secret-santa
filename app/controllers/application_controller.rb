@@ -38,4 +38,9 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "Please complete your profile before you continue."
       redirect_to edit_user_path(current_user)
     end
+
+    def deny_access
+      flash[:error] = "You don't have access to see that page"
+      redirect_to root_url(subdomain: nil)
+    end
 end

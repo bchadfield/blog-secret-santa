@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 	validates :pool_id, presence: true, on: :update
 	validates :email, presence: true, on: :update
 
-	enum role: { blogger: 0, admin: 1, super_admin: 2 }
+	enum role: { blogger: 0, elf: 1, santa: 2 }
 
 	def self.from_omniauth(auth)
 	  where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|

@@ -5,13 +5,26 @@ Secretsanta::Application.routes.draw do
   get "/about", to: "pages#about", as: :about
   get "/tips", to: "pages#tips", as: :tips
 
+  
+  constraints subdomain: "santa" do
+    scope module: "santa" do
+      get "/", to: "pools#index", as: "santa_root"
+      resources :pools, :users, :content, :matches
+    end
+  end
+
   constraints subdomain: /[a-zA-Z\-]+/ do
-    get "/", to: "pools#show", as: "pool"
+    get "/", to: "pools#show", as: "elves_root"
     resources :content, path: "gifts", only: [:new, :show, :edit, :update, :index] do
       member do
         put "edit", to: "content#update"
         put "send_gift"
       end
+    end
+
+    get "elves", to: "elves/pools#show"
+    namespace :elves do
+      resources :users, :matches, :content, only: [:index, :show, :edit, :update]
     end
   end
   resources :users

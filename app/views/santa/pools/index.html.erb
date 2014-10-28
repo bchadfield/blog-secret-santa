@@ -1,0 +1,16 @@
+<% title "List of pools" %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="content center">
+				<h1><%= yield :heading %></h1>
+			</div>
+			<ul class="col-sm-4">
+	      <% @pools.each do |pool| %>
+	      	<li><%= pool.name %></li>
+	      <% end %>
+      </ul>
+		</div>
+	</div>
+</div>
