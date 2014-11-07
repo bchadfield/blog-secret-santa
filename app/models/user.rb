@@ -2,14 +2,14 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :omniauthable
 
+  # include DeviseOverrideable
 	include Tokenfindable
-	acts_as_tenant(:pool)
+	include Tenantable
 
 	scope :available, -> { where(available: true).where.not(email: nil) }
 
 	has_one :giver, class_name: "Match", foreign_key: "giver_id"
 	has_one :receiver, class_name: "Match", foreign_key: "receiver_id"
-	belongs_to :pool
 
 	before_create :set_defaults
 
@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 	enum role: { blogger: 0, elf: 1, santa: 2 }
 
 	def self.from_omniauth(auth)
-	  where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
+	  unscoped.where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
 	    user.provider = auth["provider"]
 	    user.uid = auth["uid"]
 	    user.password = Devise.friendly_token[0,20]
@@ -49,6 +49,6 @@ class User < ActiveRecord::Base
 
   	def set_defaults
   		self.available = true
-  		self.role = User.roles[:blogger]
+  		self.role = User.roles[:blogger] if self.role.nil?
   	end
 end

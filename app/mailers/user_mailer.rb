@@ -44,4 +44,15 @@ class UserMailer < ActionMailer::Base
     @subject = "We haven't received a gift blog post from you yet"
     mail to: @user.email, subject: @subject
   end
+
+  def made_elf(user, pool)
+    @user = user
+    @pool = pool
+    mail to: @user.email, subject: "You're now an elf for the #{@pool.name} Blog Secret Santa pool"
+  end
+
+  def invited_elf(email, pool)
+    @pool = pool
+    mail to: email, subject: "You're invited to be an elf for the #{@pool.name} Blog Secret Santa pool"
+  end
 end

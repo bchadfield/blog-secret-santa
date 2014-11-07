@@ -2,9 +2,7 @@
 	<%= gravatar_for(user) %>
 	<div class="user-details">
 		<div class="user-name"><%= user.name %></div>
-		<% if display_email %>
-			<div class="user-email"><%= user.email %></div>
-		<% end %>
+		<div class="user-email"><%= user.email %></div>
 		<div class="user-blog"><%= link_to user.blog, user.blog, target: "_blank" %></div>
 		<% unless user.location.blank? %>
 			<div class="user-location"><span class="glyphicon glyphicon-map-marker"></span> <%= user.location %></div>

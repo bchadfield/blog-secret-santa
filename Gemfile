@@ -33,7 +33,6 @@ gem 'omniauth-twitter', '~> 1.0.1'
 gem 'omniauth-facebook', '~> 2.0.0'
 gem 'devise', '~> 3.4.0'
 
-gem 'acts_as_tenant', '~> 0.3.5'
 gem 'whenever', :require => false
 gem "unshorten", "~> 0.2.1"
 gem 'nokogiri'

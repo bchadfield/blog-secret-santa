@@ -2,8 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # include SessionsHelper
 
-  set_current_tenant_by_subdomain(:pool, :subdomain)
-  
+  around_filter :scope_current_tenant  
   before_action :authenticate_user!, :authorize, :check_profile
 
   def after_sign_in_path_for(user)
@@ -19,6 +18,18 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  
+    def current_tenant
+      @current_tenant ||= Pool.find_by(subdomain: request.subdomain)
+    end
+    helper_method :current_tenant
+    
+    def scope_current_tenant
+      Pool.current_id = current_tenant ? current_tenant.id : nil
+      yield
+    ensure
+      Pool.current_id = nil
+    end
 
     def authorize
       unless correct_pool?
@@ -42,5 +53,22 @@ class ApplicationController < ActionController::Base
     def deny_access
       flash[:error] = "You don't have access to see that page"
       redirect_to root_url(subdomain: nil)
+    end
+
+    def flash_errors(object, now = false)
+      if object.errors.any?
+        object.errors.full_messages.each do |message|
+          if now
+            flash.now[:error] ||= []
+            flash.now[:error] << message
+          else
+            flash[:error] ||= []
+            flash[:error] << message
+          end
+        end
+        true
+      else
+        false
+      end
     end
 end

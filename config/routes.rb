@@ -9,7 +9,15 @@ Secretsanta::Application.routes.draw do
   constraints subdomain: "santa" do
     scope module: "santa" do
       get "/", to: "pools#index", as: "santa_root"
-      resources :pools, :users, :content, :matches
+      resources :pools do
+        resources :content, :matches
+        resources :users do
+          collection do
+            get "assign"
+            put "set_assignments"
+          end
+        end
+      end
     end
   end
 

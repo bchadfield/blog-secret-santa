@@ -24,10 +24,11 @@ class FlashPresenter < SimpleDelegator
   	end
 
   	def match_flash_key(key)
+      puts key.inspect
 	  	case key
-	  	when :success
+	  	when "success"
 	  		key = "success"
-	  	when :error
+	  	when "error"
 	  		key = "danger"
 	  	else
 	  		key = "info"

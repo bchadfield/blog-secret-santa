@@ -1,0 +1,18 @@
+<% title "Edit #{@pool.name}" %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="content center">
+				<h1><%= yield :heading %></h1>
+			</div>
+			<%= render "form", pool: @pool %>
+
+			<h2>Elves</h2>
+			<% @pool.users.elf.each do |elf| %>
+				<%= render "santa/users/elf", pool: @pool, elf: elf %>
+			<% end %>
+			<%= link_to "Add elf", assign_pool_users_path(pool_id: @pool), class: "btn btn-default" %>
+		</div>
+	</div>
+</div>

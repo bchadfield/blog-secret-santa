@@ -1,6 +1,7 @@
 class Santa::SantaController < ApplicationController
 	# layout 'santa'
 
+	skip_before_action :authorize, :check_profile
 	before_action :authorize_santa
 
 	private 

@@ -6,7 +6,7 @@
       <h1><%= current_tenant.name %></h1>
       <ul class="users">
       	<% @users.each do |user| %>
-      		<%= render "users/user", user: user %>
+      		<%= render "users/user", user: user, display_email: false %>
       	<% end %>
       </ul>
   	</div>

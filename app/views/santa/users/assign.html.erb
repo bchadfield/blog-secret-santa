@@ -1,0 +1,41 @@
+<% title "Assign elves to #{@pool.name}" %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="content center">
+				<h1><%= yield :heading %></h1>
+			</div>
+			<h2>Current elves</h2>
+			<% @pool.users.elf.each do |elf| %>
+				<%= render "santa/users/elf", pool: @pool, elf: elf %>
+			<% end %>
+			<p>&nbsp;</p>
+			<%= form_tag assign_pool_users_path(@pool), method: :get, class: "form-inline" do %>
+				<div class="form-group">
+					<%= text_field_tag :search, "", class: "form-control" %>
+				</div>
+				<%= submit_tag "Search for elves", class: "btn btn-default" %>
+			<% end %>
+
+			<% if @users %>
+				<h3>Found users</h3>
+				<p>Copy the email address of the one you want to add as an elf to the <%= @pool.name %> pool.
+				<ul>
+					<% @users.each do |user| %>
+						<li><%= "#{user.name} #{user.email}" %> - Pool: <%= user.pool.name if user.pool %></li>
+					<% end %>
+				</ul>
+			<% end %>
+
+			<p>&nbsp;</p>
+			<%= form_tag set_assignments_pool_users_path(@pool), method: :put do %>
+				<p>Enter the email address for the person you want to add as an elf to the <%= @pool.name %> pool.
+				<div class="form-group">
+					<%= text_field_tag :email, "", class: "form-control", placeholder: "Email address" %>
+				</div>
+				<%= submit_tag "Add elf", class: "btn btn-default" %>
+			<% end %>
+		</div>
+	</div>
+</div>

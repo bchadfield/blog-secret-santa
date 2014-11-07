@@ -5,13 +5,21 @@ class Pool < ActiveRecord::Base
 	has_many :content
 	has_many :users
 
-	enum status: { open: 0, matched: 1, gifted: 2 }
+	enum status: { open: 0, matched: 1, gifted: 2, closed: 3, retired: 4 }
 
 	MATCH_TIME = Time.utc(Time.now.year, 11, 10)
 	GIFT_TIME = Time.utc(Time.now.year, 12, 25)
 
 	validates :name, presence: true
-	validates :subdomain, presence: true, format: { with: /\A[a-zA-Z\-]+\z/, message: "only allows letters" }
+	validates :subdomain, presence: true, format: { with: /\A[a-zA-Z\-]+\z/, message: "can only have letters and -" }
+
+	def self.current_id=(id)
+    Thread.current[:pool_id] = id
+  end
+  
+  def self.current_id
+    Thread.current[:pool_id]
+  end
 
 	def year
 		gift_time.strftime("%Y")
