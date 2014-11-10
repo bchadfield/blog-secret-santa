@@ -7,11 +7,14 @@ class User < ActiveRecord::Base
 	include Tenantable
 
 	scope :available, -> { where(available: true).where.not(email: nil) }
-
-	has_one :giver, class_name: "Match", foreign_key: "giver_id"
-	has_one :receiver, class_name: "Match", foreign_key: "receiver_id"
+	scope :waiting_list, -> { available.joins("LEFT JOIN matches ON users.id = matches.receiver_id OR users.id = matches.giver_id").where("matches.receiver_id IS NULL OR matches.giver_id IS NULL") }
 
 	before_create :set_defaults
+
+	has_one :giver_match, class_name: "Match", foreign_key: "receiver_id"
+	has_one :giver, through: :giver_match, class_name: "User"
+	has_one :receiver_match, class_name: "Match", foreign_key: "giver_id"
+	has_one :receiver, through: :receiver_match, class_name: "User"
 
 	validates :name, presence: true, on: :update
 	validates :blog, presence: true, on: :update
@@ -34,7 +37,11 @@ class User < ActiveRecord::Base
 	end
 
 	def available?
-		available
+		available && !incomplete_profile?
+	end
+
+	def playing?
+		giver_match && receiver_match && available?
 	end
 
 	def first_name
@@ -44,6 +51,14 @@ class User < ActiveRecord::Base
   def incomplete_profile?
   	!(email && blog && name && pool_id)
   end
+
+  # def giver
+  # 	User.find_by(id: Match.find_by(receiver_id: self.id))
+  # end
+
+  # def receiver
+  # 	User.find_by(id: Match.find_by(giver_id: self.id))
+  # end
 
   private
 

@@ -7,8 +7,12 @@
 				<h1><%= yield :heading %></h1>
 			</div>
 			<ul class="users col-sm-4">
-	      <% @pool.users.each do |user| %>
-	      	<%= render "users/user", user: user, display_email: true %>
+	      <% @users.each do |user| %>
+	      	<%= render "elves/users/user", user: user, display_email: true %>
+	      	<% if Rails.env.development? %>
+	      		<p>Giver: <%= user.giver ? user.giver.name : "none" %><br />
+	      		Receiver: <%= user.receiver ? user.receiver.name : "none" %></p>
+	      	<% end %>
 	      <% end %>
       </ul>
 		</div>

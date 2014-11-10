@@ -1,7 +1,9 @@
 <li>
-	<%= gravatar_for(user) %>
+	<%= link_to elves_user_path(user) do %>
+		<%= gravatar_for(user) %>
+	<% end %>
 	<div class="user-details">
-		<div class="user-name"><%= user.name %></div>
+		<div class="user-name"><%= link_to user.name, elves_user_path(user) %></div>
 		<div class="user-email"><%= user.email %></div>
 		<div class="user-blog"><%= link_to user.blog, user.blog, target: "_blank" %></div>
 		<% unless user.location.blank? %>

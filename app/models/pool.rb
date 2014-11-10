@@ -39,7 +39,7 @@ class Pool < ActiveRecord::Base
 		    	Match.create(pool: pool, giver: giver, receiver: receiver)
 					UserMailer.match_notification(giver, receiver).deliver
 		    end
-		    self.matched!
+		    pool.matched!
 		  else
 		  	print "Not enough available users in the #{pool.name} pool. Need at least 3."
 		  end

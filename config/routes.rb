@@ -32,7 +32,13 @@ Secretsanta::Application.routes.draw do
 
     get "elves", to: "elves/pools#show"
     namespace :elves do
-      resources :users, :matches, :content, only: [:index, :show, :edit, :update]
+      resources :matches, :content, only: [:index, :show, :edit, :update]
+      resources :users do
+        member do
+          put "remove"
+          put "replace"
+        end
+      end
     end
   end
   resources :users
