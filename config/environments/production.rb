@@ -64,14 +64,15 @@ Secretsanta::Application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.asset_host = "https://blogsecretsanta.com"
   config.action_mailer.default_url_options = { host: 'blogsecretsanta.com' }
   config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = { 
-    address: ENV["AWS_SES_ADDRESS"],
+    address: APP_CONFIG["smtp_address"],
     port: 587,
-    domain: "csworkflow.com",
-    user_name: ENV["AWS_SES_USERNAME"],
-    password: ENV["AWS_SES_PASSWORD"],
+    domain: "blogsecretsanta.com",
+    user_name: APP_CONFIG["smtp_username"],
+    password: APP_CONFIG["smtp_password"],
     authentication: :login,
     enable_starttls_auto: true
   }
