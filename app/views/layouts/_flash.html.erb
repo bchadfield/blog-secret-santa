@@ -1,5 +1,3 @@
-<div class="container">
 	<% flash.each do |key, value| %>
 		<%= FlashPresenter.new(key, value, self).render_flash %>
 	<% end %>
-</div>

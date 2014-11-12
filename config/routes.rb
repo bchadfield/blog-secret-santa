@@ -1,7 +1,11 @@
 Secretsanta::Application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
-  # get "/auth/:provider/callback", to: "sessions#create"
-  # get "/logout", to: "sessions#destroy", as: :logout
+  devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" } 
+  devise_scope :user do
+    get "/login", to: "devise/sessions#new", as: "login"
+    delete "/logout", to: "devise/sessions#destroy", as: "logout"
+    get "/signup", to: "devise/registrations#new", as: "signup"
+  end
+
   get "/about", to: "pages#about", as: :about
   get "/tips", to: "pages#tips", as: :tips
 
@@ -22,7 +26,7 @@ Secretsanta::Application.routes.draw do
   end
 
   constraints subdomain: /[a-zA-Z\-]+/ do
-    get "/", to: "pools#show", as: "elves_root"
+    get "/", to: "pools#show"
     resources :content, path: "gifts", only: [:new, :show, :edit, :update, :index] do
       member do
         put "edit", to: "content#update"

@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse">
+<!-- <div class="navbar navbar-inverse">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-target="#main-navbar">
@@ -27,5 +27,41 @@
           <% end %>
         </ul>
       </div>
+  </div>
+</div> -->
+
+<div class="csw-content-header">
+  <div class="csw-container-fluid">
+    <!-- <button type="button" class="csw-navbar-toggle csw-leftnav-toggle">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="csw-nav-icon-bar"></span>
+      <span class="csw-nav-icon-bar"></span>
+      <span class="csw-nav-icon-bar"></span>
+    </button> -->
+    <%= link_to "Blog Secret Santa", root_path, class: "csw-logo" %>
+    <ul class="csw-header-links">
+      <% if user_signed_in? %>
+        <% if current_user.pool %>
+          <li><%= link_to current_user.pool.name, root_url(subdomain: current_user.pool.subdomain) %></li>
+        <% end %>
+        <% if current_user.elf? %>
+          <li><%= link_to "Elf area", elves_url(subdomain: current_user.pool.subdomain) %></li>
+        <% end %>
+        <% if current_user.santa? %>
+          <li><%= link_to "Santa area", root_url(subdomain: "santa") %></li>
+        <% end %>
+        <% if current_user.email %>
+          <li class="csw-logged-in-user">
+            <%= link_to edit_user_path(@current_user) do %>
+              <%= gravatar_for(@current_user) %>
+            <% end %>
+          </li>
+        <% end %>
+      <% else %>
+        <li><%= link_to "Santa's tips", tips_path %></li>
+        <li><%= link_to "How it works", about_path %></li>
+        <li><%= link_to "Login", login_path, class: "csw-button csw-login" %></li>
+      <% end %>
+    </ul>
   </div>
 </div>

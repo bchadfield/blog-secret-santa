@@ -13,12 +13,8 @@
 </head>
 <body>
 <%= render "layouts/header" %>
-<div class="main-wrapper">
-	<%= render "layouts/flash" %>
-	<div class="content">
-		<%= yield %>
-	</div>
-</div>
+<%= render "layouts/flash" %>
+<%= yield %>
 <%= render "layouts/modal" %>
 <% if Rails.env.production? %>
 	<%= render "layouts/google_analytics"  %>

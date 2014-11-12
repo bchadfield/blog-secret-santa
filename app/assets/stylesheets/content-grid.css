@@ -1,0 +1,229 @@
+/*
+  Simple Grid
+  Learn More - http://dallasbass.com/simple-grid-a-lightweight-responsive-css-grid/
+  Project Page - http://thisisdallas.github.com/Simple-Grid/
+  Author - Dallas Bass
+  Site - dallasbass.com
+*/
+
+[class*='csw-col-'] {
+	float: left;
+	padding-right: 20px;
+}
+[class*='csw-col-']:before,
+[class*='csw-col-']:after,
+.csw-grid:before,
+.csw-grid:after { content: " "; display: table; }
+[class*='csw-col-']:after,
+.csw-grid:after { clear: both; }
+
+.csw-grid {
+	width: 100%;
+	/*max-width: 1140px;*/
+	/*min-width: 755px;*/
+	margin: 0 auto;
+	/*overflow: hidden;*/
+  padding: 0 0 0 20px;
+}
+
+.csw-grid:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.csw-push-right {
+	float: right;
+}
+
+/* Content Columns */
+
+.csw-col-1-1 {
+	width: 100%;
+}
+.csw-col-2-3, .csw-col-8-12 {
+	width: 66.66%;
+}
+
+.csw-col-1-2, .csw-col-6-12 {
+	width: 50%;
+}
+
+.csw-col-1-3, .csw-col-4-12 {
+	width: 33.33%;
+}
+
+.csw-col-1-4, .csw-col-3-12 {
+	width: 25%;
+}
+
+.csw-col-1-5 {
+	width: 20%;
+}
+
+.csw-col-1-6, .csw-col-2-12 {
+	width: 16.667%;
+}
+
+.csw-col-1-7 {
+	width: 14.28%;
+}
+
+.csw-col-1-8 {
+	width: 12.5%;
+}
+
+.csw-col-1-9 {
+	width: 11.1%;
+}
+
+.csw-col-1-10 {
+	width: 10%;
+}
+
+.csw-col-1-11 {
+	width: 9.09%;
+}
+
+.csw-col-1-12 {
+	width: 8.33%
+}
+
+/* Layout Columns */
+
+.csw-col-11-12 {
+	width: 91.66%
+}
+
+.csw-col-10-12 {
+	width: 83.333%;
+}
+
+.csw-col-9-12 {
+	width: 75%;
+}
+
+.csw-col-5-12 {
+	width: 41.66%;
+}
+
+.csw-col-7-12 {
+	width: 58.33%
+}
+
+.csw-col-center { margin-left: auto; margin-right: auto; float: none; }
+
+@media handheld, only screen and (max-width: 767px) {
+	.csw-grid {
+		width: 100%;
+		min-width: 0;
+		margin-left: 0px;
+		margin-right: 0px;
+		padding-left: 20px; /* grid-space to left */
+		padding-right: 10px; /* grid-space to right: (grid-space-left - column-space) e.g. 20px-10px=10px */
+	}
+
+	[class*='csw-col-'] {
+		width: auto;
+		float: none;
+		margin-left: 0px;
+		margin-right: 0px;
+		/*margin-top: 10px;*/
+		margin-bottom: 10px;
+		padding-left: 0px;
+		padding-right: 10px; /* column-space */
+	}
+
+
+	/* Mobile Layout */
+
+	[class*='csw-mobile-col-'] {
+		float: left;
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-top: 0px;
+		margin-bottom: 10px;
+		padding-left: 0px;
+		padding-right: 10px; /* column-space */
+		padding-bottom: 0px;
+	}
+
+	.csw-mobile-col-1-1 {
+		width: 100%;
+	}
+	.csw-mobile-col-2-3, .csw-mobile-col-8-12 {
+		width: 66.66%;
+	}
+
+	.csw-mobile-col-1-2, .csw-mobile-col-6-12 {
+		width: 50%;
+	}
+
+	.csw-mobile-col-1-3, .csw-mobile-col-4-12 {
+		width: 33.33%;
+	}
+
+	.csw-mobile-col-1-4, .csw-mobile-col-3-12 {
+		width: 25%;
+	}
+
+	.csw-mobile-col-1-5 {
+		width: 20%;
+	}
+
+	.csw-mobile-col-1-6, .csw-mobile-col-2-12 {
+		width: 16.667%;
+	}
+
+	.csw-mobile-col-1-7 {
+		width: 14.28%;
+	}
+
+	.csw-mobile-col-1-8 {
+		width: 12.5%;
+	}
+
+	.csw-mobile-col-1-9 {
+		width: 11.1%;
+	}
+
+	.csw-mobile-col-1-10 {
+		width: 10%;
+	}
+
+	.csw-mobile-col-1-11 {
+		width: 9.09%;
+	}
+
+	.csw-mobile-col-1-12 {
+		width: 8.33%
+	}
+
+	/* Layout Columns */
+
+	.csw-mobile-col-11-12 {
+		width: 91.66%
+	}
+
+	.csw-mobile-col-10-12 {
+		width: 83.333%;
+	}
+
+	.csw-mobile-col-9-12 {
+		width: 75%;
+	}
+
+	.csw-mobile-col-5-12 {
+		width: 41.66%;
+	}
+
+	.csw-mobile-col-7-12 {
+		width: 58.33%
+	}
+
+	.csw-hide-on-mobile {
+		display: none !important;
+		width: 0;
+		height: 0;
+	}
+}

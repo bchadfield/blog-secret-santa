@@ -1,0 +1,37 @@
+      <ul class="csw-breadcrumb">
+        <li class="csw-workspace-breadcrumb">
+          <% if @other_workspaces.empty? %>
+            <%= link_to root_path do %>
+              <i class="csw-icon csw-icon-home"></i> <%= @workspace.name %>
+            <% end %>
+          <% else %>
+            <a class="csw-dropdown-toggle" data-toggle="dropdown" href="#">
+              <i class="csw-icon csw-icon-home"></i> <%= @workspace.name %><span class="csw-caret"></span>
+            </a>
+            <ul class="csw-dropdown-menu" role="menu">
+              <%= WorkspaceDropdownPresenter.new(@other_workspaces, self).render_workspaces %>
+            </ul>
+          <% end %>
+        </li>
+        <% if @category %>
+          <li class="csw-category-breadcrumb">
+            <%= link_to @category do %>
+              <i class="csw-icon csw-icon-folder-open"></i> <%= @category.name %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if @content %>
+          <% if @content.category %>
+            <li class="csw-category-breadcrumb">
+              <%= link_to @content.category do %>
+                <i class="csw-icon csw-icon-folder-open"></i> <%= @content.category.name %>
+              <% end %>
+            </li>
+          <% end %>
+          <li class="csw-content-breadcrumb">
+            <%= link_to @content do %>
+              <i class="csw-icon csw-icon-file"></i> <%= @content.name %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>

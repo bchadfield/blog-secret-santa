@@ -18,8 +18,8 @@ class FlashPresenter < SimpleDelegator
   private
 
   	def flash_html(msg)
-  		content_tag(:div, class: "alert alert-dismissable alert-#{match_flash_key(@key)}") do
-	 			button_tag("&times;".html_safe, class: "close", data: { dismiss: "alert" }, aria_hidden: "true") << msg
+  		content_tag(:div, class: "csw-alert csw-alert-dismissable csw-alert-#{match_flash_key(@key)}") do
+	 			content_tag(:a, "&times;".html_safe, class: "csw-close", data: { dismiss: "alert" }, aria_hidden: "true") << msg
 			end
   	end
 

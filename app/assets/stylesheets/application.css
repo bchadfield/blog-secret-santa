@@ -1,5 +1,7 @@
 /*
- *= require bootstrap.min
+ *= require base
+ *= require content-grid
  *= require styles
+ *= require content-styles
  *= require redactor-rails
  */

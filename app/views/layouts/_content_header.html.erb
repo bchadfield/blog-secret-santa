@@ -1,0 +1,11 @@
+<div class="csw-content-header">
+  <div class="csw-container-fluid">
+    <%= link_to "Blog Secret Santa", root_path, target: "_blank", class: "csw-logo" %>
+    <div class="csw-content-info">
+      <h2 class="csw-content-title"><%= @content.name %></h2>
+      <div class="csw-content-meta">
+        <span class="csw-content-pool"><%= link_to @pool.name, root_path %></span>
+      </div>
+    </div>
+  </div>
+</div>
