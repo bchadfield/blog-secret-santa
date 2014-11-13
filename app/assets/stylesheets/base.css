@@ -11,6 +11,7 @@ del { text-decoration: line-through; color: #dd0000; }
 ins { color: #009900; text-decoration: none; }
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0;}
 .csw-main-wrapper { position: relative; z-index: 0; padding-top: 20px; }
+.csw-pull-right { float: right; }
 .csw-form-horizontal.csw-form-group:before, 
 .csw-form-horizontal.csw-form-group:after,
 .csw-button-toolbar:before,
@@ -26,7 +27,7 @@ h1, h2, h3, h4, h5, h6 { font-family: inherit; font-weight: 500; line-height: 1.
 a { color: #428bca; text-decoration: none; }
 a:hover, a:focus { color: #2a6496; text-decoration: underline; }
 button, html input[type=button], input[type=reset], input[type=submit] { -webkit-appearance: button; cursor: pointer; }
-.csw-content-header .csw-logo {
+.csw-logo {
   float: left;
   display: block; 
   margin: 0.6125rem 0 0 0; 
@@ -35,8 +36,10 @@ button, html input[type=button], input[type=reset], input[type=submit] { -webkit
   color: #464646; 
   text-decoration: none;
 }
-.csw-content-header .csw-logo:hover { color: #686868; }
-.open header .csw-logo { float: none; }
+.csw-content-header .csw-logo:hover { color: #686868; text-decoration: none; }
+body.csw-open { background-color: #f3f3f4; }
+.csw-open header .csw-logo { float: none; text-align: center; font-size: 2rem; margin-bottom: 1rem; }
+.csw-open header .csw-logo:hover { color: #464646; text-decoration: none; }
 .csw-draft { background-color: #999; }
 .csw-in_review, .csw-review, .csw-reviewer { background-color: #f0ad4e; }
 .csw-reviewed, .csw-edit, .csw-editor { background-color: #428bca; }
@@ -68,6 +71,7 @@ button, html input[type=button], input[type=reset], input[type=submit] { -webkit
   border: 1px solid #57ad57;
   border-radius: 3px;
   line-height: 1.5;
+  cursor: pointer;
 }
 .csw-button:hover, .csw-button:focus { background-color: #57ad57; color: #fff; text-decoration: none; }
 .csw-button-small { font-size: 0.75rem; padding: 0.3125rem 0.625rem; }
@@ -181,7 +185,6 @@ select.csw-form-input {
 }
 .csw-hide{display:none!important}
 .csw-caret{display:inline-block;width:0;height:0;margin-left:2px;vertical-align:middle;border-top:4px solid;border-right:4px solid transparent;border-left:4px solid transparent}
-
 .csw-header-links { list-style:none; margin: 0; float: right; }
 .csw-header-links > li { float: left; display: block; position: relative; }
 .csw-header-links > li.csw-logged-in-user { float: right;  }
@@ -215,6 +218,7 @@ select.csw-form-input {
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
           box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
+.csw-dropdown-menu-right { left: auto; right: 0;}
 .csw-dropdown-menu .csw-divider { height: 1px; margin: 9px 0; overflow: hidden; background-color: #e5e5e5; }
 .csw-open > .csw-dropdown-menu { display: block; }
 .csw-open > a { outline: 0; }
@@ -260,6 +264,15 @@ select.csw-form-input {
 .csw-button-group > .csw-button-lg + .csw-dropdown-toggle { padding-right: 12px; padding-left: 12px; }
 .csw-button-group.open .csw-dropdown-toggle { -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125); box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125); }
 .csw-button-group.open .csw-dropdown-toggle.csw-button-link { -webkit-box-shadow: none; box-shadow: none;}
+.csw-social-button{position:relative;padding-left:3rem;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%;margin-bottom:1rem;}
+.csw-social-button>:first-child{position:absolute;left:0;top:0;bottom:0;width:2.25rem;line-height:2.25rem;font-size:1.25rem;text-align:center;border-right:1px solid rgba(0,0,0,0.2)}
+.csw-social-button-twitter{color:#fff;background-color:#55acee;border-color:rgba(0,0,0,0.2)}
+.csw-social-button-twitter:hover,.csw-social-button-twitter:focus,.csw-social-button-twitter:active{color:#fff;background-color:#2795e9;border-color:rgba(0,0,0,0.2)}
+.csw-social-button-facebook{color:#fff;background-color:#3b5998;border-color:rgba(0,0,0,0.2)}
+.csw-social-button-facebook:hover,.csw-social-button-facebook:focus,.csw-social-button-facebook:active{color:#fff;background-color:#2d4373;border-color:rgba(0,0,0,0.2)}
+.csw-social-buttons-two .csw-social-button { width: 50%; }
+.csw-login-option-text { position: relative; font-weight: bold; margin: 1rem 0; font-size: 0.875rem; color: #999; text-align: center; border-bottom:1px solid #ccc;}
+.csw-login-option-text p {position: absolute; top: -0.5rem; padding: 0 0.5rem; margin: 0; line-height: 1rem; background-color: #fff; left: 50%; margin-left: -3.1875em; }
 .csw-badge {
   display: inline-block;
   min-width: 10px;
@@ -309,6 +322,8 @@ textarea#comment_body { height: 6em; }
 .csw-highlighted-reference { background-color: #f9ff11; }
 .csw-avatar { width: 40px; height: 40px; border-radius: 20px; border: 3px solid #e3e3e4; }
 .csw-edit-avatar .csw-avatar { float: left; margin: 0 10px 0 0;}
+.csw-well { background-color: #fff; border-radius: 3px; padding: 20px 0;margin-bottom: 1rem; }
+.csw-open .csw-well { font-size: 0.875rem;}
 .fade{opacity:0;-webkit-transition:opacity .15s linear;transition:opacity .15s linear}
 .fade.in{opacity:1}
 .csw-tab-content .csw-tab-pane { display: none; }

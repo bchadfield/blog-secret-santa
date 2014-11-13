@@ -5,14 +5,10 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body class="open">
+<body class="csw-open">
 <header>
-  <div class="col-sm-5 centered">
-    <div class="brand">
-    	<%= link_to root_path, class: "logo" do %>
-    		<%= image_tag "logo-dark.png", alt: "CS Workflow logo" %>
-    	<% end %>
-    </div>
+  <div class="csw-brand">
+  	<%= link_to "Blog Secret Santa", root_path, class: "csw-logo" %>
   </div>
 </header>
 <%= render "layouts/flash" %>
