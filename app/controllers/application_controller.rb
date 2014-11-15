@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     end
 
   	def check_profile
-  		incomplete_profile_redirect if current_user && current_user.incomplete_profile?
+  		incomplete_profile_redirect if current_user && current_user.incomplete_profile? && !current_user.santa?
   	end
 
     def incomplete_profile_redirect
