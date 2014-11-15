@@ -1,12 +1,10 @@
-.csw-home-background { position: fixed; top: 0; left: 0; height: 100%; width: 100%; background: url(<%= asset_path 'reindeer-sled-vintage.jpg' %>) no-repeat 0 0; background-size: cover; z-index: -1; }
-body.csw-home .csw-content-header { position: fixed; top: 0; background: rgba(243,243,244,0); border: 0;}
-.csw-home-hero { position: relative; height: 100vh; padding: 20vh 0 3rem 0; text-align: center; color: #fff; }
-.csw-home-hero h1 { font-size: 4rem; margin: 1rem 0; background-color: rgba(200,0,0,0.4); display: inline-block;}
-.csw-home-hero h2 { background-color: rgba(52,144,52,0.4); display: inline-block; font-style: italic; font-size: 3rem; margin:0; }
-.csw-home-hero p.csw-sub-assist { background-color: rgba(0,0,0,0.4); display: inline-block; font-size: 1.5rem; margin-top: 4rem; }
-.csw-home-hero .csw-button { font-size: 1rem; padding: 0.75rem 2rem; margin: 3rem 0; }
-.csw-home-hero .csw-home-more { position: absolute; bottom: 0; width: 100%; text-align: center; }
-.csw-home-hero .csw-home-more .csw-icon-chevron-down { font-size: 3rem; line-height: 1.75rem; }
+body.csw-home .csw-content-header { background-color: #f3f3f4; }
+.csw-home-hero { text-align: center; color: #fff; }
+.csw-home-hero h1 { margin: 1rem 0; background-color: rgb(200,0,0); }
+.csw-home-hero h2 { background-color: rgb(52,144,52); font-style: italic; margin:0; }
+.csw-home-hero p.csw-sub-assist { background-color: #464646; }
+.csw-home-hero .csw-button { font-size: 1rem; padding: 0.75rem 2rem; margin: 0; }
+.csw-home-hero .csw-home-more { display: none; }
 .csw-home-section { margin-bottom: 3rem; }
 .csw-home-section > .row { background-color: #fff;}
 .csw-home-section-green { background-color: rgba(52,144,52,0.3); }
@@ -40,6 +38,15 @@ body.csw-home .csw-content-header { position: fixed; top: 0; background: rgba(24
 #countdown .clock { font-size: 1.25em; }
 #until-text { font-size: 1.25em; margin: 0 0.5rem 1rem 0; display: inline-block; }
 @media (min-width: 768px) {
-    #countdown { font-size: 1.25em; }
-    #countdown .clock, #until-text { font-size: 1.5em; }
+	.csw-home-background { position: fixed; top: 0; left: 0; height: 100%; width: 100%; background: url(<%= asset_path 'reindeer-sled-vintage.jpg' %>) no-repeat 0 0; background-size: cover; z-index: -1; }
+	body.csw-home .csw-content-header { position: fixed; top: 0; background: rgba(243,243,244,0); border: 0; }
+	.csw-home-hero { position: relative; height: 100vh; padding: 20vh 0 3rem 0;  }
+	.csw-home-hero h1 { background-color: rgba(200,0,0,0.4); font-size: 4rem; }
+	.csw-home-hero h2 { background-color: rgba(52,144,52,0.4); font-size: 3rem; }
+	.csw-home-hero p.csw-sub-assist { background-color: rgba(0,0,0,0.4); display: inline-block; font-size: 1.5rem; margin-top: 4rem; }
+	.csw-home-hero .csw-home-more { display: block; position: absolute; bottom: 0; width: 100%; text-align: center; }
+	.csw-home-hero .csw-home-more .csw-icon-chevron-down { font-size: 3rem; line-height: 1.75rem; }
+	.csw-home-hero .csw-button { margin: 3rem 0; }
+  #countdown { font-size: 1.25em; }
+  #countdown .clock, #until-text { font-size: 1.5em; }
 }

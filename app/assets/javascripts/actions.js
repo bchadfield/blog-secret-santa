@@ -6,24 +6,17 @@ $(document).ready(function() {
 
   $('.content-body').initSimplyCountable('.redactor_editor');
 
-  $('#toggle-content-body').on('click', function(e){
-    e.preventDefault();
-    $('.content-body.markedup').toggleClass('hide');
-    $('.content-body.plain').toggleClass('hide');
-    if($('#toggle-content-body .glyphicon').hasClass('glyphicon-check')){
-      $('#toggle-content-body .glyphicon').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
-    } else {
-      $('#toggle-content-body .glyphicon').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
-    }
-  });
-
-  if($('body.csw-home').length > 0) {
+  if($('body.csw-home').length > 0 && $('.csw-home-more').is(":visible") ) {
     $(window).scroll(function(){
       var st = $(this).scrollTop()
         , opacity = 0 + (st/$('.csw-home-hero').height());
       $('.csw-content-header').setBackgroundAlpha(opacity);
     });
   }
+
+  $('.csw-navbar-toggle').on('click', function(){
+    $('.csw-header-links').toggle();
+  });
 
 });
 
