@@ -7,6 +7,7 @@
 </div>
 <div class="row">
 	<div class="small-12 columns">
+	  <%= CountdownPresenter.new(@pool, self).render_countdown %>
 		<div class="user-summaries row">
       <div class="small-6 medium-3 columns">
         <%= link_to elves_path do %>
@@ -18,7 +19,7 @@
           </div>
         <% end %>
       </div>
-      <% %w(playing waiting_list unavailable).each do |status| %>
+      <% User.statuses(@pool.status).each do |status| %>
 	      <div class="small-6 medium-3 columns">
 	        <%= link_to elves_path(filter: status) do %>
 	          <div class="user-summary <%= status %>">
@@ -33,7 +34,7 @@
     </div>
 		<div class="row csw-item-rows users">
       <% @users.each do |user| %>
-      	<%= render "elves/users/user", user: user %>
+      	<%= render "elves/users/user", user: user, pool_status: @pool.status %>
       <% end %>
     </div>
 	</div>

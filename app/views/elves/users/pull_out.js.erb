@@ -1,0 +1,4 @@
+$('body').append('<%=j render 'layouts/modal' %>');
+$('#csw-modal-window').modal('show');
+$('.csw-modal-main-wrapper').html('<%=j render 'pull_out_form' %>');
+$('.csw-modal-title').html("Pull out <%= @user.name %>");

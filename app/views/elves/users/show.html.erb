@@ -1,42 +1,23 @@
 <% title @user.name %>
 
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="content center">
-				<h3><%= yield :heading %></h3>
+<div class="row">
+	<div class="small-12 columns">
+	<div class="csw-item-row user full <%= @user.playing_status(@user.pool.status) %>">
+		<h2><%= yield :heading %> is <span class="playing-status"><%= @user.playing_status(@user.pool.status).humanize %></span></h2>
+		<%= gravatar_for(@user) %>
+		<div class="csw-item-row-content csw-indent">
+			<div class="user-email"><%= @user.email %></div>
+			<div class="user-blog"><%= link_to @user.blog, @user.blog, target: "_blank" %></div>
+			<% unless @user.location.blank? %>
+				<div class="user-location"><span class="glyphicon glyphicon-map-marker"></span> <%= @user.location %></div>
+			<% end %>
+			<div class="csw-meta">
+				Joined <%= time_ago_in_words(@user.created_at) %> ago<br />
+				Last updated <%= time_ago_in_words(@user.updated_at) %> ago
 			</div>
-			<div class="content narrow">
-				<%= gravatar_for(@user) %>
-				<div class="user-details">
-					<div class="user-email"><%= @user.email %></div>
-					<div class="user-blog"><%= link_to @user.blog, @user.blog, target: "_blank" %></div>
-					<% unless @user.location.blank? %>
-						<div class="user-location"><span class="glyphicon glyphicon-map-marker"></span> <%= @user.location %></div>
-					<% end %>
-					<p>Available? <%= @user.available ? "Yes" : "No" %></p>
-				</div>
-				<% if @user.playing? %>
-					<p>
-						Does <%= @user.first_name %> want to pull out of this year's secret santa? You have two options.
-					</p>
-					<ol>
-						<li>Remove them. Whoever is writing for <%= @user.first_name %> will write for whoever <%= @user.first_name %> is writing for.</li>
-						<li>Replace them. Whoever is writing for <%= @user.first_name %> will write for the new person. The new person will write for whoever <%= @user.first_name %> is writing for. The new person can't already be matched up and needs to be on the waiting list.</li>
-					</ol>
-					<p>
-						<%= link_to "Remove", remove_elves_user_path(@user), method: :put, class: "btn btn-default", data: { confirm: "You're removing #{@user.name} from this year's secret santa. This can't be undone. Hit cancel if that's not what you want." } %>
-					</p>
-
-					<%= form_tag replace_elves_user_path(@user), method: :put, class: "form-inline" do %>
-						<div class="form-group">
-							<%= select_tag :replacement, options_for_select(User.waiting_list.collect{ |u| [u.name, u.token] }), prompt: "Select replacement", class: "form-control" %>
-						</div>
-						<%= submit_tag "Replace", class: "btn btn-default", data: { confirm: "You're replacing #{@user.name} for this year's secret santa. This can't be undone. Hit cancel if that's not what you want." } %>
-					<% end %>
-				<% end %>
-			</div>
-			<div>
+			<% if @user.playing? %>
+				<p><%= link_to "Pull out", pull_out_elves_user_path(@user), class: "csw-button csw-plain-button", data: { remote: true } %></p>
+			<% end %>
 		</div>
 	</div>
 </div>

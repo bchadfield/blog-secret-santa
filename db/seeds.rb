@@ -19,7 +19,7 @@ pool2 = Pool.find_by(subdomain: "second-pool")
 # 							{pool_id: pool2.id, name: "Jane", email: "jane@csworkflow.com", blog: "http://twitter.com/benchadfield"},
 # 							{pool_id: pool2.id, name: "Sara", email: "sara@csworkflow.com", blog: "http://twitter.com/benchadfield"}])
 Pool.update_all(status: 0)
-Pool.create_matches
+# Pool.create_matches
 
 # Pool.all.each do |pool|
 # 	users = User.where(pool: pool)

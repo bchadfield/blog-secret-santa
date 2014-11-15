@@ -1,5 +1,5 @@
 class Elves::UsersController < Elves::ElvesController
-  before_action :find_user_by_token, only: [:show, :edit, :update, :remove, :replace]
+  before_action :find_user_by_token, only: [:show, :edit, :update, :pull_out, :remove, :replace]
 
 	def show
 	end
@@ -20,6 +20,9 @@ class Elves::UsersController < Elves::ElvesController
         format.js
       end
     end
+  end
+
+  def pull_out
   end
 
   def remove

@@ -1,4 +1,4 @@
-<div class="small-12 medium-6 large-4 columns csw-item-row csw-hover user full <%= user.playing_status %>">
+<div class="small-12 medium-6 large-4 columns csw-item-row csw-hover user full <%= user.playing_status(pool_status) %>">
 	<%= link_to elves_user_path(user), class: "csw-avatar-link" do %>
 		<%= gravatar_for(user) %>
 	<% end %>
@@ -10,7 +10,7 @@
 			<div class="user-location"><i class="csw-icon csw-icon-map-marker"></i> <%= user.location %></div>
 		<% end %>
 		<div class="csw-meta">
-			<span class="playing-status"><%= user.playing_status.humanize %></span>
+			<span class="playing-status"><%= user.playing_status(pool_status).humanize %></span>
 		</div>
 	</div>
 </div>

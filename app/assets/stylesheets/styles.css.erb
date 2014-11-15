@@ -13,8 +13,10 @@ body.csw-home .csw-content-header { position: fixed; top: 0; background: rgba(24
 .csw-home-section-red { background-color: rgba(200,0,0,0.3); }
 .csw-home-content { padding-top: 2rem; padding-bottom: 3rem; }
 .csw-item-row .user-name { font-weight: bold; }
-.user.playing .playing-status { color: #5cb85c; }
-.user.playing .csw-avatar { border-color: #5cb85c;}
+.user.playing .playing-status,
+.user.available .playing-status { color: #5cb85c; }
+.user.playing .csw-avatar,
+.user.available .csw-avatar { border-color: #5cb85c;}
 .user.waiting .playing-status { color: #5bc0de; }
 .user.waiting .csw-avatar { border-color: #5bc0de; }
 .user.unavailable .playing-status { color: #f0ad4e; }
@@ -25,10 +27,19 @@ body.csw-home .csw-content-header { position: fixed; top: 0; background: rgba(24
 .user-summaries .user-summary { color: #f3f3f4; font-weight: 200; display: block; overflow: hidden; padding: 10px; margin-bottom: 5px}
 .user-summaries .user-summary.total, .label.total { color: #888; background-color: #fff; border: 1px solid #ccc; }
 .user-summaries .user-summary.total { padding: 10px 9px 8px 10px; }
-.user-summaries .user-summary.playing { background-color: #5cb85c; }
+.user-summaries .user-summary.playing,
+.user-summaries .user-summary.available { background-color: #5cb85c; }
 .user-summaries .user-summary.waiting_list { background-color: #5bc0de; }
 .user-summaries .user-summary.unavailable { background-color: #f0ad4e; }
 .user-summaries .user-count { font-size: 2.5em; display: block; padding-bottom: 5px; line-height: 1em; }
 .user-summaries .user-playing-status { font-size: 1.25em; line-height: 1em; }
 .user-summaries .user-playing-status .csw-icon { font-size: 0.9em; top: 0; }
 .user-summaries a:hover { text-decoration: none; }
+.user-summaries .columns:last-child { float: left; }
+#countdown { font-size: 1em; font-weight: 300; display: inline-block; }
+#countdown .clock { font-size: 1.25em; }
+#until-text { font-size: 1.25em; margin: 0 0.5rem 1rem 0; display: inline-block; }
+@media (min-width: 768px) {
+    #countdown { font-size: 1.25em; }
+    #countdown .clock, #until-text { font-size: 1.5em; }
+}

@@ -42,6 +42,14 @@ class User < ActiveRecord::Base
 		["available", "unavailable", "playing", "waiting_list"].include?(scope)
 	end
 
+	def self.statuses(pool_status)
+		if pool_status == "open"
+			%w(available unavailable)
+		elsif pool_status == "matched"
+			%w(playing waiting_list unavailable)
+		end
+	end
+
 	def available?
 		available && !incomplete_profile?
 	end
@@ -54,17 +62,25 @@ class User < ActiveRecord::Base
 		!giver_match && available?
 	end
 
-	def playing_status
-		if playing?
-			"playing"
-		elsif waiting?
-			"waiting"
-		elsif incomplete_profile?
-			"incomplete"
-		elsif !available?
-			"unavailable"
-		else
-			false
+	def playing_status(pool_status)
+		if pool_status == "open"
+			if available?
+				"available"
+			elsif incomplete_profile?
+				"incomplete"
+			elsif !available?
+				"unavailable"
+			end
+		elsif pool_status == "matched"
+			if playing?
+				"playing"
+			elsif waiting?
+				"waiting"
+			elsif incomplete_profile?
+				"incomplete"
+			elsif !available?
+				"unavailable"
+			end
 		end
 	end
 

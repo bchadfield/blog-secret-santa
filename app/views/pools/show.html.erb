@@ -1,4 +1,4 @@
-<% title current_tenant.name %>
+<% title "Welcome to the #{@pool.name} pool" %>
 
 <div class="row">
 	<div class="small-12 columns">
@@ -7,6 +7,8 @@
 </div>
 <div class="row">
 	<div class="small-12 columns">
+		<%= CountdownPresenter.new(@pool, self).render_countdown %>
+		<h3>Here are the good children</h3>
 		<div class="row csw-item-rows users">
       <% @users.each do |user| %>
     		<%= render "users/user", user: user, display_email: false %>

@@ -1,0 +1,26 @@
+			<div class="csw-modal-body">	
+				<p>
+					Does <%= @user.first_name %> want to pull out of this year's secret santa? You have two options.
+				</p>
+				<ol>
+					<li>
+						Remove them. Whoever is writing for <%= @user.first_name %> will write for whoever <%= @user.first_name %> is writing for.<br />
+					<%= link_to "Remove", remove_elves_user_path(@user), method: :put, class: "csw-button csw-plain-button", data: { confirm: "You're removing #{@user.name} from this year's secret santa. This can't be undone. Hit cancel if that's not what you want." } %>
+				</p>
+
+					</li>
+					<li>Replace them. Whoever is writing for <%= @user.first_name %> will write for the new person. The new person will write for whoever <%= @user.first_name %> is writing for. The new person can't already be matched up and needs to be on the waiting list.<br />
+
+						<%= form_tag replace_elves_user_path(@user), method: :put do %>
+					<div class="csw-form-group">
+						<%= select_tag :replacement, options_for_select(User.waiting_list.collect{ |u| [u.name, u.token] }), prompt: "Select replacement", class: "csw-form-input" %>
+						
+					</div>
+					<%= submit_tag "Replace", class: "csw-button csw-plain-button", data: { confirm: "You're replacing #{@user.name} for this year's secret santa. This can't be undone. Hit cancel if that's not what you want." } %>
+				<% end %>
+					</li>
+				</ol>
+				
+
+				
+			</div>

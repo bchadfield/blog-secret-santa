@@ -41,6 +41,7 @@ Secretsanta::Application.routes.draw do
         member do
           put "remove"
           put "replace"
+          get "pull_out"
         end
       end
     end

@@ -1,13 +1,11 @@
 class CountdownPresenter < SimpleDelegator
-  attr_reader :draw
-
-  def initialize(draw, view)
+  def initialize(pool, view)
     super(view)
-    @pool = draw
+    @pool = pool
   end
 
   def render_countdown
-  	render_counter << content_tag(:p, until_text, id: "until-text")
+  	content_tag(:p, until_text, id: "until-text") << render_counter
   end
 
   private
@@ -27,9 +25,9 @@ class CountdownPresenter < SimpleDelegator
   	def until_text
   		case @pool.status
   		when "open"
-  			"until Secret Santa matches are drawn."
+  			"Secret Santa matches are drawn in"
   		when "matched"
-  			"until blog gifts are given."
+  			"Gifts are given in"
       when "closed"
         "Read all the #{link_to 'gift blogs', draw_content_index_path(@pool.year)} for the last draw.".html_safe
   		end

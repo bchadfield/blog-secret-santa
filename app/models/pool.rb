@@ -7,7 +7,7 @@ class Pool < ActiveRecord::Base
 
 	enum status: { open: 0, matched: 1, gifted: 2, closed: 3, retired: 4 }
 
-	MATCH_TIME = Time.utc(Time.now.year, 11, 10)
+	MATCH_TIME = Time.utc(Time.now.year, 12, 05)
 	GIFT_TIME = Time.utc(Time.now.year, 12, 25)
 
 	validates :name, presence: true
