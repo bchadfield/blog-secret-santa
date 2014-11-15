@@ -1,13 +1,10 @@
-<li>
+<div class="small-12 medium-6 large-4 columns csw-item-row csw-hover user">
 	<%= gravatar_for(user) %>
-	<div class="user-details">
+	<div class="csw-item-row-content csw-indent">
 		<div class="user-name"><%= user.name %></div>
-		<% if display_email %>
-			<div class="user-email"><%= user.email %></div>
-		<% end %>
-		<div class="user-blog"><%= link_to user.blog, user.blog, target: "_blank" %></div>
+		<div class="user-blog"><%= link_to host_only(user.blog), user.blog, target: "_blank" %></div>
 		<% unless user.location.blank? %>
-			<div class="user-location"><span class="glyphicon glyphicon-map-marker"></span> <%= user.location %></div>
+			<div class="user-location"><i class="csw-icon csw-icon-map-marker"></i> <%= user.location %></div>
 		<% end %>
 	</div>
-</li>
+</div>

@@ -1,51 +1,50 @@
 <% title @user.incomplete_profile? ? "Complete your profile" : "Your profile" %>
 
-<div class="container">
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="small-12 columns">
 			<h1><%= yield :heading %></h1>
 			<% unless @user.email.blank? %>
-				<div class="edit-gravatar">
+				<div class="csw-edit-avatar">
 	        <%= gravatar_for(@user) %>
 	        <p>Your image is based on the email address used for your profile. You can change or add an image for free at <a href="http://gravatar.com" target="_blank">gravatar.com</a>.</p>
 	      </div>
 	    <% end %>
 			<%= form_for @user do |f| %>
 				<fieldset>
-					<div class="form-group">
-						<%= f.label :pool_id, "Blog pool" %>
+					<div class="csw-form-group">
 						<% if @user.incomplete_profile? %>
-							<%= f.select :pool_id, Pool.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select your pool'}, class: "form-control" %>
+							<%= f.label :pool_id, "Blog pool", class: "csw-input-label" %>
+							<%= f.select :pool_id, Pool.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select your pool'}, class: "csw-form-input" %>
 						<% else %>
-							<p><%= link_to @user.pool.name, pool_url(subdomain: @user.pool.subdomain) %></p>
+							<strong>Your pool:</strong>
+							<%= link_to @user.pool.name, pool_url(subdomain: @user.pool.subdomain) %>
 						<% end %>
 					</div>
-					<div class="form-group">
-						<%= f.label :name %>
-						<%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+					<div class="csw-form-group">
+						<%= f.label :name, class: "csw-input-label" %>
+						<%= f.text_field :name, class: "csw-form-input", placeholder: "Name" %>
 					</div>
-					<div class="form-group">
-						<%= f.label :email %>
-						<%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+					<div class="csw-form-group">
+						<%= f.label :email, class: "csw-input-label" %>
+						<%= f.email_field :email, class: "csw-form-input", placeholder: "Email" %>
 					</div>
-					<div class="form-group">
-						<%= f.label :blog, "Blog URL" %>
-						<%= f.url_field :blog, class: "form-control", placeholder: "Blog" %>
+					<div class="csw-form-group">
+						<%= f.label :blog, "Blog URL", class: "csw-input-label" %>
+						<%= f.url_field :blog, class: "csw-form-input", placeholder: "Blog" %>
 					</div>
-					<div class="form-group">
-						<%= f.label :location, "Location (optional)" %>
-						<%= f.text_field :location, class: "form-control", placeholder: "Location" %>
+					<div class="csw-form-group">
+						<%= f.label :location, "Location (optional)", class: "csw-input-label" %>
+						<%= f.text_field :location, class: "csw-form-input", placeholder: "Location" %>
 					</div>
-					<div class="checkbox">
+					<div class="csw-form-group checkbox">
 						<%= f.label :available do %>
 							<%= f.check_box :available %> Are you available for Secret Santa?
 						<% end %>
 					</div>
-					<div class="form-group">
-						<%= f.submit "Save", class: "btn btn-success" %>
+					<div class="csw-form-group">
+						<%= f.submit "Save", class: "csw-button" %>
 					</div>
 				</fieldset>
 			<% end %>
 		</div>
 	</div>
-</div>

@@ -4,14 +4,14 @@
 	<div class="medium-6 medium-centered columns csw-well">
 		<div class="row csw-social-button-group">
 			<div class="medium-6 columns">
-				<a class="csw-button csw-social-button csw-social-button-twitter">
+				<%= link_to omniauth_authorize_path(resource_name, "twitter"), class: "csw-button csw-social-button csw-social-button-twitter" do %>
 			    <i class="csw-icon csw-icon-twitter"></i> Log in with Twitter
-			  </a>
+			  <% end %>
 			</div>
 			<div class="medium-6 columns">
-			  <a class="csw-button csw-social-button csw-social-button-facebook">
+			  <%= link_to omniauth_authorize_path(resource_name, "facebook"), class: "csw-button csw-social-button csw-social-button-facebook" do %>
 			    <i class="csw-icon csw-icon-facebook"></i> Log in with Facebook
-			  </a>
+			  <% end %>
 			</div>
 		</div>
 		<div class="csw-login-option-text"><p>or log in with</p></div>

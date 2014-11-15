@@ -6,8 +6,10 @@ class User < ActiveRecord::Base
 	include Tokenfindable
 	include Tenantable
 
-	scope :available, -> { where(available: true).where.not(email: nil) }
-	scope :waiting_list, -> { available.joins("LEFT JOIN matches ON users.id = matches.receiver_id OR users.id = matches.giver_id").where("matches.receiver_id IS NULL OR matches.giver_id IS NULL") }
+	scope :available, -> { where(available: true).where.not(email: nil, blog: nil, name: nil) }
+	scope :unavailable, -> { where("available != true OR email IS NULL OR blog IS NULL OR name IS NULL") }
+	scope :playing, -> { available.joins(:receiver_match) }
+	scope :waiting_list, -> { available.joins("LEFT OUTER JOIN matches ON users.id = matches.receiver_id OR users.id = matches.giver_id").where("matches.receiver_id IS NULL OR matches.giver_id IS NULL") }
 
 	before_create :set_defaults
 
@@ -36,12 +38,34 @@ class User < ActiveRecord::Base
 	  end
 	end
 
+	def self.valid_scope?(scope)
+		["available", "unavailable", "playing", "waiting_list"].include?(scope)
+	end
+
 	def available?
 		available && !incomplete_profile?
 	end
 
 	def playing?
-		giver_match && receiver_match && available?
+		giver_match && available?
+	end
+
+	def waiting?
+		!giver_match && available?
+	end
+
+	def playing_status
+		if playing?
+			"playing"
+		elsif waiting?
+			"waiting"
+		elsif incomplete_profile?
+			"incomplete"
+		elsif !available?
+			"unavailable"
+		else
+			false
+		end
 	end
 
 	def first_name

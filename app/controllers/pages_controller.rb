@@ -4,4 +4,9 @@ class PagesController < ApplicationController
 	def about
 		@pool = Pool.first
 	end
+
+	def home
+		render layout: "home"
+	end
+
 end

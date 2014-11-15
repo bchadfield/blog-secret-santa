@@ -11,9 +11,8 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="csw-home">
 <%= render "layouts/header" %>
-<%= render "layouts/flash" %>
 <%= yield %>
 <% if Rails.env.production? %>
 	<%= render "layouts/google_analytics"  %>
