@@ -1,4 +1,4 @@
-every "0 0 10 11 *" do
+every "0 0 05 12 *" do
   runner "Draw.create_matches"
 end
 
