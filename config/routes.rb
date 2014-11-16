@@ -9,8 +9,10 @@ Secretsanta::Application.routes.draw do
   get "/about", to: "pages#about", as: :about
   get "/tips", to: "pages#tips", as: :tips
   get "/2013", to: "pages#blog_roll", as: :blog_roll
-  get "/run_pool", to: "pages#run_pool", as: :run_pool
-  get "/pools", to: "pages#pools", as: :pools_page
+  get "/run_group", to: "pages#run_group", as: :run_group
+  get "/groups", to: "pages#groups", as: :groups_page
+
+  put "/enquiry", to: "pools#enquiry", as: :enquiry_pool
 
   
   constraints subdomain: "santa" do

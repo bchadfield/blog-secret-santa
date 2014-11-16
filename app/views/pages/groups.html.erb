@@ -1,0 +1,58 @@
+<% title "Which Blog Secret Santa group is for you?" %>
+
+<div class="csw-main-wrapper row">
+  <div class="medium-8 medium-centered columns">
+	  <h1><%= yield :heading %></h1>
+
+		<p>
+			Blog Secret Santa is split into separate groups to make sure that you write your gift for (and receive a gift from) someone who blogs about the same sort of stuff as you.
+		</p>
+		<p>
+			Looking for a group that's not open yet? <%= link_to "Find out about running your own group.", run_group_path %>
+		</p>
+		<h2>
+			Web content strategy
+		</h2>
+		<p>
+			 <strong>Pick this group if you blog about:</strong> The art, science and slog of getting good content online. Content strategy, web writing, content marketing, or something in between.
+		</p>
+		<p>
+			 <strong>Elf for this group:</strong> Max Johns (<a href="http://twitter.com/mxdej" target="_blank">@mxdej</a>)
+		</p>
+		<p>
+			<%= link_to "Join this group", signup_url(subdomain: "contentstrategy") %>
+		</p>
+		<h2>
+			The future of work
+		</h2>
+		<p>
+			 <strong>Pick this group if you blog about:</strong>Workplace culture, ways of working, working out loud, changing companies, modern leadership...
+		</p>
+		<p>
+			 <strong>Elf for this group:</strong> Simon Terry (<a href="http://twitter.com/simongterry" target="_blank">@simongterry</a>)
+		</p>
+		<p>
+			 <%= link_to "Join this group", signup_url(subdomain: "futureofwork") %>
+		</p>
+		</p>
+		<h2>
+			Learning and Development (L&amp;D)
+		</h2>
+		<p>
+			 <strong>Pick this group if you blog about:</strong>Workplace learning, personal development, social learning...
+		</p>
+		<p>
+			 <strong>Elf for this group:</strong> Helen Blunden (<a href="http://twitter.com/ActivateLearn" target="_blank">@ActivateLearn</a>)
+		</p>
+
+		<p>
+			 <%= link_to "Join this group", signup_url(subdomain: "l-and-d") %>
+		</p>
+		<h2>
+			Looking for a group that's not open yet?
+		</h2>
+		<p>
+			<%= link_to "Find out about running your own group.", run_group_path %>
+		</p>
+	</div>
+</div>

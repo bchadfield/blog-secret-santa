@@ -1,0 +1,9 @@
+$('.enquiry-form').remove();
+$('body').append('<%=j render 'layouts/modal' %>');
+$('#csw-modal-window').modal('show');
+$('.csw-modal-main-wrapper').html("<div class='csw-modal-body'>"
+                                  + "<i class='csw-icon csw-icon-thumbs-up csw-font-green csw-icon-giant'></i>"
+                                  + "<h2 class='csw-finished-heading'>Nice! We've let Santa know you're interested.</h2>"
+                                  + "<p>He'll get in touch soon about the <%= params[:group] %> group. You can close this window and get back to your day.</p>"
+                                  + "</div>");
+$('.csw-modal-title').html("&nbsp;");

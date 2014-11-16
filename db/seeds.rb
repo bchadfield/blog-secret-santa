@@ -1,9 +1,9 @@
 # Pool.delete_all
 # User.delete_all
-Match.delete_all
+# Match.delete_all
 
-pool1 = Pool.find_by(subdomain: "first-pool")
-pool2 = Pool.find_by(subdomain: "second-pool")
+# pool1 = Pool.find_by(subdomain: "first-pool")
+# pool2 = Pool.find_by(subdomain: "second-pool")
 # pool1 = Pool.create(name: "First pool", subdomain: "first-pool")
 # pool2 = Pool.create(name: "Second pool", subdomain: "second-pool")
 # User.create([{pool_id: pool1.id, name: "Bill", email: "bill@csworkflow.com", blog: "http://twitter.com/benchadfield"},
@@ -18,7 +18,7 @@ pool2 = Pool.find_by(subdomain: "second-pool")
 # 							{pool_id: pool2.id, name: "Jill", email: "jill@csworkflow.com", blog: "http://twitter.com/benchadfield"},
 # 							{pool_id: pool2.id, name: "Jane", email: "jane@csworkflow.com", blog: "http://twitter.com/benchadfield"},
 # 							{pool_id: pool2.id, name: "Sara", email: "sara@csworkflow.com", blog: "http://twitter.com/benchadfield"}])
-Pool.update_all(status: 0)
+# Pool.update_all(status: 0)
 # Pool.create_matches
 
 # Pool.all.each do |pool|

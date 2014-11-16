@@ -12,7 +12,7 @@ module ApplicationHelper
   def gravatar_for(user)
     if user.email
       gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-      gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=48&d=monsterid"
+      gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=48&d=mm"
     else
       gravatar_url = "https://secure.gravatar.com/avatar/0000000000?s=48&d=mm"
     end
@@ -22,6 +22,8 @@ module ApplicationHelper
   def host_only(url)
     uri = URI(url)
     uri.host
+  rescue URI::InvalidURIError
+    nil
   end
 
   def prepare_snippet(body)

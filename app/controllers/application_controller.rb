@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     if user.pool
       root_url(subdomain: user.pool.subdomain)
+    elsif user.santa?
+      root_url(subdomain: "santa")
     else
       edit_user_path(user)
     end

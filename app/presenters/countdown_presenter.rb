@@ -29,7 +29,7 @@ class CountdownPresenter < SimpleDelegator
   		when "matched"
   			"Gifts are given in"
       when "closed"
-        "Read all the #{link_to 'gift blogs', draw_content_index_path(@pool.year)} for the last draw.".html_safe
+        "TO BE SET"
   		end
   	end
 end

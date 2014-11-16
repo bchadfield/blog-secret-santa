@@ -2,10 +2,9 @@ class UserMailer < ActionMailer::Base
   layout "email"
   default from: "\"Blog Secret Santa\" <santa@blogsecretsanta.com>"
 
-  def signup_info(user)
+  def welcome(user)
     @user = user
-    @subject = "Thanks for joining Blog Secret Santa"
-    mail to: @user.email, subject: @subject
+    mail to: @user.email, subject: "Thanks for joining Blog Secret Santa"
   end
 
   def match_notification(giver, receiver)

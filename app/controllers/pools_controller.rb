@@ -22,6 +22,10 @@ class PoolsController < ApplicationController
   def update
   end
 
+  def enquiry
+    PoolMailer.enquiry(params[:group], params[:email]).deliver
+  end
+
   private
 
     def set_pool

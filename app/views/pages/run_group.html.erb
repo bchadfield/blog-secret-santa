@@ -1,0 +1,46 @@
+<% title "Open a new Blog Secret Santa group" %>
+
+<div class="csw-main-wrapper row">
+  <div class="medium-8 medium-centered columns">
+	  <h1><%= yield :heading %></h1>
+		<h2>
+			Make it a merry Christmas for your kind of people
+		</h2>
+		<p>
+			All you need to play Blog Secret Santa is a group of like-minded bloggers - people who blog about the same sort of stuff. We can open up new groups right up until 5 December. <span style="text-decoration: underline;">See all open groups</span>.
+		</p>
+		<p>
+			If you have a blog topic or area of interest that isn't already open, you could be the one to open up a new group. You'll take on the proud name of Group Elf, and we'll get your game up and running.
+		</p>
+		<h2>
+			What Group Elves do
+		</h2>
+		<p>
+			Your biggest job is finding and recruiting players for your group. The more people you get to <%= link_to "register", signup_path %>, the better.
+		</p>
+		<p>
+			 On 5 December we close registrations and take care of all the technical stuff, starting with the gift draw that works out who each of your players will write a gift for. We email everyone to let them know, too.
+		</p>
+		<p>
+			As Group Elf, you'll be available for players to ask you questions. We can always help out, too.
+		</p>
+		<p>
+			Everyone submits their gift posts here on the Blog Secret Santa site - you might need to encourage a few late runners - and we take care of handing them out on Christmas Day. You get to see everyone enjoy their gift posts, and take the credit for making it all happen.
+		</p>
+		<h2>
+			Sound good? Get in touch.
+		</h2>
+
+		<%= form_tag enquiry_pool_path, method: :put, class: "enquiry-form", remote: true do %>
+			<div class="csw-form-group">
+				<%= label_tag "group", "I want to run a game for people who blog about", class: "csw-input-label" %>
+			 	<%= text_field_tag "group", nil, class: "csw-form-input", placeholder: "E.g. UX, video games, coin collecting, football" %>
+			</div>
+			<div class="csw-form-group">
+				<%= label_tag "email", "My email address is", class: "csw-input-label" %>
+			 	<%= text_field_tag "email", nil, class: "csw-form-input" %>
+			</div>
+			<%= submit_tag "Let's do it", class: "csw-button" %>
+		<% end %>
+	</div>
+</div>

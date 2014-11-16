@@ -10,7 +10,7 @@ body { margin: 0; padding: 0; font-family: "Helvetica Neue",Helvetica,Arial,sans
 del { text-decoration: line-through; color: #dd0000; }
 ins { color: #009900; text-decoration: none; }
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0;}
-.csw-main-wrapper { position: relative; z-index: 0; padding-top: 20px; }
+.csw-main-wrapper { position: relative; z-index: 0; padding: 2rem 0 4rem 0; }
 .csw-pull-right { float: right; }
 .csw-form-horizontal.csw-form-group:before, 
 .csw-form-horizontal.csw-form-group:after,

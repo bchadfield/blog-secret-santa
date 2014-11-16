@@ -18,6 +18,10 @@ $(document).ready(function() {
     $('.csw-header-links').toggle();
   });
 
+  $('.enquiry-form .csw-button').on('click', function(){
+    $(this).val('Sending...');
+  })
+
 });
 
 $.fn.setBackgroundAlpha = function(opacity) {
