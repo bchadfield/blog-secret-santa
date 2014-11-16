@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, :authorize, :check_profile
 
   def after_sign_in_path_for(user)
-    if user.pool
-      root_url(subdomain: user.pool.subdomain)
+    if user.group
+      root_url(subdomain: user.group.subdomain)
     elsif user.santa?
       root_url(subdomain: "santa")
     else
@@ -22,25 +22,25 @@ class ApplicationController < ActionController::Base
   private
   
     def current_tenant
-      @current_tenant ||= Pool.find_by(subdomain: request.subdomain)
+      @current_tenant ||= Group.find_by(subdomain: request.subdomain)
     end
     helper_method :current_tenant
     
     def scope_current_tenant
-      Pool.current_id = current_tenant ? current_tenant.id : nil
+      Group.current_id = current_tenant ? current_tenant.id : nil
       yield
     ensure
-      Pool.current_id = nil
+      Group.current_id = nil
     end
 
     def authorize
-      unless correct_pool?
-        redirect_to root_url(subdomain: false), notice: "You only have access to the pool you signed up for"
+      unless correct_group?
+        redirect_to root_url(subdomain: false), notice: "You only have access to the group you signed up for"
       end
     end
 
-    def correct_pool?
-      current_user && current_tenant ? current_user.pool_id == current_tenant.id : true
+    def correct_group?
+      current_user && current_tenant ? current_user.group_id == current_tenant.id : true
     end
 
   	def check_profile

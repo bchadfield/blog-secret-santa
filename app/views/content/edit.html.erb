@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="content">
-        <% if @pool.matched? %>
+        <% if @group.matched? %>
           <p>You can work on your gift post here as much as you want between now and Christmas Eve. Click the 'Save' icon before you exit and your post will be here waiting for you next time you log in. On Christmas Eve we'll take your saved post and send it to its lucky recipient.</p>
         <% end %>
         <%= form_for @content, remote: true do |f| %>
@@ -40,7 +40,7 @@
                 <% end %>
               </div>
             </div>
-            <% if @pool.closed? %>
+            <% if @group.closed? %>
               <div class="row">
                 <div class="col-xs-12 form-group">
                   You've missed being part of my delivery, but can send your gift when you're ready 

@@ -1,17 +1,17 @@
-<% title "List of pools" %>
+<% title "List of groups" %>
 
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
 			<div class="content">
 				<h1><%= yield :heading %></h1>
-				<%= link_to "New pool", new_pool_path, class: "btn btn-default" %>
+				<%= link_to "New group", new_group_path, class: "btn btn-default" %>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-    <% @pools.each do |pool| %>
-    	<%= render "pool", pool: pool %>
+    <% @groups.each do |group| %>
+    	<%= render "group", group: group %>
     <% end %>
   </div>
 </div>

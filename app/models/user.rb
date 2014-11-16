@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
 	validates :name, presence: true, on: :update
 	validates :blog, presence: true, on: :update
-	validates :pool_id, presence: true, on: :update
+	validates :group_id, presence: true, on: :update
 	validates :email, presence: true, on: :update
 
 	enum role: { blogger: 0, elf: 1, santa: 2 }
@@ -42,10 +42,10 @@ class User < ActiveRecord::Base
 		["available", "unavailable", "playing", "waiting_list"].include?(scope)
 	end
 
-	def self.statuses(pool_status)
-		if pool_status == "open"
+	def self.statuses(group_status)
+		if group_status == "open"
 			%w(available unavailable)
-		elsif pool_status == "matched"
+		elsif group_status == "matched"
 			%w(playing waiting_list unavailable)
 		end
 	end
@@ -62,8 +62,8 @@ class User < ActiveRecord::Base
 		!giver_match && available?
 	end
 
-	def playing_status(pool_status)
-		if pool_status == "open"
+	def playing_status(group_status)
+		if group_status == "open"
 			if available?
 				"available"
 			elsif incomplete_profile?
@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
 			elsif !available?
 				"unavailable"
 			end
-		elsif pool_status == "matched"
+		elsif group_status == "matched"
 			if playing?
 				"playing"
 			elsif waiting?
@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
   end
 
   def incomplete_profile?
-  	!(email && blog && name && pool_id)
+  	!(email && blog && name && group_id)
   end
 
   # def giver

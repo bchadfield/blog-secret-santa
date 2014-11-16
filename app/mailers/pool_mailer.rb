@@ -1,4 +1,4 @@
-class PoolMailer < ActionMailer::Base
+class GroupMailer < ActionMailer::Base
   default from: "\"Blog Secret Santa\" <santa@blogsecretsanta.com>"
 
   def enquiry(group, email)

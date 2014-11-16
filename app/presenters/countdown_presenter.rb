@@ -1,7 +1,7 @@
 class CountdownPresenter < SimpleDelegator
-  def initialize(pool, view)
+  def initialize(group, view)
     super(view)
-    @pool = pool
+    @group = group
   end
 
   def render_countdown
@@ -11,10 +11,10 @@ class CountdownPresenter < SimpleDelegator
   private
 
   	def render_counter
-  		if @pool.draw_time.future?
-  			content_tag(:div, nil, id: "countdown", data: { until: "#{@pool.draw_time.strftime('%Y/%m/%d %H:%M %Z')}" })
+  		if @group.draw_time.future?
+  			content_tag(:div, nil, id: "countdown", data: { until: "#{@group.draw_time.strftime('%Y/%m/%d %H:%M %Z')}" })
   		else
-  			if @pool.status == "closed"
+  			if @group.status == "closed"
   				content_tag(:div, "We're all done. Sign up now for next time.", id: "countdown")
   			else
   				content_tag(:div, "Drawing now...", id: "countdown")
@@ -23,7 +23,7 @@ class CountdownPresenter < SimpleDelegator
   	end
 
   	def until_text
-  		case @pool.status
+  		case @group.status
   		when "open"
   			"Secret Santa matches are drawn in"
   		when "matched"

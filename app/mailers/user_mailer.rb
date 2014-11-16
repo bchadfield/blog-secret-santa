@@ -14,10 +14,10 @@ class UserMailer < ActionMailer::Base
     mail to: @giver.email, subject: @subject
   end
   
-  def send_gift(user, content, draw)
+  def send_gift(user, content, group)
     @user = user
     @content = content
-    @pool = draw
+    @group = group
     @subject = "Your Blog Secret Santa gift"
     mail to: @user.email, subject: @subject
   end
@@ -44,14 +44,14 @@ class UserMailer < ActionMailer::Base
     mail to: @user.email, subject: @subject
   end
 
-  def made_elf(user, pool)
+  def made_elf(user, group)
     @user = user
-    @pool = pool
-    mail to: @user.email, subject: "You're now an elf for the #{@pool.name} Blog Secret Santa pool"
+    @group = group
+    mail to: @user.email, subject: "You're now an elf for the #{@group.name} Blog Secret Santa group"
   end
 
-  def invited_elf(email, pool)
-    @pool = pool
-    mail to: email, subject: "You're invited to be an elf for the #{@pool.name} Blog Secret Santa pool"
+  def invited_elf(email, group)
+    @group = group
+    mail to: email, subject: "You're invited to be an elf for the #{@group.name} Blog Secret Santa group"
   end
 end

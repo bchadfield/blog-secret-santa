@@ -5,6 +5,6 @@ class Match < ActiveRecord::Base
 	belongs_to :receiver, class_name: "User"
 	has_one :content
 
-	validates :pool_id, presence: true
+	validates :group_id, presence: true
 	
 end

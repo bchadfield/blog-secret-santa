@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   	if @user.update_attributes(user_params)
       flash[:success] = "Updated without a hitch!"
       UserMailer.welcome(@user).deliver if incomplete
-  		redirect_to edit_user_url(@user, subdomain: @user.pool.subdomain)
+  		redirect_to edit_user_url(@user, subdomain: @user.group.subdomain)
   	else
       flash[:error] = @user.errors.full_messages
   		render "edit"
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   private
 
   	def user_params
-  		params.require(:user).permit(:name, :email, :blog, :available, :pool_id, :location)
+  		params.require(:user).permit(:name, :email, :blog, :available, :group_id, :location)
   	end
 
     def find_user

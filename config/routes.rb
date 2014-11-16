@@ -12,13 +12,13 @@ Secretsanta::Application.routes.draw do
   get "/run_group", to: "pages#run_group", as: :run_group
   get "/groups", to: "pages#groups", as: :groups_page
 
-  put "/enquiry", to: "pools#enquiry", as: :enquiry_pool
+  put "/enquiry", to: "groups#enquiry", as: :enquiry_group
 
   
   constraints subdomain: "santa" do
     scope module: "santa" do
-      get "/", to: "pools#index", as: "santa_root"
-      resources :pools do
+      get "/", to: "groups#index", as: "santa_root"
+      resources :groups do
         resources :content, :matches
         resources :users do
           collection do
@@ -31,7 +31,7 @@ Secretsanta::Application.routes.draw do
   end
 
   constraints subdomain: /[a-zA-Z\-]+/ do
-    get "/", to: "pools#show"
+    get "/", to: "groups#show"
     resources :content, path: "gifts", only: [:new, :show, :edit, :update, :index] do
       member do
         put "edit", to: "content#update"
@@ -39,7 +39,7 @@ Secretsanta::Application.routes.draw do
       end
     end
 
-    get "elves", to: "elves/pools#show"
+    get "elves", to: "elves/groups#show"
     namespace :elves do
       resources :matches, :content, only: [:index, :show, :edit, :update]
       resources :users do

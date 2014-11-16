@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017094021) do
+ActiveRecord::Schema.define(version: 20141116213240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "content", force: true do |t|
-    t.integer  "pool_id"
+    t.integer  "group_id"
     t.integer  "match_id"
     t.string   "token"
     t.string   "title"
@@ -28,22 +28,10 @@ ActiveRecord::Schema.define(version: 20141017094021) do
     t.datetime "updated_at"
   end
 
+  add_index "content", ["group_id"], name: "index_content_on_group_id", using: :btree
   add_index "content", ["match_id"], name: "index_content_on_match_id", using: :btree
-  add_index "content", ["pool_id"], name: "index_content_on_pool_id", using: :btree
 
-  create_table "matches", force: true do |t|
-    t.integer  "pool_id"
-    t.integer  "giver_id"
-    t.integer  "receiver_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "matches", ["giver_id"], name: "index_matches_on_giver_id", using: :btree
-  add_index "matches", ["pool_id"], name: "index_matches_on_pool_id", using: :btree
-  add_index "matches", ["receiver_id"], name: "index_matches_on_receiver_id", using: :btree
-
-  create_table "pools", force: true do |t|
+  create_table "groups", force: true do |t|
     t.string   "token"
     t.string   "name"
     t.string   "subdomain"
@@ -52,8 +40,20 @@ ActiveRecord::Schema.define(version: 20141017094021) do
     t.datetime "updated_at"
   end
 
+  create_table "matches", force: true do |t|
+    t.integer  "group_id"
+    t.integer  "giver_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "matches", ["giver_id"], name: "index_matches_on_giver_id", using: :btree
+  add_index "matches", ["group_id"], name: "index_matches_on_group_id", using: :btree
+  add_index "matches", ["receiver_id"], name: "index_matches_on_receiver_id", using: :btree
+
   create_table "users", force: true do |t|
-    t.integer  "pool_id"
+    t.integer  "group_id"
     t.string   "token"
     t.string   "name"
     t.string   "provider"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20141017094021) do
     t.datetime "remember_created_at"
   end
 
-  add_index "users", ["pool_id"], name: "index_users_on_pool_id", using: :btree
+  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
   add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

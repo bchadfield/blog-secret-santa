@@ -2,8 +2,8 @@
 
 <div class="row">
 	<div class="small-12 columns">
-	<div class="csw-item-row user full <%= @user.playing_status(@user.pool.status) %>">
-		<h2><%= yield :heading %> is <span class="playing-status"><%= @user.playing_status(@user.pool.status).humanize %></span></h2>
+	<div class="csw-item-row user full <%= @user.playing_status(@user.group.status) %>">
+		<h2><%= yield :heading %> is <span class="playing-status"><%= @user.playing_status(@user.group.status).humanize %></span></h2>
 		<%= gravatar_for(@user) %>
 		<div class="csw-item-row-content csw-indent">
 			<div class="user-email"><%= @user.email %></div>

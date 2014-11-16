@@ -9,11 +9,11 @@
     <%= link_to "Blog Secret Santa", root_path, class: "csw-logo" %>
     <ul class="csw-header-links">
       <% if user_signed_in? %>
-        <% if current_user.pool %>
-          <li><%= link_to current_user.pool.name, root_url(subdomain: current_user.pool.subdomain) %></li>
+        <% if current_user.group %>
+          <li><%= link_to current_user.group.name, root_url(subdomain: current_user.group.subdomain) %></li>
         <% end %>
         <% if current_user.elf? %>
-          <li><%= link_to "Elf area", elves_url(subdomain: current_user.pool.subdomain) %></li>
+          <li><%= link_to "Elf area", elves_url(subdomain: current_user.group.subdomain) %></li>
         <% end %>
         <% if current_user.santa? %>
           <li><%= link_to "Santa area", root_url(subdomain: "santa") %></li>

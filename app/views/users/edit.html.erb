@@ -13,11 +13,11 @@
 				<fieldset>
 					<div class="csw-form-group">
 						<% if @user.incomplete_profile? %>
-							<%= f.label :pool_id, "Blog pool", class: "csw-input-label" %>
-							<%= f.select :pool_id, Pool.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select your pool'}, class: "csw-form-input" %>
+							<%= f.label :group_id, "Blog group", class: "csw-input-label" %>
+							<%= f.select :group_id, Group.all.collect {|g| [g.name, g.id] }, {prompt: 'Select your group'}, class: "csw-form-input" %>
 						<% else %>
-							<strong>Your pool:</strong>
-							<%= link_to @user.pool.name, pool_url(subdomain: @user.pool.subdomain) %>
+							<strong>Your group:</strong>
+							<%= link_to @user.group.name, group_url(subdomain: @user.group.subdomain) %>
 						<% end %>
 					</div>
 					<div class="csw-form-group">

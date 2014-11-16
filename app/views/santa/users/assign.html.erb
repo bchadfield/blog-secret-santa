@@ -1,4 +1,4 @@
-<% title "Assign elves to #{@pool.name}" %>
+<% title "Assign elves to #{@group.name}" %>
 
 <div class="container">
 	<div class="row">
@@ -7,11 +7,11 @@
 				<h1><%= yield :heading %></h1>
 			</div>
 			<h2>Current elves</h2>
-			<% @pool.users.elf.each do |elf| %>
-				<%= render "santa/users/elf", pool: @pool, elf: elf %>
+			<% @group.users.elf.each do |elf| %>
+				<%= render "santa/users/elf", group: @group, elf: elf %>
 			<% end %>
 			<p>&nbsp;</p>
-			<%= form_tag assign_pool_users_path(@pool), method: :get, class: "form-inline" do %>
+			<%= form_tag assign_group_users_path(@group), method: :get, class: "form-inline" do %>
 				<div class="form-group">
 					<%= text_field_tag :search, "", class: "form-control" %>
 				</div>
@@ -20,17 +20,17 @@
 
 			<% if @users %>
 				<h3>Found users</h3>
-				<p>Copy the email address of the one you want to add as an elf to the <%= @pool.name %> pool.
+				<p>Copy the email address of the one you want to add as an elf to the <%= @group.name %> group.
 				<ul>
 					<% @users.each do |user| %>
-						<li><%= "#{user.name} #{user.email}" %> - Pool: <%= user.pool.name if user.pool %></li>
+						<li><%= "#{user.name} #{user.email}" %> - Group: <%= user.group.name if user.group %></li>
 					<% end %>
 				</ul>
 			<% end %>
 
 			<p>&nbsp;</p>
-			<%= form_tag set_assignments_pool_users_path(@pool), method: :put do %>
-				<p>Enter the email address for the person you want to add as an elf to the <%= @pool.name %> pool.
+			<%= form_tag set_assignments_group_users_path(@group), method: :put do %>
+				<p>Enter the email address for the person you want to add as an elf to the <%= @group.name %> group.
 				<div class="form-group">
 					<%= text_field_tag :email, "", class: "form-control", placeholder: "Email address" %>
 				</div>

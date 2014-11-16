@@ -1,0 +1,10 @@
+<div class="col-xs-12 col-sm-4 col-lg-3">
+	<h3><%= link_to group.name, edit_group_path(group) %></h3>
+	<p>
+		<strong>Users:</strong> <%= group.users.length %><br />
+		<strong>Elves:</strong><br />
+		<% group.users.elf.each do |elf| %>
+			<%= link_to elf.name, elf %>
+		<% end %>
+	</p>
+</div>

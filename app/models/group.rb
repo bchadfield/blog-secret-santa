@@ -1,4 +1,4 @@
-class Pool < ActiveRecord::Base
+class Group < ActiveRecord::Base
 	include Tokenfindable
 
 	has_many :matches
@@ -14,11 +14,11 @@ class Pool < ActiveRecord::Base
 	validates :subdomain, presence: true, format: { with: /\A[a-zA-Z\-]+\z/, message: "can only have letters and -" }
 
 	def self.current_id=(id)
-    Thread.current[:pool_id] = id
+    Thread.current[:group_id] = id
   end
   
   def self.current_id
-    Thread.current[:pool_id]
+    Thread.current[:group_id]
   end
 
 	def year
@@ -26,8 +26,8 @@ class Pool < ActiveRecord::Base
 	end
 
 	def self.create_matches
-		open.each do |pool|
-			users = User.available.where(pool: pool)
+		open.each do |group|
+			users = User.available.where(group: group)
 			if users.length > 2
 				matches = loop do
 		      shuffled = users.shuffle.zip(users.shuffle)
@@ -36,22 +36,22 @@ class Pool < ActiveRecord::Base
 		    matches.each do |match|
 		    	giver = match[0]
 		    	receiver = match[1]
-		    	Match.create(pool: pool, giver: giver, receiver: receiver)
+		    	Match.create(group: group, giver: giver, receiver: receiver)
 					UserMailer.match_notification(giver, receiver).deliver
 		    end
-		    pool.matched!
+		    group.matched!
 		  else
-		  	print "Not enough available users in the #{pool.name} pool. Need at least 3."
+		  	print "Not enough available users in the #{group.name} group. Need at least 3."
 		  end
 	 	end
 	end
 
 	def self.give_gifts
-		matches = Match.where(pool_id: self.id)
+		matches = Match.where(group_id: self.id)
 		matches.each do |match|
 			receiver = User.find_by(id: match.receiver_id)
 			giver = User.find_by(id: match.giver_id)
-			content = Content.find_by(user_id: match.giver_id, pool_id: self.id, status: nil)
+			content = Content.find_by(user_id: match.giver_id, group_id: self.id, status: nil)
 			if receiver && content && content.body
 				content.update(user_id: receiver.id, status: "given")
 				UserMailer.send_gift(receiver, content, self).deliver
@@ -65,9 +65,9 @@ class Pool < ActiveRecord::Base
 
 	def draw_time
 		if open?
-			Pool::MATCH_TIME
+			Group::MATCH_TIME
 		elsif matched?
-			Pool::GIFT_TIME
+			Group::GIFT_TIME
 		end
 	end
 end

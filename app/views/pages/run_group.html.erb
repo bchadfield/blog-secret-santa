@@ -31,7 +31,7 @@
 			Sound good? Get in touch.
 		</h2>
 
-		<%= form_tag enquiry_pool_path, method: :put, class: "enquiry-form", remote: true do %>
+		<%= form_tag enquiry_group_path, method: :put, class: "enquiry-form", remote: true do %>
 			<div class="csw-form-group">
 				<%= label_tag "group", "I want to run a game for people who blog about", class: "csw-input-label" %>
 			 	<%= text_field_tag "group", nil, class: "csw-form-input", placeholder: "E.g. UX, video games, coin collecting, football" %>
