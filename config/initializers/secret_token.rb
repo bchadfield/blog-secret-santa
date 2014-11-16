@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Secretsanta::Application.config.secret_key_base = ENV['SECRET_TOKEN'] || 'b1cd9355a338a65ee6ca34b51017afb5fddb17cf0215490df6db86a8dc890f0d6542e4e7a7b1216351e04d1c30bd7e0e42c953096a050521dc99fccb65a6999f'
+Secretsanta::Application.config.secret_key_base = APP_CONFIG['secret_key_base'] || 'b1cd9355a338a65ee6ca34b51017afb5fddb17cf0215490df6db86a8dc890f0d6542e4e7a7b1216351e04d1c30bd7e0e42c953096a050521dc99fccb65a6999f'

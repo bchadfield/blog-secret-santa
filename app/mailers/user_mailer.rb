@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   layout "email"
-  default from: "\"Blog Secret Santa\" <secretsanta@csworkflow.com>"
+  default from: "\"Blog Secret Santa\" <santa@blogsecretsanta.com>"
 
   def signup_info(user)
     @user = user
