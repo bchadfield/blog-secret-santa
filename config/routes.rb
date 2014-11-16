@@ -8,6 +8,7 @@ Secretsanta::Application.routes.draw do
 
   get "/about", to: "pages#about", as: :about
   get "/tips", to: "pages#tips", as: :tips
+  get "/2013", to: "pages#blog_roll", as: :blog_roll
 
   
   constraints subdomain: "santa" do

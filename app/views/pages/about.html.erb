@@ -1,60 +1,17 @@
-<% title "How it works" %>
+<% title "About" %>
 
 <div class="csw-main-wrapper row">
   <div class="medium-8 medium-centered columns">
 	  	<h1><%= yield :heading %></h1>
-	  	<% if @pool.matched? %>
-	  		<h2>Log in to see who you're writing for</h2>
-				<p>I made the Secret Santa draw on December 4, so you should have received an email with your gift recipient's details. Or you log in <%= link_to "on our home page", root_path %> to see your match there.</p>
-				<p>No, there's no way to find out who's writing a post for your blog.</p>
-
-				<h2>Blogging time lasts 3 weeks</h2>
-				<p>So, what are you going to write about? Have a look at the blog you're contributing to, or take the chance to anonymously tell everyone in the world of content strategy what you really think!</p>
-				<p>Don't worry about the length of your gift post. If Santa cared about word limits, his catch phrase would just be "Ho!"</p>
-	  	<% else %>
-	  		<h2>If you blog about content strategy, sign up today</h2>
-				<p>
-					  You log in with your Twitter details <%= link_to "on our home page", root_path %>, so Santa knows who you are. Yes, you're already on his global master-list - the S in "NSA" stands for Santa - but he needs a little help cutting it down to just content strategy bloggers. Santa sometimes struggles with data quality.
-				</p>
-				<h2>Blogging starts on December 4th </h2>
-				<p>
-					   3 weeks before Christmas, on December 4th (GMT, because Santa loves his international standards), Santa makes the draw to decide who you're writing your gift post for. You'll get an email, or you can log back into secretsanta.csworkflow.com for details.
-				</p>
-				<p>
-					   Then Santa sits back and has a beer while content strategists all over the world write nice blog posts for each other. (This is what was once known as a "Christmas miracle".)
-				</p>
-				<p>
-					   Don't worry about the length of your gift post. If Santa cared about word limits, his catch phrase would just be "Ho!"
-				</p>
-	  	<% end %>
-			
-			<h2>Posts are due by Christmas Eve</h2>
-			<p>
-				  To avoid last-minute relegation to Santa's Naughty List, you need to submit your gift post to <%= link_to "secretsanta.csworkflow.com", root_path %> by Christmas Eve.
-			</p>
-			<% if @pool.matched? %>
-				<h2>Gift posts are coming on Christmas Day</h2>
-			<% else %>
-				<h2>Santa delivers gift posts on Christmas Day</h2>
-			<% end %>
-			<p>
-				   At midnight on Christmas Day, Santa will drop your anonymously-authored gift post down the chimney of your inbox. As is traditional.
-			</p>
-			<p>
-				   On Christmas morning it's up to you to publish your brand new post to your blog. Once that's done, take a short run around the neighbourhood, offering heart-felt blessings to the youngsters playing in the snow. They'll all be playing with their new presents, none of which will be as good as the blog post that you got from Blog Secret Santa.
-			</p>
-
-			<h2>As posts are published, Santa lists them all</h2>
-			<p>Everyone's going to want to see all the gift posts, so as they go live Santa will list them all here on <%= link_to "secretsanta.csworkflow.com", root_path %>. (Each post will come with a link back to that list.)
-
-			<p>After you've published your gift post, let Santa know the URL. The best way to do that is in your profile information - start by clicking your avatar (which is in the top right corner of this page, and every other page of this site).</p>
-
-			<p>You can also let Santa know where to find your new post by:</p>
-			<ul>
-				<li>tweeting <%= link_to "@blogsecretsanta", "https://twitter.com/blogsecretsanta", target: "_blank" %>, or</li>
-				<li>emailing <%= link_to "secretsanta@csworkflow.com", "mailto:secretsanta@csworkflow.com", target: "_blank" %>.</li>
-			</ul>
-			<p>The sooner you publish your post, the sooner it will appear in Santa's list for everyone to see.</p>
+	  	<p>
+	You've traded Secret Santa presents before, but you probably only got crumbly chocolates or some plastic crap. Blog Secret Santa is way amazinger. It's a chance for bloggers from all around the world to gift each other blog posts. And it's all anonymous, so you can say what you really think!
+</p>
+<p>
+	Let's face it, writing for your same old blog day in, day out is a grind. Sure, it's fun all, but wouldn't it be great to write something else for a change, and let a specially selected, unknown individual from the internet look after your blog? Wouldn't that be like the best, funnest Christmas ever?
+</p>
+<p>
+	Blog Secret Santa uses the bestness of Christmas to save you from the grindness of blogging. (That's our elevator pitch, even though there aren't many elevators in the North Pole.)
+</p>
 
 			<h2>Contributing</h2>
 			<p>
