@@ -1,17 +1,14 @@
 <% title "List of groups" %>
 
-<div class="container">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="content">
-				<h1><%= yield :heading %></h1>
-				<%= link_to "New group", new_group_path, class: "btn btn-default" %>
-			</div>
-		</div>
+<div class="row">
+	<div class="small-12 columns">
+		<h1><%= yield :heading %></h1>
+		<%= link_to "New group", new_group_path, class: "csw-button" %>
+		<%= link_to "New message", new_message_path, class: "csw-button" %>
 	</div>
-	<div class="row">
-    <% @groups.each do |group| %>
-    	<%= render "group", group: group %>
-    <% end %>
-  </div>
+</div>
+<div class="row">
+  <% @groups.each do |group| %>
+  	<%= render "group", group: group %>
+  <% end %>
 </div>

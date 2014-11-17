@@ -27,6 +27,7 @@ Secretsanta::Application.routes.draw do
           end
         end
       end
+      resources :messages, only: [:new, :create]
     end
   end
 
