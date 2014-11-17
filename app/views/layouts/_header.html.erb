@@ -18,6 +18,7 @@
         <% if current_user.santa? %>
           <li><%= link_to "Santa area", root_url(subdomain: "santa") %></li>
         <% end %>
+        <li><%= link_to "Santa's tips", tips_path %></li>
         <% if current_user.email %>
           <li class="csw-logged-in-user csw-dropdown">
             <a data-toggle="dropdown" href="#">

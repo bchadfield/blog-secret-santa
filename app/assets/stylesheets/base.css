@@ -253,7 +253,7 @@ select.csw-form-input {
   text-align: center;
   border-radius: 10px;
 }
-.csw-alert{position:relative;padding:15px;margin: 0 20px 20px 20px;border-radius:4px;z-index:100;}
+.csw-alert{position:relative;padding: 7px 20px;border-radius:4px;z-index:100;}
 .csw-alert h4{margin-top:0;color:inherit}
 .csw-alert .csw-alert-link{font-weight:700;cursor:pointer;}
 .csw-alert>p,.csw-alert>ul{margin-bottom:0}
@@ -341,6 +341,7 @@ body.csw-modal-open,
   body.csw-left-nav-visible #csw-left-nav { z-index: 101; }
 }
 @media (min-width:768px){
+  .csw-alert { margin: 0 20px; }
   .csw-header-links { display: block; float: right; }
   .csw-header-links > li { float: left; display: block; position: relative; text-align: left; }
   /*.csw-header-links > li > a:not(.csw-button) { padding: 0.875rem 0rem; }*/
