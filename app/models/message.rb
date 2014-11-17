@@ -17,11 +17,12 @@ class Message
     		MessageMailer.send(template, email, subject, body).deliver
     	end
     else
-    	user = User.find_by(email: email)
+    	user = User.find_by(email: to)
     	MessageMailer.send(template, user, subject, body).deliver if user
     end
     self
   rescue Exception => e
     self.errors[:base] << "Error while sending: #{e}"
+    self
 	end
 end

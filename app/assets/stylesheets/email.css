@@ -50,8 +50,8 @@ div.callout {
 }
 
 table.social {
-/* 	padding:15px; */
-	background-color: #ebebeb;
+  margin-top:30px; 
+	background-color: #f3f3f4;
 	
 }
 .social .soc-btn {
@@ -76,11 +76,11 @@ a.ms { background-color: #000!important; }
 /* ------------------------------------- 
 		HEADER 
 ------------------------------------- */
-table.head-wrap { width: 100%;}
+table.head-wrap { width: 100%; border-bottom: 1px solid #e9e9ea; }
 
-.header.container table td.logo { padding: 15px; }
-.header.container table td.label { padding: 15px; padding-left:0px;}
-.header.container h4 { color: #fff; margin: 0; }
+.header.container table td.logo { padding: 5px; }
+.header.container table td.label { padding: 5px; padding-left:0px;}
+.header.container h4 { color: #464646; margin: 0; }
 
 
 /* ------------------------------------- 
