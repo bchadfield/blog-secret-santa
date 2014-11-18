@@ -9,7 +9,9 @@
 <div class="row">
 	<div class="small-12 columns">
 	  <%= CountdownPresenter.new(@group, self).render_countdown %>
-		<%= render "users/summaries_for_admins", group_status: @group.status, link: true %>
+	  <% User.where(group: @group).scoping do %>
+			<%= render "users/summaries_for_admins", group_status: @group.status, link: true %>
+		<% end %>
 		<div class="row csw-item-rows users">
       <% @users.each do |user| %>
       	<%= render "elves/users/user", user: user, group_status: @group.status %>
