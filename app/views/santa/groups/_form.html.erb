@@ -10,6 +10,11 @@
 			  		<%= f.text_field :subdomain, class: "csw-form-input" %>
 			    </div>
 
+			    <div class="csw-form-group">
+			  		<%= f.label :status, class: "csw-input-label" %>
+							<%= f.select :status, Group.statuses.collect {|s| s[0] }, {prompt: 'Set the group status'}, class: "csw-form-input" %>
+			    </div>
+
 			  	<div class="csw-form-group">
 						<%= f.submit "Save", class: "csw-button" %>
 					</div>

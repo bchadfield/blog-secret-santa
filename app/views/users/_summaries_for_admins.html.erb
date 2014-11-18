@@ -1,0 +1,24 @@
+    <div class="user-summaries row">
+      <div class="small-6 medium-3 columns">
+        <%= link_to elves_path do %>
+          <div class="user-summary total">
+            <span class="user-count"><%= User.count %></span>
+            <span class="user-name">
+              <span class="csw-icon csw-icon-user"></span> Total registered
+            </span>
+          </div>
+        <% end %>
+      </div>
+      <% User.statuses(group_status).each do |status| %>
+	      <div class="small-6 medium-3 columns">
+	        <%= link_to link ? elves_path(filter: status) : nil do %>
+	          <div class="user-summary <%= status %>">
+	            <span class="user-count"><%= User.send(status).size %></span>
+	            <span class="user-name">
+	              <span class="csw-icon csw-icon-user"></span> <%= status.humanize %>
+	            </span>
+	          </div>
+	        <% end %>
+	      </div>
+	    <% end %>
+    </div>

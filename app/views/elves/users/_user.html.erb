@@ -1,5 +1,5 @@
 <div class="small-12 medium-6 large-4 columns csw-item-row csw-hover user full <%= user.playing_status(group_status) %>">
-	<%= link_to elves_user_path(user), class: "csw-avatar-link" do %>
+	<%= link_to current_page?(controller: 'elves/groups', action: 'show') ? elves_user_path(user) : user, class: "csw-avatar-link" do %>
 		<%= gravatar_for(user) %>
 	<% end %>
 	<div class="csw-item-row-content csw-indent">

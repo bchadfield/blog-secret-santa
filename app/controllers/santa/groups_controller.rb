@@ -6,6 +6,11 @@ class Santa::GroupsController < Santa::SantaController
 	end
 
 	def show
+		if params[:filter] && User.valid_scope?(params[:filter])
+			@users = User.send(params[:filter]).includes(:giver).where(group: @group).order(:name)
+		else
+			@users = User.includes(:giver).where(group: @group).order(:name)
+		end
 	end
 
 	def new
@@ -45,6 +50,6 @@ class Santa::GroupsController < Santa::SantaController
 		end
 
 		def group_params
-			params.require(:group).permit(:name, :subdomain)
+			params.require(:group).permit(:name, :subdomain, :status)
 		end
 end

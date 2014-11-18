@@ -12,6 +12,7 @@ class Group < ActiveRecord::Base
 
 	validates :name, presence: true
 	validates :subdomain, presence: true, format: { with: /\A[a-zA-Z\-]+\z/, message: "can only have letters and -" }
+	validates :status, presence: true
 
 	def self.current_id=(id)
     Thread.current[:group_id] = id
