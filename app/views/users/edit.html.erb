@@ -12,7 +12,7 @@
 			<%= form_for @user do |f| %>
 				<fieldset>
 					<div class="csw-form-group">
-						<% if @user.incomplete_profile? %>
+						<% if @user.group_id.blank? || (!@user.group.matched? && !@user.group.gifted?) %>
 							<%= f.label :group_id, "Blog group", class: "csw-input-label" %>
 							<%= f.select :group_id, Group.all.collect {|g| [g.name, g.id] }, {prompt: 'Select your group'}, class: "csw-form-input" %>
 						<% else %>

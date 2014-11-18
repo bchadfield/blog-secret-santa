@@ -19,25 +19,23 @@
           <li><%= link_to "Santa area", root_url(subdomain: "santa") %></li>
         <% end %>
         <li><%= link_to "Santa's tips", tips_path %></li>
-        <% if current_user.email %>
-          <li class="csw-logged-in-user csw-dropdown">
-            <a data-toggle="dropdown" href="#">
-              <%= gravatar_for(current_user) %>
-            </a>
-            <ul class="csw-dropdown-menu csw-dropdown-menu-right" role="menu" aria-labelledby="dLabel">
-              <li>
-                <%= link_to edit_user_path(current_user) do %>
-                  <i class="csw-icon csw-icon-user"></i> My profile
-                <% end %>
-              </li>
-              <li>
-                <%= link_to logout_path, method: :delete do %>
-                  <i class="csw-icon csw-icon-sign-out"></i> Logout
-                <% end %>
-              </li>
-            </ul>
-          </li>
-        <% end %>
+        <li class="csw-logged-in-user csw-dropdown">
+          <a data-toggle="dropdown" href="#">
+            <%= gravatar_for(current_user) %>
+          </a>
+          <ul class="csw-dropdown-menu csw-dropdown-menu-right" role="menu" aria-labelledby="dLabel">
+            <li>
+              <%= link_to edit_user_path(current_user) do %>
+                <i class="csw-icon csw-icon-user"></i> My profile
+              <% end %>
+            </li>
+            <li>
+              <%= link_to logout_path, method: :delete do %>
+                <i class="csw-icon csw-icon-sign-out"></i> Logout
+              <% end %>
+            </li>
+          </ul>
+        </li>
       <% else %>
         <li><%= link_to "2013", blog_roll_path %></li>
         <li><%= link_to "About", about_path %></li>
