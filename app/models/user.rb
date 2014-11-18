@@ -25,6 +25,14 @@ class User < ActiveRecord::Base
 
 	enum role: { blogger: 0, elf: 1, santa: 2 }
 
+	def blog=(value)
+		unless value.index(/https?:\/\//)
+			value = "http://#{value}"
+		end
+
+		write_attribute(:blog, value)
+	end
+
 	def self.from_omniauth(auth)
 	  unscoped.where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
 	    user.provider = auth["provider"]
