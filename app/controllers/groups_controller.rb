@@ -1,7 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group
 
-
   def new
   end
 

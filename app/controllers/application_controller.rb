@@ -2,27 +2,27 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # include SessionsHelper
 
-  around_filter :scope_current_tenant  
+  around_action :scope_current_tenant  
   before_action :authenticate_user!, :authorize, :check_profile
 
   def after_sign_in_path_for(user)
     if user.group
-      root_url(subdomain: user.group.subdomain)
+      group_path(user.group)
     elsif user.santa?
-      root_url(subdomain: "santa")
+      santa_root_path
     else
       edit_user_path(user)
     end
   end
 
   def after_sign_out_path_for(user)
-    root_url(subdomain: nil)
+    root_path
   end
 
   private
   
     def current_tenant
-      @current_tenant ||= Group.find_by(subdomain: request.subdomain)
+      @current_tenant ||= Group.find(current_user.group_id) if current_user && current_user.group_id.present?
     end
     helper_method :current_tenant
     
@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 
     def authorize
       unless correct_group?
-        redirect_to root_url(subdomain: false), notice: "You only have access to the group you signed up for"
+        redirect_to root_path, notice: "You only have access to the group you signed up for"
       end
     end
 
@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
 
     def deny_access
       flash[:error] = "You don't have access to see that page"
-      redirect_to root_url(subdomain: nil)
+      redirect_to root_path
     end
 
     def flash_errors(object, now = false)

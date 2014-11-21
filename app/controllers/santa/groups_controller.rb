@@ -1,5 +1,6 @@
 class Santa::GroupsController < Santa::SantaController
-	before_action :find_group_by_token, only: [:show, :edit, :update]
+	skip_around_action :scope_current_tenant
+	before_action :find_group_by_subdomain, only: [:show, :edit, :update]
 
 	def index
 		@groups = Group.includes(:users)
@@ -21,7 +22,7 @@ class Santa::GroupsController < Santa::SantaController
 		@group = Group.new(group_params)
 		if @group.save
 			flash[:success] = "#{@group.name} has been created."
-			redirect_to edit_group_path(@group)
+			redirect_to edit_santa_group_path(@group)
 		else
 			flash_errors(@group, true)
 			puts flash.inspect
@@ -35,7 +36,7 @@ class Santa::GroupsController < Santa::SantaController
 	def update
 		if @group.update(group_params)
 			flash[:success] = "Those updates have been saved"
-			redirect_to edit_group_path(@group)
+			redirect_to edit_santa_group_path(@group)
 		else
 			flash_errors(@group, true)
 			puts flash.inspect
@@ -45,8 +46,8 @@ class Santa::GroupsController < Santa::SantaController
 
 	private
 
-		def find_group_by_token
-			@group = Group.find_by(token: params[:id])
+		def find_group_by_subdomain
+			@group = Group.find_by(subdomain: params[:id])
 		end
 
 		def group_params

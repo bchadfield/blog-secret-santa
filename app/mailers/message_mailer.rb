@@ -3,6 +3,7 @@ class MessageMailer < ActionMailer::Base
   default from: "\"Blog Secret Santa\" <santa@blogsecretsanta.com>"
 
   def blank(email, subject, body)
+  	@body = body
     mail to: @email, subject: subject
   end
 

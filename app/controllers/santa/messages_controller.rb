@@ -10,7 +10,7 @@ class Santa::MessagesController < Santa::SantaController
 			render 'new'
 		else
 			flash[:success] = "Message was sent"
-			redirect_to root_path
+			redirect_to santa_root_path
 		end
 	end
 

@@ -17,7 +17,7 @@
 							<%= f.select :group_id, Group.all.collect {|g| [g.name, g.id] }, {prompt: 'Select your group'}, class: "csw-form-input" %>
 						<% else %>
 							<strong>Your group:</strong>
-							<%= link_to @user.group.name, root_url(subdomain: @user.group.subdomain) %>
+							<%= link_to @user.group.name, group_path(@user.group) %>
 						<% end %>
 					</div>
 					<div class="csw-form-group">

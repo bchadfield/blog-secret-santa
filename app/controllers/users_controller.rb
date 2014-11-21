@@ -19,10 +19,10 @@ class UsersController < ApplicationController
       if was_incomplete
         flash[:success] = "Great! Your profile is complete and you're ready for Blog Secret Santa"
         UserMailer.welcome(@user).deliver
-        redirect_to root_url(subdomain: @user.group.subdomain)
+        redirect_to group_path(@user.group)
       else
         flash[:success] = "Updated without a hitch!"
-  		  redirect_to edit_user_url(@user, subdomain: @user.group.subdomain)
+  		  redirect_to edit_user_path(@user)
       end
   	else
       flash[:error] = @user.errors.full_messages

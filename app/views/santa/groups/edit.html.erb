@@ -9,6 +9,6 @@
 		<% @group.users.elf.each do |elf| %>
 			<%= render "santa/users/elf", group: @group, elf: elf %>
 		<% end %>
-		<%= link_to "Add elf", assign_group_users_path(group_id: @group), class: "csw-button" %>
+		<%= link_to "Add elf", assign_santa_group_users_path(group_id: @group), class: "csw-button" %>
 	</div>
 </div>

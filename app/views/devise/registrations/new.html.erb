@@ -1,15 +1,15 @@
 <% title "Sign up" %>
-
+<%= puts resource.inspect %>
 <div class="row">
 	<div class="medium-6 medium-centered columns csw-well">
 		<div class="row csw-social-button-group">
 			<div class="medium-6 columns">
-				<%= link_to omniauth_authorize_path(resource_name, "twitter"), class: "csw-button csw-social-button csw-social-button-twitter" do %>
+				<%= link_to omniauth_authorize_path(resource_name, "twitter", group: resource.group), class: "csw-button csw-social-button csw-social-button-twitter" do %>
 			    <i class="csw-icon csw-icon-twitter"></i> Sign up with Twitter
 			  <% end %>
 			</div>
 			<div class="medium-6 columns">
-			  <%= link_to omniauth_authorize_path(resource_name, "facebook"), class: "csw-button csw-social-button csw-social-button-facebook" do %>
+			  <%= link_to omniauth_authorize_path(resource_name, "facebook", group: resource.group), class: "csw-button csw-social-button csw-social-button-facebook" do %>
 			    <i class="csw-icon csw-icon-facebook"></i> Sign up with Facebook
 			  <% end %>
 			</div>
@@ -17,6 +17,9 @@
 		<div class="csw-login-option-text"><p>or sign up with</p></div>
 		<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 			<fieldset>
+				<% if resource.group %>
+					<%= f.hidden_field :group_id %>
+				<% end %>
 				<div class="csw-form-group">
 					<%= f.label :email, class: "csw-input-label" %>
 					<%= f.email_field :email, autofocus: true, class: "csw-form-input" %>

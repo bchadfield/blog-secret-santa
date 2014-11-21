@@ -11,7 +11,7 @@
 				<%= render "santa/users/elf", group: @group, elf: elf %>
 			<% end %>
 			<p>&nbsp;</p>
-			<%= form_tag assign_group_users_path(@group), method: :get, class: "form-inline" do %>
+			<%= form_tag assign_santa_group_users_path(@group), method: :get, class: "form-inline" do %>
 				<div class="form-group">
 					<%= text_field_tag :search, "", class: "form-control" %>
 				</div>
@@ -29,7 +29,7 @@
 			<% end %>
 
 			<p>&nbsp;</p>
-			<%= form_tag set_assignments_group_users_path(@group), method: :put do %>
+			<%= form_tag set_assignments_santa_group_users_path(@group), method: :put do %>
 				<p>Enter the email address for the person you want to add as an elf to the <%= @group.name %> group.
 				<div class="form-group">
 					<%= text_field_tag :email, "", class: "form-control", placeholder: "Email address" %>

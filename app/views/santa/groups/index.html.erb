@@ -4,8 +4,8 @@
 	<div class="small-12 columns">
 		<h1><%= yield :heading %></h1>
 		<p>
-			<%= link_to "New group", new_group_path, class: "csw-button" %>
-			<%= link_to "New message", new_message_path, class: "csw-button" %>
+			<%= link_to "New group", new_santa_group_path, class: "csw-button" %>
+			<%= link_to "New message", new_santa_message_path, class: "csw-button" %>
 		</p>
 		<%= render "users/summaries_for_admins", group_status: @groups.first.status, link: false %>
 	</div>

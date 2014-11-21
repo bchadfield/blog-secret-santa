@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="small-12 columns">
 		<h1><%= yield :heading %></h1>
-		<%= form_for @message do |f| %>
+		<%= form_for [:santa, @message] do |f| %>
 			<fieldset>
 				<div class="csw-form-group">
 		  		<%= f.label :to, class: "csw-input-label" %>

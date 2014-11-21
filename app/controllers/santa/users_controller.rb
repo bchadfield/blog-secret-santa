@@ -1,6 +1,6 @@
 class Santa::UsersController < Santa::SantaController
 	before_action :find_user_by_token, only: [:show, :edit, :update]
-	before_action :find_group_by_token, only: [:assign, :set_assignments]
+	before_action :find_group_by_subdomain, only: [:assign, :set_assignments]
 
 	def index
 		@users = User.includes(:group)
@@ -51,7 +51,7 @@ class Santa::UsersController < Santa::SantaController
 			if @user.update(role: User.roles[:elf], group: @group)
 				flash[:success] = "#{@user.name} has been elfed"
 				UserMailer.made_elf(@user, @group).deliver
-				redirect_to assign_group_users_path(@group)
+				redirect_to assign_santa_group_users_path(@group)
 			else
 				flash_errors(@user, true)
 				render :assign
@@ -59,7 +59,7 @@ class Santa::UsersController < Santa::SantaController
 		else
 			flash[:success] = "An invite email has been sent to #{params[:email]}"
 			UserMailer.invited_elf(params[:email], @group).deliver
-			redirect_to assign_group_users_path(@group)
+			redirect_to assign_santa_group_users_path(@group)
 		end
 	end
 
@@ -69,8 +69,8 @@ class Santa::UsersController < Santa::SantaController
 			@user = User.find_by(token: params[:id])
 		end
 
-		def find_group_by_token
-			@group = Group.find_by(token: params[:group_id])
+		def find_group_by_subdomain
+			@group = Group.find_by(subdomain: params[:group_id] || params[:id])
 		end
 
 		def user_params

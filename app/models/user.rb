@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 		write_attribute(:blog, value)
 	end
 
-	def self.from_omniauth(auth)
+	def self.from_omniauth(auth, params = nil)
 	  unscoped.where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
 	    user.provider = auth["provider"]
 	    user.uid = auth["uid"]
@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
 	    user.image = auth["info"]["image"]
 	    user.location = auth["info"]["location"]
 	    # user.blog = auth["info"]["urls"]["Website"] ? Unshorten[auth["info"]["urls"]["Website"]] : auth["info"]["urls"]["Twitter"]
+	    user.group = Group.find_by(subdomain: params["group"]) if params
 	  end
 	end
 

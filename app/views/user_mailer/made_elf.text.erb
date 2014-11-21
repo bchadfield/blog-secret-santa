@@ -4,9 +4,9 @@ Dear <%= @user.first_name %>,
 
 Congratulations! You're now an elf for the <%= @group.name %> group. Thank you for being the special kind of person who makes Christmas even better for bloggers.
 
-Now that we've set your group up, it's over to you to fill it up with <%= @group.name %> bloggers. Spread the word about Blog Secret Santa far and wide, perhaps by composing new carols about it. Let anyone who wants to join your group know that they can sign up at <%= signup_url(subdomain: @group.subdomain) %>
+Now that we've set your group up, it's over to you to fill it up with <%= @group.name %> bloggers. Spread the word about Blog Secret Santa far and wide, perhaps by composing new carols about it. Let anyone who wants to join your group know that they can sign up at <%= signup_url(group: @group.subdomain) %>
 
-There's an admin area for you to perform your elfly duties. To access the admin area log in and go to <%= elves_url(subdomain: @group.subdomain) %>
+There's an admin area for you to perform your elfly duties. To access the admin area log in and go to <%= elves_url %>
 
 Merry Christmas (again),
 Santa.
