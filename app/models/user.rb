@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 	enum role: { blogger: 0, elf: 1, santa: 2 }
 
 	def blog=(value)
-		unless value.index(/https?:\/\//)
+		unless value && value.index(/https?:\/\//)
 			value = "http://#{value}"
 		end
 
@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 	    user.email = auth["info"]["email"]
 	    user.image = auth["info"]["image"]
 	    user.location = auth["info"]["location"]
-	    user.blog = auth["info"]["urls"]["Website"] ? Unshorten[auth["info"]["urls"]["Website"]] : auth["info"]["urls"]["Twitter"]
+	    # user.blog = auth["info"]["urls"]["Website"] ? Unshorten[auth["info"]["urls"]["Website"]] : auth["info"]["urls"]["Twitter"]
 	  end
 	end
 
