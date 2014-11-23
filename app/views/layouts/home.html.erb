@@ -1,21 +1,2 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Blog Secret Santa uses the bestness of Christmas to save you from the grindness of blogging.">
-  <meta name="author" content="Ben Chadfield">
-  <title><%= yield :title %></title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body class="csw-home">
-<%= render "layouts/header" %>
-<%= yield %>
-<% if Rails.env.production? %>
-	<%= render "layouts/google_analytics"  %>
-<% end %>
-</body>
-</html>
+<% content_for :body_class, raw("class=\"csw-home\"") %>
+<%= render template: "layouts/application" %>

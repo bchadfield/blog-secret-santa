@@ -1,6 +1,6 @@
 class Santa::GroupsController < Santa::SantaController
 	skip_around_action :scope_current_tenant
-	before_action :find_group_by_subdomain, only: [:show, :edit, :update]
+	before_action :find_group_by_slug, only: [:show, :edit, :update]
 
 	def index
 		@groups = Group.includes(:users)
@@ -46,11 +46,11 @@ class Santa::GroupsController < Santa::SantaController
 
 	private
 
-		def find_group_by_subdomain
-			@group = Group.find_by(subdomain: params[:id])
+		def find_group_by_slug
+			@group = Group.find_by(slug: params[:id])
 		end
 
 		def group_params
-			params.require(:group).permit(:name, :subdomain, :status)
+			params.require(:group).permit(:name, :slug, :status)
 		end
 end

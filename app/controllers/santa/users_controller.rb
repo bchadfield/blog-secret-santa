@@ -1,6 +1,6 @@
 class Santa::UsersController < Santa::SantaController
 	before_action :find_user_by_token, only: [:show, :edit, :update]
-	before_action :find_group_by_subdomain, only: [:assign, :set_assignments]
+	before_action :find_group_by_slug, only: [:assign, :set_assignments]
 
 	def index
 		@users = User.includes(:group)
@@ -41,7 +41,7 @@ class Santa::UsersController < Santa::SantaController
 
 	def assign
 		if params[:search]
-			@users = User.includes(:group).where("name like :search or email like :search", search: "%#{params[:search]}%")
+			@users = User.unscoped.includes(:group).where("name like :search or email like :search", search: "%#{params[:search]}%")
 		end
 	end
 
@@ -69,11 +69,11 @@ class Santa::UsersController < Santa::SantaController
 			@user = User.find_by(token: params[:id])
 		end
 
-		def find_group_by_subdomain
-			@group = Group.find_by(subdomain: params[:group_id] || params[:id])
+		def find_group_by_slug
+			@group = Group.find_by(slug: params[:group_id] || params[:id])
 		end
 
 		def user_params
-			params.require(:user).permit(:name, :subdomain)
+			params.require(:user).permit(:name, :slug)
 		end
 end

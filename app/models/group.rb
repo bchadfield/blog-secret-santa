@@ -11,11 +11,11 @@ class Group < ActiveRecord::Base
 	GIFT_TIME = Time.utc(Time.now.year, 12, 25)
 
 	validates :name, presence: true
-	validates :subdomain, presence: true, format: { with: /\A[a-zA-Z\-]+\z/, message: "can only have letters and -" }
+	validates :slug, presence: true, format: { with: /\A[a-zA-Z\-]+\z/, message: "can only have letters and -" }
 	validates :status, presence: true
 
 	def to_param
-		subdomain
+		slug
 	end
 
 	def self.current_id=(id)

@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 	    user.image = auth["info"]["image"]
 	    user.location = auth["info"]["location"]
 	    # user.blog = auth["info"]["urls"]["Website"] ? Unshorten[auth["info"]["urls"]["Website"]] : auth["info"]["urls"]["Twitter"]
-	    user.group = Group.find_by(subdomain: params["group"]) if params
+	    user.group = Group.find_by(slug: params["group"]) if params
 	  end
 	end
 

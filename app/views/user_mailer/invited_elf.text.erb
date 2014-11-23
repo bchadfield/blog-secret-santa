@@ -3,10 +3,10 @@
 Congratulations! You've been invited to be an elf for the <%= @group.name %> group.
 
 What do you need to do now?
-1. Sign up here <%= signup_url(group: @group.subdomain) %>
+1. Sign up here <%= group_signup_url(@group) %>
 2. Let us know by replying to this email that you've signed up and we'll finish setting you up as an elf
 3. Then you can access the admin area here <%= elves_url %>
-4. Start spreading the word and getting people to sign up to your secret santa group here <%= signup_url(group: @group.subdomain) %>
+4. Start spreading the word and getting people to sign up to your secret santa group here <%= group_signup_url(@group) %>
 
 Merry Christmas (again),
 Santa.

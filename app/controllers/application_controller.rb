@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
 
     def authorize
       unless correct_group?
-        redirect_to root_path, notice: "You only have access to the group you signed up for"
+        redirect_to group_path(current_user.group), notice: "You only have access to the group you signed up for"
       end
     end
 
