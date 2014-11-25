@@ -3,7 +3,11 @@ class Santa::UsersController < Santa::SantaController
 	before_action :find_group_by_slug, only: [:assign, :set_assignments]
 
 	def index
-		@users = User.includes(:group)
+		if params[:filter] && User.valid_scope?(params[:filter])
+			@users = User.unscoped.send(params[:filter]).includes(:group).order(:name)
+		else
+			@users = User.unscoped.includes(:group)
+		end
 	end
 
 	def show
@@ -66,7 +70,7 @@ class Santa::UsersController < Santa::SantaController
 	private
 
 		def find_user_by_token
-			@user = User.find_by(token: params[:id])
+			@user = User.unscoped.find_by(token: params[:id])
 		end
 
 		def find_group_by_slug

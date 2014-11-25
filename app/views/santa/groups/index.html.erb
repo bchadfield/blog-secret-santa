@@ -7,7 +7,7 @@
 			<%= link_to "New group", new_santa_group_path, class: "csw-button" %>
 			<%= link_to "New message", new_santa_message_path, class: "csw-button" %>
 		</p>
-		<%= render "users/summaries_for_admins", group_status: @groups.first.status, link: false %>
+		<%= render "santa/users/user_summaries", group_status: @groups.first.status %>
 	</div>
 </div>
 <div class="row">

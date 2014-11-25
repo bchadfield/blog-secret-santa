@@ -1,0 +1,12 @@
+<% title "List of users" %>
+
+<div class="row">
+	<div class="small-12 columns">
+		<h1><%= yield :heading %></h1>
+		<div class="row csw-item-rows users">
+      <% @users.each do |user| %>
+      	<%= render "santa/users/user", user: user, group: user.group %>
+      <% end %>
+    </div>
+	</div>
+</div>

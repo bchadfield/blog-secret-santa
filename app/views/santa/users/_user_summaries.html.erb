@@ -1,16 +1,6 @@
-<% title "#{@group.name} Elf Area" %>
-
-<div class="row">
-	<div class="small-12 columns">
-		<h1><%= yield :heading %></h1>
-	</div>
-</div>
-<div class="row">
-	<div class="small-12 columns">
-	  <%= CountdownPresenter.new(@group, self).render_countdown %>
-		<div class="user-summaries row">
+    <div class="user-summaries row">
       <div class="small-6 medium-3 columns">
-        <%= link_to elves_path do %>
+        <%= link_to santa_users_path do %>
           <div class="user-summary total">
             <span class="user-count"><%= User.count %></span>
             <span class="user-name">
@@ -19,9 +9,9 @@
           </div>
         <% end %>
       </div>
-      <% User.statuses(@group_status).each do |status| %>
+      <% User.statuses(group_status).each do |status| %>
 	      <div class="small-6 medium-3 columns">
-	        <%= link_to elves_path(filter: status) do %>
+	        <%= link_to santa_users_path(filter: status) do %>
 	          <div class="user-summary <%= status %>">
 	            <span class="user-count"><%= User.send(status).size %></span>
 	            <span class="user-name">
@@ -32,10 +22,3 @@
 	      </div>
 	    <% end %>
     </div>
-		<div class="row csw-item-rows users">
-      <% @users.each do |user| %>
-      	<%= render "elves/users/user", user: user, group_status: @group.status %>
-      <% end %>
-    </div>
-	</div>
-</div>

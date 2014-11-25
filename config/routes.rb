@@ -22,13 +22,14 @@ Secretsanta::Application.routes.draw do
     get "/", to: "groups#index", as: "root"
     resources :groups do
       resources :content, :matches
-      resources :users do
+      resources :users, only: :none do
         collection do
           get "assign"
           put "set_assignments"
         end
       end
     end
+    resources :users, only: [:show, :index]
     resources :messages, only: [:new, :create]
   end
 
