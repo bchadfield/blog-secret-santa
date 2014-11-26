@@ -31,24 +31,36 @@ class Group < ActiveRecord::Base
 	end
 
 	def self.create_matches
+		logger.info "Starting to create matches for all open groups"
+		count = 0
 		open.each do |group|
-			users = User.available.where(group: group)
-			if users.length > 2
-				matches = loop do
-		      shuffled = users.shuffle.zip(users.shuffle)
-		      break shuffled if shuffled.index { |x,y| x == y } == nil
-		    end
-		    matches.each do |match|
-		    	giver = match[0]
-		    	receiver = match[1]
-		    	Match.create(group: group, giver: giver, receiver: receiver)
-					UserMailer.match_notification(giver, receiver).deliver
-		    end
-		    group.matched!
-		  else
-		  	print "Not enough available users in the #{group.name} group. Need at least 3."
-		  end
+			group.create_matches
+			count += 1
 	 	end
+	 	logger.info "Finished creating matches for #{count} groups"
+	end
+
+	def create_matches
+		logger.info "Starting to create matches for the #{self.name} group"
+		users = User.available.where(group: self)
+		count = 0
+		if users.length > 2
+			matches = loop do
+	      shuffled = users.shuffle.zip(users.shuffle)
+	      break shuffled if shuffled.index { |x,y| x == y } == nil
+	    end
+	    matches.each do |match|
+	    	giver = match[0]
+	    	receiver = match[1]
+	    	Match.create(group: self, giver: giver, receiver: receiver)
+				UserMailer.match_notification(giver, receiver).deliver
+				count += 1
+	    end
+	    self.matched!
+	  else
+	  	print "Not enough available users in the #{group.name} group. Need at least 3."
+	  end
+	  logger.info "Finished creating #{count} matches the #{self.name} group"
 	end
 
 	def self.give_gifts

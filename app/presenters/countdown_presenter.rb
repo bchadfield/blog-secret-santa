@@ -28,8 +28,6 @@ class CountdownPresenter < SimpleDelegator
   			"Secret Santa matches are drawn in"
   		when "matched"
   			"Gifts are given in"
-      when "closed"
-        "TO BE SET"
   		end
   	end
 end

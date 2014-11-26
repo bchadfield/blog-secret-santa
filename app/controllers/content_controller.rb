@@ -1,18 +1,13 @@
 class ContentController < ApplicationController
-  before_action :find_draw, only: [:index, :send_gift]
-  before_action :find_content, :authorize, only: [:edit, :update, :send_gift]
+  before_action :find_group_by_slug, only: [:new, :edit, :index, :send_gift]
+  before_action :find_content_by_token, :authorize_giver, only: [:edit, :update, :send_gift]
+  before_action :authorize_receiver, only: :show
   skip_before_action :authenticate_user!, only: :index
 
   def new
-    @group = Group.first
-    if @group.matched?
-      @content = Content.find_or_create_by(draw_id: @group.id, user_id: current_user.id)
-    elsif @group.closed? && !Content.joins("INNER JOIN users ON users.id = content.user_id INNER JOIN matches ON users.id = matches.receiver_id")
-                                    .where("content.status = 'given' AND matches.giver_id = ?", current_user.id).first
-      @content = Content.find_or_create_by(draw_id: @group.id, user_id: current_user.id, status: nil)
-    end
-    if @content
-      redirect_to edit_content_path(@content)
+    if @group.matched? || (@group.given? && current_user.receiver_match.content.exists?)
+      @content = Content.find_or_create_by(group_id: @group.id, match_id: current_user.receiver_match.id)
+      redirect_to edit_group_content_path(@group, @content)
     else
       redirect_to root_path, message: "There doesn't seem to be a reason for you to create content. Am I wrong?"
     end
@@ -23,22 +18,16 @@ class ContentController < ApplicationController
       flash[:info] = "This isn't ready yet."
       redirect_to root_path
     end
-    @total_count = Match.where(draw_id: @group.id).count
-    @published_count = Content.published.where(draw_id: @group.id).count
+    @total_count = Match.where(group_id: @group.id).count
+    @published_count = Content.published.where(group_id: @group.id).count
     unless @group.gift_time < (Time.now - 30.days) || @total_count == @published_count
       @show_count = true 
       @content = Content.find_by(user_id: current_user.id) if current_user
     end
-    @content_items = Content.published.where(draw_id: @group.id)
-  end
-
-  def show
-    @content = Content.find(params[:id])
+    @content_items = Content.published.where(group_id: @group.id)
   end
 
   def edit
-    @group = Group.first
-    @content = Content.find(params[:id])
   end
 
   def update
@@ -82,14 +71,23 @@ class ContentController < ApplicationController
       params.require(:content).permit(:body, :title, :url)
     end
 
-    def find_content
-      @content = Content.find(params[:id])
+    def find_content_by_token
+      @content = Content.find_by(token: params[:id])
     end
 
-    def authorize
-      unless @content.user == current_user
-        flash[:error] = "You don't have access."
-        redirect_to root_path
-      end
+    def find_group_by_slug
+      @group = Group.find_by(slug: params[:group_id])
+    end
+
+    def authorize_giver
+      authorize_content(:giver)
+    end
+
+    def authorize_receiver
+      authorize_content(:receiver)
+    end
+
+    def authorize_content(match_type)
+      deny_access unless @content.match.send(match_type) == current_user
     end
 end

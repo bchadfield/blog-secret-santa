@@ -8,6 +8,7 @@
 <div class="row">
 	<div class="small-12 columns">
 		<%= CountdownPresenter.new(@group, self).render_countdown %>
+		<%= GroupStatePresenter.new(@group, current_user, self).render_intro %>
 		<h3>Here are the good children</h3>
 		<div class="row csw-item-rows users">
       <% @users.each do |user| %>
