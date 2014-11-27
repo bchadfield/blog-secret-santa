@@ -23,7 +23,7 @@ module ApplicationHelper
     uri = URI(url)
     uri.host
   rescue URI::InvalidURIError
-    nil
+    ''
   end
 
   def prepare_snippet(body)

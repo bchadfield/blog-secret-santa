@@ -2,7 +2,7 @@
 	<%= gravatar_for(user) %>
 	<div class="csw-item-row-content csw-indent">
 		<div class="user-name"><%= user.name %></div>
-		<div class="user-blog"><%= link_to host_only(user.blog), user.blog, target: "_blank" %></div>
+		<div class="user-blog"><%= link_to host_only(user.blog), user.blog, target: "_blank" if user.blog %></div>
 		<% unless user.location.blank? %>
 			<div class="user-location"><i class="csw-icon csw-icon-map-marker"></i> <%= user.location %></div>
 		<% end %>

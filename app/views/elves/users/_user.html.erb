@@ -5,7 +5,7 @@
 	<div class="csw-item-row-content csw-indent">
 		<div class="user-name"><%= link_to user.name.blank? ? "No name" : user.name, elves_user_path(user) %></div>
 		<div class="user-email"><i class="csw-icon csw-icon-envelope-o"></i> <%= user.email %></div>
-		<div class="user-blog"><i class="csw-icon csw-icon-pencil"></i> <%= link_to host_only(user.blog), user.blog, target: "_blank" %></div>
+		<div class="user-blog"><i class="csw-icon csw-icon-pencil"></i> <%= link_to host_only(user.blog), user.blog, target: "_blank" if user.blog %></div>
 		<% unless user.location.blank? %>
 			<div class="user-location"><i class="csw-icon csw-icon-map-marker"></i> <%= user.location %></div>
 		<% end %>
