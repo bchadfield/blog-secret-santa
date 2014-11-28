@@ -4,7 +4,7 @@ class MessageMailer < ActionMailer::Base
 
   def blank(email, subject, body)
   	@body = body
-    mail to: @email, subject: subject
+    mail to: email, subject: subject
   end
 
   def we_are_back(email, subject, body)
