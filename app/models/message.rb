@@ -8,17 +8,18 @@ class Message
   end
 
 	def deliver
+    @body = Kramdown::Document.new(@body).to_html unless body.blank?
 		if to == "all"
 			User.available.each do |user|
-    		MessageMailer.send(template, user, subject, body).deliver
+    		MessageMailer.send(@template, @user, @subject, @body).deliver
     	end
     elsif to.include?(',')
     	to.gsub(/\s+/, "").split(',').uniq.each do |email|
-    		MessageMailer.send(template, email, subject, body).deliver
+    		MessageMailer.send(@template, @user, @subject, @body).deliver
     	end
     else
     	user = User.find_by(email: to)
-    	MessageMailer.send(template, user, subject, body).deliver if user
+    	MessageMailer.send(@template, @user, @subject, @body).deliver if user
     end
     self
   rescue Exception => e

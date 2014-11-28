@@ -7,6 +7,7 @@ class Santa::MessagesController < Santa::SantaController
 	def create
 		@message = Message.new(message_params).deliver
 		if @message.errors.full_messages.present?
+			flash[:error] << @message.errors.full_messages
 			render 'new'
 		else
 			flash[:success] = "Message was sent"
