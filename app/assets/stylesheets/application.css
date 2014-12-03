@@ -2,6 +2,7 @@
  *= require base
  *= require foundation.min
  *= require icons
+ *= require markdown-editor
  *= require styles
  *= require content-styles
  *= require redactor-rails

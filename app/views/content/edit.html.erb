@@ -1,21 +1,16 @@
  <% title "#{@content.title}" %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="content">
-        <% if @group.matched? %>
-          <p>You can work on your gift post here as much as you want between now and Christmas Eve. Click the 'Save' icon before you exit and your post will be here waiting for you next time you log in. On Christmas Eve we'll take your saved post and send it to its lucky recipient.</p>
-        <% end %>
+
         <%= form_for [@group, @content], remote: true do |f| %>
+          <%= render 'content_actions', content: @content, group: @group %>
           <% if @content.given? %>
             <div class="row">
-              <div class="col-xs-11 form-group">
+              <div class="small-11 columns csw-form-group">
                 <%= f.text_field :url, class: "form-control property-input", placeholder: "Where is your gift published? (E.g. http://example.com/my-secret-santa-gift)" %>
               </div>
-              <div class="col-xs-1 actions">
+              <div class="small-1 columns actions">
                 <%= f.button type: "submit", class: "btn btn-default", id: "save-content" do %>
-                  <span class="glyphicon glyphicon-floppy-disk"></span>
+                  <span class="glyphicon glyphicon-floppy-disk"></span> Save
                 <% end %>
               </div>
             </div>
@@ -31,30 +26,26 @@
             </div>
           <% else %>
             <div class="row">
-              <div class="col-xs-11 form-group">
-                <%= f.text_field :title, class: "form-control property-input", placeholder: "Title" %>
-              </div>
-              <div class="col-xs-1 actions">
-                <%= f.button type: "submit", class: "btn btn-default", id: "save-content" do %>
-                  <span class="glyphicon glyphicon-floppy-disk"></span>
-                <% end %>
+              <div class="small-12 columns csw-form-group">
+                <%= f.text_field :title, class: "csw-form-input", placeholder: "Title" %>
               </div>
             </div>
             <% if @group.closed? %>
               <div class="row">
-                <div class="col-xs-12 form-group">
+                <div class="small-12 csw-form-group">
                   You've missed being part of my delivery, but can send your gift when you're ready 
-                  <%= link_to "Send gift", send_gift_content_path(@content), method: :put, class: "btn btn-success" %>
+                  <%= link_to "Send gift", send_gift_content_path(@content), method: :put, class: "csw-button" %>
                 </div>
               </div>
             <% end %>
-            <div class="content-body">
-              <div id="counter"></div>
-              <%= f.text_area :body, value: @content.body, class: "redactor" %>
+            <div class="markdown-editor">
+              <div class="mde-left-column">
+                <textarea class="mde-editor" placeholder="Write Markdown"></textarea>
+              </div>
+              <div class="mde-right-column">
+                <xmp class="mde-html"></xmp>
+                <div class="mde-preview"></div>
+              </div>
             </div>
           <% end %>
-        <% end %>
-      </div>
-    </div>     
-  </div>
-</div>
+        <% end %>    

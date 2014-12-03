@@ -51,6 +51,9 @@ Secretsanta::Application.routes.draw do
       member do
         put "edit", to: "content#update"
         put "send_gift"
+        get "export"
+        get "upload"
+        put "import"
       end
     end
   end

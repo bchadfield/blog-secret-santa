@@ -101,6 +101,10 @@ class User < ActiveRecord::Base
   	!(email && blog && name && group_id)
   end
 
+  def writer?(content)
+  	@writer ||= self.id == content.match.giver_id
+  end
+
   # def giver
   # 	User.find_by(id: Match.find_by(receiver_id: self.id))
   # end
