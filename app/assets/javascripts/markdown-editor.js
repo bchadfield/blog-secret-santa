@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var editor = {
+	window.editor = {
 		
 		// Editor variables
 		fitHeightElements: $(".markdown-editor"),
@@ -9,21 +9,22 @@ $(document).ready(function() {
 		markdownSource: $(".mde-editor"),
 		markdownHTML: $(".mde-html"),
 		markdownPreview: $(".mde-preview"),
-		markdownTargets: $(".mde-html, .mde-preview"),
-		markdownTargetsTriggers: $(".buttons-container .switch"),
-		topPanels: $("#top_panels_container .top_panel"),
-		topPanelsTriggers: $("#left-column .buttons-container .toppanel"),
-		quickReferencePreText: $("#quick-reference pre"),
-		featuresTriggers: $(".buttons-container .feature"),
-		wordCountContainers: $(".word-count"),
+		titleSource: $('#content_title'),
+		titlePreview: $('.mde-preview-title'),
+		titleHTML: $('.mde-html-title'),
+		saveButton: $('#save-content'),
 		isAutoScrolling: false,
-		isFullscreen: false,
+		unsaved: false,
+		autosaveLocation: window.location.href + '.json',
+		savedSource: "",
 		
 		// Initiate editor
 		init: function() {
-			// this.onloadEffect(0);
 			this.initBindings();
 			this.fitHeight();
+			if (this.markdownSource.val() != "") this.savedSource = this.convertMarkdown();
+			if (this.titleSource.val() != "") this.displayTitle();
+			this.autosave();
 			// this.restoreState(function() {
 			// 	editor.convertMarkdown();
 			// 	editor.onloadEffect(1);
@@ -50,29 +51,30 @@ $(document).ready(function() {
 					}, 0);
 				},
 				"change.editor": function() {
-					editor.save("markdown", editor.markdownSource.val());
+					editor.displayUnsavedMode();
 					editor.convertMarkdown();
 				}
 			});
-			this.markdownTargetsTriggers.on("click", function(e) {
-				e.preventDefault();
-				editor.switchToPanel($(this).data("switchto"));
+			this.titleSource.on({
+				"keyup change": function() {
+					editor.unsaved = true;
+					editor.titleSource.trigger("change.title");
+				},
+				"cut paste drop": function() {
+					setTimeout(function() {
+						editor.unsaved = true;
+						editor.titleSource.trigger("change.title");
+					}, 0);
+				},
+				"change.title": function() {
+					editor.displayUnsavedMode();
+					editor.displayTitle();
+				}
 			});
-			this.topPanelsTriggers.on("click", function(e) {
-				e.preventDefault();
-				editor.toggleTopPanel($("#"+ $(this).data("toppanel")));
-			});
-			this.topPanels.children(".close").on("click", function(e) {
-				e.preventDefault();
-				editor.closeTopPanels();
-			});
-			this.quickReferencePreText.on("click", function() {
-				editor.addToMarkdownSource($(this).text());
-			});
-			this.featuresTriggers.on("click", function(e) {
-				e.preventDefault();
-				var t = $(this);
-				editor.toggleFeature(t.data("feature"), t.data());
+			this.saveButton.on({
+				click: function() {
+					editor.startingSave();
+				}
 			});
 		},
 
@@ -81,39 +83,63 @@ $(document).ready(function() {
 			var newHeight = $(window).height() - this.wrappersMargin;
 			this.fitHeightElements.each(function() {
 				var t = $(this);
-				if (t.closest("#left-column").length) {
-					var thisNewHeight = newHeight - $("#top_panels_container").outerHeight();
-				} else {
-					var thisNewHeight = newHeight;
-				}
+				// if (t.closest("#left-column").length) {
+				// 	var thisNewHeight = newHeight - $("#top_panels_container").outerHeight();
+				// } else {
+				var thisNewHeight = newHeight;
+				// }
 				t.css({ height: thisNewHeight +"px" });
 			});
 		},
 
-		// Save a key/value pair in the app storage (either Markdown text or enabled features)
-		save: function(key, value) {
-			app.save(key, value);
+		autosave: function() {
+			setInterval($.proxy(function() {
+				if (editor.savedSource !== editor.markdownSource.val() || this.unsaved) {
+					editor.startingSave();
+					$.ajax({
+						url: editor.autosaveLocation,
+						type: 'put',
+						dataType: 'json',
+						data: editor.markdownSource.parents("form.edit_content").serialize(),
+						success: $.proxy(function(data) {
+							editor.successfulSave();
+							editor.unsaved = false;
+						}, this)
+					});
+				}
+			}, this), 60000);
 		},
 
-		// Restore the editor's state
-		// restoreState: function(c) {
-		// 	app.restoreState(function(restoredItems) {
-		// 		if (restoredItems.markdown) editor.markdownSource.val(restoredItems.markdown);
-		// 		if (restoredItems.isAutoScrolling == "y") editor.toggleFeature("auto-scroll");
-		// 		if (restoredItems.isFullscreen == "y") editor.toggleFeature("fullscreen");
-		// 		editor.switchToPanel(restoredItems.activePanel || "preview");
+		startingSave: function() {
+	    $('#save-content').removeClass('csw-font-review, csw-font-ready');
+	    $('#save-content .csw-save-text').html("Saving...");
+	  },
 
-		// 		c();
-		// 	});
-		// },
+	  successfulSave: function() {
+	    $('#save-content').removeClass('csw-font-review').addClass('csw-font-ready');
+	    $('#save-content .csw-save-text').html("Saved");
+	    editor.savedSource = editor.markdownSource.val();
+	  },
+
+	  displayUnsavedMode: function() {
+	    $('#save-content').removeClass('csw-font-ready').addClass('csw-font-review');
+	    $('#save-content .csw-save-text').html("Not saved");
+	  },
 
 		// Convert Markdown to HTML using showdown.js
 		convertMarkdown: function() {
 			var markdown = this.markdownSource.val(),
 				html = this.markdownConverter(markdown);
 			this.markdownHTML.html(html);
-			app.updateMarkdownPreview(html);
-			this.markdownPreview.trigger("updated.editor");
+			this.markdownPreview.html(html);
+			// this.markdownPreview.trigger("updated.editor");
+			return markdown;
+		},
+
+		displayTitle: function() {
+			var title = '<h1>' + this.titleSource.val() + '</h1>';
+			this.titleHTML.html(title);
+			this.titlePreview.html(title);
 		},
 
 		// Programmatically add Markdown text to the textarea
@@ -156,102 +182,30 @@ $(document).ready(function() {
 		},
 
 		// Toggle a top panel's visibility
-		toggleTopPanel: function(panel) {
-			if (panel.is(":visible")) this.closeTopPanels();
-				else this.openTopPanel(panel);
-		},
+		// toggleTopPanel: function(panel) {
+		// 	if (panel.is(":visible")) this.closeTopPanels();
+		// 		else this.openTopPanel(panel);
+		// },
 
 		// Open a top panel
-		openTopPanel: function(panel) {
-			var panelTrigger = this.topPanelsTriggers.filter("[data-toppanel="+ panel.attr("id") +"]");
-			panel.show();
-			panelTrigger.addClass("active");
-			this.topPanels.not(panel).hide();
-			this.topPanelsTriggers.not(panelTrigger).removeClass("active");
-			this.fitHeight();
-			$(document).off("keyup.toppanel").on("keyup.toppanel", function(e) { // Close top panel when the escape key is pressed
-				if (e.keyCode == 27) editor.closeTopPanels();
-			});
-		},
+		// openTopPanel: function(panel) {
+		// 	var panelTrigger = this.topPanelsTriggers.filter("[data-toppanel="+ panel.attr("id") +"]");
+		// 	panel.show();
+		// 	panelTrigger.addClass("active");
+		// 	this.topPanels.not(panel).hide();
+		// 	this.topPanelsTriggers.not(panelTrigger).removeClass("active");
+		// 	this.fitHeight();
+		// 	$(document).off("keyup.toppanel").on("keyup.toppanel", function(e) { // Close top panel when the escape key is pressed
+		// 		if (e.keyCode == 27) editor.closeTopPanels();
+		// 	});
+		// },
 
 		// Close all top panels
-		closeTopPanels: function() {
-			this.topPanels.hide();
-			this.topPanelsTriggers.removeClass("active");
-			this.fitHeight();
-			$(document).off("keyup.toppanel");
-		},
-
-		// Toggle editor feature
-		// toggleFeature: function(which, featureData) {
-		// 	var featureTrigger = this.featuresTriggers.filter("[data-feature="+ which +"]");
-		// 	switch (which) {
-		// 		case "auto-scroll":
-		// 			this.toggleAutoScroll();
-		// 			break;
-		// 		case "fullscreen":
-		// 			this.toggleFullscreen(featureData);
-		// 			break;
-		// 	}
-		// 	featureTrigger.toggleClass("active");
-		// },
-
-		// toggleAutoScroll: function() {
-		// 	if (!this.isAutoScrolling) {
-		// 		this.markdownPreview
-		// 			.on("updated.editor", function() {
-		// 				var markdownPreview = this;
-		// 				setTimeout(function() {
-		// 					markdownPreview.scrollTop = markdownPreview.scrollHeight;
-		// 				}, 0);
-		// 			})
-		// 			.trigger("updated.editor");
-		// 	} else {
-		// 		this.markdownPreview.off("updated.editor");
-		// 	}
-		// 	this.isAutoScrolling = !this.isAutoScrolling;
-		// 	this.save("isAutoScrolling", this.isAutoScrolling? "y" : "n");
-		// },
-
-		// toggleFullscreen: function(featureData) {
-		// 	var toFocus = featureData && featureData.tofocus;
-		// 	this.isFullscreen = !this.isFullscreen;
-		// 	$(document.body).toggleClass("fullscreen");
-		// 	if (toFocus) this.switchToPanel(toFocus);
-		// 	// Exit fullscreen
-		// 	if (!this.isFullscreen) {
-		// 		this.columns.show(); // Make sure all columns are visible when exiting fullscreen
-		// 		var activeMarkdownTargetsTriggersSwichtoValue = this.markdownTargetsTriggers.filter(".active").first().data("switchto");
-		// 		// Force one of the right panel's elements to be active if not already when exiting fullscreen
-		// 		if (activeMarkdownTargetsTriggersSwichtoValue == "markdown") {
-		// 			this.switchToPanel("preview");
-		// 		}
-		// 		// Auto-scroll when exiting fullscreen and "preview" is already active since it changes width
-		// 		if (this.isAutoScrolling && activeMarkdownTargetsTriggersSwichtoValue == "preview") {
-		// 			this.markdownPreview.trigger("updated.editor");
-		// 		}
-		// 		$(document).off("keyup.fullscreen");
-		// 	// Enter fullscreen
-		// 	} else {
-		// 		this.closeTopPanels();
-		// 		$(document).on("keyup.fullscreen", function(e) { // Exit fullscreen when the escape key is pressed
-		// 			if (e.keyCode == 27) editor.featuresTriggers.filter("[data-feature=fullscreen]").last().trigger("click");
-		// 		});
-		// 	}
-		// 	this.save("isFullscreen", this.isFullscreen? "y" : "n");
-		// },
-
-		// Subtle fade-in effect
-		// onloadEffect: function(step) {
-		// 	var theBody = $(document.body);
-		// 	switch (step) {
-		// 		case 0:
-		// 			theBody.fadeTo(0, 0);
-		// 			break;
-		// 		case 1:
-		// 			theBody.fadeTo(1000, 1);
-		// 			break;
-		// 	}
+		// closeTopPanels: function() {
+		// 	this.topPanels.hide();
+		// 	this.topPanelsTriggers.removeClass("active");
+		// 	this.fitHeight();
+		// 	$(document).off("keyup.toppanel");
 		// },
 
 		// Insert a tab character when the tab key is pressed (instead of focusing the next form element)
@@ -268,19 +222,6 @@ $(document).ready(function() {
 				var cursorPosition = tabInsertPosition.start + 1;
 				markdownSourceElement.setSelectionRange(cursorPosition, cursorPosition);
 			}
-		},
-
-		// Count the words in the Markdown output and update the word count in the corresponding
-		// .word-count elements in the editor
-		updateWordCount: function(text) {
-			var wordCount = "";
-
-			if (text.length) {
-				wordCount = text.trim().replace(/\s+/gi, " ").split(" ").length;
-				wordCount = wordCount.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",") +" words"; // Format number (add commas and unit)
-			}
-
-			this.wordCountContainers.text(wordCount);
 		}
 		
 	};
@@ -292,107 +233,6 @@ $(document).ready(function() {
     params = csrf_param + '=' + encodeURIComponent(csrf_token);
   }
 
-  // var savedHtml = $('.redactor').redactor('get');
-  // var unsaved = false;
-
-  // // Trigger unsaved mode when property input is changed
-  // $('form.edit_content .property-input').on('keyup', function(){
-  //   $('.redactor').redactor('unsaved', true)
-  //   displayUnsavedMode(true);
-  // });
-
-  // $('#save-content').on('click', function(){
-  //   startingSave();
-  // });
-
-  // startingSave = function() {
-  //   $('#save-content').removeClass('btn-success, btn-warning').addClass('btn-default');
-  //   interval = setInterval(function() {
-  //     $('#save-content').toggleClass('white-text');
-  //   }, 250);
-  // }
-
-  // successfulSave = function() {
-  //   clearInterval(interval);
-  //   $('#save-content').removeClass('white-text').addClass('btn-success');
-  //   savedHtml = $('.redactor').redactor('get');
-  // }
-
-  // displayUnsavedMode = function(triggered) {
-  //   if($('.redactor').redactor('get') !== savedHtml || triggered == true) {
-  //     $('#save-content').removeClass('btn-default, btn-success').addClass('btn-warning');
-  //   }
-  // }
-
-	var app = {
-
-		// Web app variables
-		supportsLocalStorage: ("localStorage" in window && window.localStorage !== null),
-
-		init: function() {
-			editor.init();
-		},
-
-		// Save a key/value pair in localStorage (either Markdown text or enabled features)
-		save: function(key, value) {
-			if (!this.supportsLocalStorage) return false;
-
-			// Even if localStorage is supported, using it can still throw an exception if disabled or the quota is exceeded
-			try {
-				localStorage.setItem(key, value);
-			} catch (e) {}
-		},
-
-		autosave: function()
-		{
-			var savedHtml = this.get();
-			this.autosaveInterval = setInterval($.proxy(function()
-			{
-				var html = this.get();
-				if (savedHtml !== html || this.unsaved())
-				{
-					startingSave();
-					$.ajax({
-						url: this.opts.autosave,
-						type: 'put',
-						dataType: 'json',
-						data: this.$source.parents("form.edit_content").serialize(),
-						success: $.proxy(function(data)
-						{
-							this.callback('autosave', false, data);
-							savedHtml = html;
-							this.unsaved(false);
-						}, this)
-					});
-				}
-			}, this), this.opts.autosaveInterval*1000);
-		},
-
-		// Restore the editor's state from localStorage (saved Markdown and enabled features)
-		// restoreState: function(c) {
-		// 	var restoredItems = {};
-
-		// 	if (this.supportsLocalStorage) {
-		// 		// Even if localStorage is supported, using it can still throw an exception if disabled
-		// 		try {
-		// 			restoredItems.markdown = localStorage.getItem("markdown");
-		// 			restoredItems.isAutoScrolling = localStorage.getItem("isAutoScrolling");
-		// 			restoredItems.isFullscreen = localStorage.getItem("isFullscreen");
-		// 			restoredItems.activePanel = localStorage.getItem("activePanel");
-		// 		} catch (e) {}
-		// 	}
-
-		// 	c(restoredItems);
-		// },
-
-		// Update the preview panel with new HTML
-		updateMarkdownPreview: function(html) {
-			editor.markdownPreview.html(html);
-			editor.updateWordCount(editor.markdownPreview.text());
-		}
-
-	};
-
-	app.init();
+	window.editor.init();
 
 });

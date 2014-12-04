@@ -5,5 +5,5 @@ $(".alert").remove();
 		$('.main-wrapper').prepend('<%=j render 'layouts/flash', flash: flash %>');
 	<% end %>
 <% else %>
-	successfulSave();
+	window.editor.successfulSave();
 <% end %>

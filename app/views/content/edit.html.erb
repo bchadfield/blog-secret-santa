@@ -1,35 +1,11 @@
  <% title "#{@content.title}" %>
 
-
-        <%= form_for [@group, @content], remote: true do |f| %>
-          <%= render 'content_actions', content: @content, group: @group %>
-          <% if @content.given? %>
-            <div class="row">
-              <div class="small-11 columns csw-form-group">
-                <%= f.text_field :url, class: "form-control property-input", placeholder: "Where is your gift published? (E.g. http://example.com/my-secret-santa-gift)" %>
-              </div>
-              <div class="small-1 columns actions">
-                <%= f.button type: "submit", class: "btn btn-default", id: "save-content" do %>
-                  <span class="glyphicon glyphicon-floppy-disk"></span> Save
-                <% end %>
-              </div>
-            </div>
-            <h3><%= @content.title %></h3>
-            <div class="approved-buttons">
-              <%= link_to nil, class: "btn btn-default btn-sm", id: "toggle-content-body" do %>
-                <span class="glyphicon glyphicon-unchecked"></span> Show HTML
-              <% end %>
-            </div>
-            <pre class="content-body no-edit markedup hide"><%= @content.body %></pre>
-            <div class="content-body no-edit redactor_editor plain">
-              <%= raw(@content.body) %>
-            </div>
-          <% else %>
-            <div class="row">
-              <div class="small-12 columns csw-form-group">
-                <%= f.text_field :title, class: "csw-form-input", placeholder: "Title" %>
-              </div>
-            </div>
+        <% if @content.given? %>
+          <%= render 'content_actions_given', content: @content, group: @group %>
+          <%= render 'content_given', content: @content %>
+        <% else %>
+          <%= form_for [@group, @content], remote: true do |f| %>
+            <%= render 'content_actions_edit', content: @content, group: @group %>
             <% if @group.closed? %>
               <div class="row">
                 <div class="small-12 csw-form-group">
@@ -39,12 +15,27 @@
               </div>
             <% end %>
             <div class="markdown-editor">
-              <div class="mde-left-column">
-                <textarea class="mde-editor" placeholder="Write Markdown"></textarea>
+              <div class="mde-left-pane">
+                <div class="mde-content-wrapper">
+                  <%= f.text_field :title, class: "csw-form-input", placeholder: "Give your gift a title" %>
+                  <%= f.text_area :body, class: "mde-editor", placeholder: "Write your gift using Markdown. Check the reference to the right if you aren't familiar with Markdown." %>
+                </div>
               </div>
-              <div class="mde-right-column">
-                <xmp class="mde-html"></xmp>
-                <div class="mde-preview"></div>
+              <div class="mde-right-pane">
+                <div class="mde-content-wrapper csw-tab-content">
+                  <h1 class="mde-title"></h1>
+                  <div class="csw-tab-pane csw-tab-active" id="mde-tab-formatted">
+                    <div class="mde-preview-title"></div>
+                    <div class="mde-preview"></div>
+                  </div>
+                  <div class="csw-tab-pane" id="mde-tab-html">
+                    <xmp class="mde-html-title"></xmp>
+                    <xmp class="mde-html"></xmp>
+                  </div>
+                  <div class="mde-markdown-reference csw-tab-pane" id="mde-tab-markdown-reference">
+                    <%= render "markdown_reference" %>
+                  </div>
+                </div>
               </div>
             </div>
           <% end %>
