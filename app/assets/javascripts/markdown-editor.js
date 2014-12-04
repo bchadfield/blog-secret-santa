@@ -233,6 +233,6 @@ $(document).ready(function() {
     params = csrf_param + '=' + encodeURIComponent(csrf_token);
   }
 
-	window.editor.init();
+	if ($('.markdown-editor').length) window.editor.init();
 
 });
