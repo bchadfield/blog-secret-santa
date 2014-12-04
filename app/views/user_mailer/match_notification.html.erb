@@ -1,8 +1,8 @@
-						<h3>Hi <%= @giver.name %></h3>
+						<h3>Hi <%= @giver.first_name %></h3>
 						<p class="lead">Christmas is only 3 weeks away, so I've just made the Blog Secret Santa draw.</p>
 						<p class="lead">You'll be secretly gifting a blog post to <strong><%= link_to @receiver.name, @receiver.blog %></strong>. 'Tis the season to start writing!</p>
 						<p>When you're ready to, log into <%= link_to "Blog Secret Santa", root_url %> and submit your blog post. Submissions close on Christmas Eve, so be sure to finish your Christmas blogging before then.</p>
 						<p>I'll gift wrap your post and pass it on to <%= @receiver.name %> on Christmas Day.
-						<p>Someone else has drawn your name. It could be anyone on my <%= link_to "list of good children", users_url %></a>. You'll receive your anonymous gift post on Christmas Day too.</p>
+						<p>Someone else has drawn your name. It could be anyone on my list of good children. You'll receive your anonymous gift post on Christmas Day too.</p>
 						<p>Merry Christmas, and happy blogging!</p>
 						<p>Blog Secret Santa</p>
