@@ -20,7 +20,14 @@ $(document).ready(function() {
 
   $('.enquiry-form .csw-button').on('click', function(){
     $(this).val('Sending...');
-  })
+  });
+
+  // DOCUMENT IMPORT
+  $(document).on('change', '.csw-button-file :file', function() {
+    var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
+    var output = $(this).parents('.csw-input-group').find(':text');
+    output.val(label);
+  });
 
 });
 

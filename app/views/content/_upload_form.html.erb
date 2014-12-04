@@ -1,0 +1,17 @@
+					<%= form_for @content, url: import_group_content_path(@group, @content) do |f| %>            
+            <div class="csw-modal-body">
+              <p>Select .docx or markdown file you want to upload. <strong>This will overwrite the content.</strong></p>
+              <div class="csw-input-group">
+              	<span class="csw-input-group-button">
+	                <span class="csw-button csw-button-file">
+	    							Browse&hellip; <%= f.file_field :body %>
+									</span>
+								</span>
+								<%= text_field_tag :file, nil, class: "csw-form-input", readonly: true %>
+              </div>
+            </div>
+            <div class="csw-modal-footer">
+              <a href="#" class="csw-button csw-plain-button" data-dismiss="modal" aria-hidden="true">Close</a>
+              <%= f.submit "Import", name: "modal", class: "csw-button" %>
+            </div>
+          <% end %>

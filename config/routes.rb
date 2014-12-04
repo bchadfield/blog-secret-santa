@@ -53,7 +53,8 @@ Secretsanta::Application.routes.draw do
         put "send_gift"
         get "export"
         get "upload"
-        put "import"
+        patch "import"
+        get "export"
       end
     end
   end

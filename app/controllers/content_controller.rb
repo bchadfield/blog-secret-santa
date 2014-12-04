@@ -1,6 +1,7 @@
 class ContentController < ApplicationController
-  before_action :find_group_by_slug, only: [:new, :edit, :index, :send_gift]
-  before_action :find_content_by_token, :authorize_giver, only: [:edit, :update, :send_gift]
+  before_action :find_group_by_slug, only: [:new, :edit, :index, :send_gift, :upload, :import, :export]
+  before_action :find_content_by_token, :authorize_giver, only: [:edit, :update, :send_gift, :upload, :import, :export]
+  before_action :authorize_giver, only: [:edit, :send_gift, :upload, :import]
   before_action :authorize_receiver, only: :show
   skip_before_action :authenticate_user!, only: :index
 
@@ -62,6 +63,29 @@ class ContentController < ApplicationController
       puts @content
       flash[:error] = "That didn't work out. If your gift is ready and you're still seeing this message then get in touch with Santa."
       redirect_to edit_content_path(@content)
+    end
+  end
+
+  def import
+    @content.import_file_contents(content_params[:body])
+    if @content.errors.empty? && @content.save
+      redirect_to edit_group_content_path(@group, @content)
+    else
+      flash_errors(@content)
+      redirect_to edit_group_content_path(@group, @content)
+    end
+  end
+
+  def upload
+  end
+
+  def export
+    export_data = ExportPresenter.new(@content).render_content_for_export(params[:ext])
+    if @content.errors.empty?
+      send_data export_data[:output], filename: export_data[:filename], type: export_data[:type]
+    else
+      flash_errors(@content)
+      redirect_to edit_group_content_path(@group, @content)
     end
   end
 
