@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
 	end
 
 	def self.valid_scope?(scope)
-		["available", "unavailable", "playing", "waiting_list"].include?(scope)
+		["all", "available", "unavailable", "playing", "waiting_list"].include?(scope)
 	end
 
 	def self.statuses(group_status)

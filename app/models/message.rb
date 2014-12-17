@@ -9,10 +9,16 @@ class Message
 
 	def deliver
     @body = Kramdown::Document.new(@body).to_html unless @body.blank?
-		if @to == "all"
-			User.available.each do |user|
-    		MessageMailer.send(@template, user.email, @subject, @body).deliver
-    	end
+		if User.valid_scope?(@to)
+      if @to = "playing"
+        users = User.unscoped.available.joins("INNER JOIN matches ON matches.giver_id = users.id")
+      else
+        users = User.unscoped.send(@to)
+      end
+      users.each do |user|
+        puts user.name
+      	MessageMailer.send(@template, user.email, @subject, @body).deliver
+      end
     elsif @to.include?(',')
     	@to.gsub(/\s+/, "").split(',').uniq.each do |email|
     		MessageMailer.send(@template, email, @subject, @body).deliver
