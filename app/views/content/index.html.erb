@@ -1,29 +1,19 @@
- <% title "Blog gifts for #{@group.gift_time.strftime('%d %B, %Y')}" %>
+ <% title "#{@group.name} 2014 blogroll" %>
 
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
       <div class="content narrow">
-        <% if @show_count %>
-          <h1><%= @published_count %> of <%= @total_count %> Secret Santa gifts are live</h1>
-          <% if @content %>
-            <p>To add your Secret Santa blog post, <%= link_to "update your gift", edit_content_path(@content) %> with the URL where you've published.</p>
-          <% end %>
+        <h1><%= yield :heading %></h1>
+        <% if @group.gifted? %>
+          <p>Check back regularly to see new posts!</p>
         <% else %>
-          <h1>Secret Santa's 2013 content strategy blogroll</h1>
-          <p>Thanks to everyone who gifted these anonymous blog posts!</p>
+          <p>Thanks to everyone who wrote these gift posts!</p>
         <% end %>
-        <% if @content_items.count > 0 %>
+        <% if @content.present? %>
           <ul class="all_content">
-            <% @content_items.each do |content| %>
-              <li>
-                <h2><%= link_to content.title, content.url, target: "_blank" %></h2>
-                <p>on <%= link_to host_only(content.url), "http://" << host_only(content.url), target: "_blank" %>
-                <p>
-                  <%= prepare_snippet(content.body) %> 
-                  <%= link_to "Read post", content.url, target: "_blank" %>
-                </p>
-              </li>
+            <% @content.each do |content| %>
+              <%= render "content_published", content: content %>
             <% end %>
           </ul>
         <% else %>

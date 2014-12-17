@@ -9,11 +9,26 @@
 	<div class="small-12 columns">
 		<%= CountdownPresenter.new(@group, self).render_countdown %>
 		<%= GroupStatePresenter.new(@group, current_user, self).render_intro %>
-		<h3>Here are the good children</h3>
-		<div class="row csw-item-rows users">
-      <% @users.each do |user| %>
-    		<%= render "users/user", user: user, display_email: false %>
-    	<% end %>
-    </div>
+		<% if @group.open? || @group.matched? %>
+			<h3>Here are the good children</h3>
+			<div class="row csw-item-rows users">
+	      <% @users.each do |user| %>
+	    		<%= render "users/user", user: user, display_email: false %>
+	    	<% end %>
+	    </div>
+	  <% else %>
+	  	<h3>Here are this year's published gifts</h3>
+	  	<p>Once you've published your gift add the URL so it can appear on the blogroll</p>
+	  	<p>Here is the link to the public blogroll to share with your friends: <%= link_to group_content_index_url(@group), group_content_index_url(@group), target: "_blank" %></p>
+	  	<% if @content.present? %>
+        <ul class="all_content">
+          <% @content.each do |content| %>
+            <%= render "content/content_published", content: content %>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>Check back soon.</p>
+      <% end %>
+	  <% end %>
 	</div>
 </div>

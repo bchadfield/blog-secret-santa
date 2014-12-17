@@ -2,10 +2,13 @@ class GroupsController < ApplicationController
   prepend_before_action :set_group
   
   def show
-    if @group.open?
+    if @group.open? || @group.closed?
       @users = User.available.order(created_at: :desc)
-    elsif @group.matched?
+    elsif @group.matched? || @group.gifted?
       @users = User.playing.order(created_at: :desc)
+    end
+    if @group.gifted? || @group.closed?
+      @content = Content.published
     end
   end
 

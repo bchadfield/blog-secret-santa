@@ -15,17 +15,7 @@ class ContentController < ApplicationController
   end
 
   def index
-    unless @group && @group.status == "closed"
-      flash[:info] = "This isn't ready yet."
-      redirect_to root_path
-    end
-    @total_count = Match.where(group_id: @group.id).count
-    @published_count = Content.published.where(group_id: @group.id).count
-    unless @group.gift_time < (Time.now - 30.days) || @total_count == @published_count
-      @show_count = true 
-      @content = Content.find_by(user_id: current_user.id) if current_user
-    end
-    @content_items = Content.published.where(group_id: @group.id)
+    @content = Content.where(group: @group).published
   end
 
   def edit
