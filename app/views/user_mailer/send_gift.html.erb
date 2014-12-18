@@ -1,12 +1,11 @@
 						<h3>Merry Christmas, <%= @user.name %>!</h3>
 						<p class="lead">It's time to unwrap and publish your Secret Santa gift post. I hope it's everything you ever wanted.</p>
-						<p>Your post is at the bottom of this email, or you can log in and pick it from <%= link_to "here", edit_content_url(@content), target: "_blank" %>.</p>
-						<p>Once you've published this post on your blog let me know by tweeting <a href="http://twitter.com/blogsecretsanta" target="_blank">@blogsecretsanta</a> or replying to this email. I'll keep an up-to-date list of all the secret posts as they go live, at <%= link_to draw_content_index_url(@group.year), draw_content_index_url(@group.year), target: "_blank" %></p>
+						<p>Your post is at the bottom of this email, or you can log in and pick it from <%= link_to "here", edit_group_content_url(@group, @content), target: "_blank" %>.</p>
+						<p>Once you've published this post on your blog let me know by tweeting <a href="http://twitter.com/blogsecretsanta" target="_blank">@blogsecretsanta</a> or replying to this email. I'll keep an up-to-date list of all the secret posts as they go live, at <%= link_to group_content_index_url(@group), group_content_index_url(@group), target: "_blank" %></p>
 						<p>Have a great Christmas day!</p>
 						<p>Blog Secret Santa.</p>
-						<!-- Callout Panel -->
 						<div class="callout">
 							<h4><%= @content.title ? @content.title : "No title" %></h4>
-							<p style="font-style: italic">This post was anonymously written as part of Blog Secret Santa. There's a list of all Secret Santa posts, including one written by <%= @user.name %>, on <%= link_to "Santa's list of #{@group.year} gift posts", draw_content_index_url(@group.year), target: "_blank" %>.</p>
+							<p style="font-style: italic">This post was anonymously written as part of Blog Secret Santa. There's a list of all Secret Santa posts, including one written by <%= @user.name %>, on <%= link_to "Santa's list of 2014 gift posts", group_content_index_url(@group), target: "_blank" %>.</p>
 							<%= @content.body.html_safe %>
-						</div><!-- /Callout Panel -->
+						</div>

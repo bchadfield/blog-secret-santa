@@ -64,20 +64,34 @@ class Group < ActiveRecord::Base
 	end
 
 	def self.give_gifts
-		matches = Match.where(group_id: self.id)
+		logger.info "Starting to deliver gifts for all matched groups"
+		count = 0
+		Group.matched.each do |group|
+			group.give_gifts
+			count += 1
+		end
+		logger.info "Finished delivering gifts for #{count} groups"
+	end
+
+	def give_gifts
+		logger.info "Starting to deliver gifts for the #{self.name} group"
+		matches = Match.includes(:giver, :receiver).where(group_id: self.id)
+		sent = 0
+		missed = 0
 		matches.each do |match|
-			receiver = User.find_by(id: match.receiver_id)
-			giver = User.find_by(id: match.giver_id)
-			content = Content.find_by(user_id: match.giver_id, group_id: self.id, status: nil)
-			if receiver && content && content.body
-				content.update(user_id: receiver.id, status: "given")
-				UserMailer.send_gift(receiver, content, self).deliver
-			elsif receiver && giver
-				UserMailer.no_gift_from_you(giver, receiver).deliver
-				UserMailer.no_gift_for_you(receiver).deliver
+			content = Content.find_by(match: match)
+			if match.receiver && content && content.body
+				content.given!
+				UserMailer.send_gift(match.receiver, content, self).deliver
+				sent += 1
+			elsif match.receiver && match.giver
+				UserMailer.no_gift_from_you(match.giver, match.receiver).deliver
+				UserMailer.no_gift_for_you(match.receiver).deliver
+				missed += 1
 			end
 		end
 		self.gifted!
+		logger.info "Finished #{sent} delivering gifts with #{missed} missing out for the #{self.name} group"
 	end
 
 	def draw_time
