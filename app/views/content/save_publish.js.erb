@@ -1,0 +1,13 @@
+$('.csw-alert').remove();
+<% if @content.errors.any? %>
+	<% @content.errors.full_messages.each do |message| %>
+		<% flash.now[:error] = message %>
+		$('.csw-modal-body').prepend('<%=j render 'layouts/flash', flash: flash %>');
+	<% end %>
+<% else %>
+	$('.csw-modal-main-wrapper').fadeOut(200, function(){
+		$('.csw-modal-main-wrapper').html('<%=j render 'content/publish_confirm', group: @group, first_publish: @first_publish, content: @content %>').fadeIn(200);
+		$('.csw-modal-title').html("&nbsp;");
+		$('.csw-publish-url-button').html('<i class="csw-icon csw-icon-paperplane"></i> Edit the published URL');
+	});
+<% end %>

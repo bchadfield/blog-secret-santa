@@ -4,10 +4,10 @@ class Content < ActiveRecord::Base
 
 	belongs_to :match
 
-	scope :published, -> { given.where.not(url: nil).order(updated_at: :desc) }
+	scope :published, -> { given.where.not(url: '').order(updated_at: :desc) }
 
 	validates :group_id, presence: true
-	validates :url, format: { with: /\A(http|https):\/\/.+/, message: "must start with http:// or https://" }, allow_nil: true
+	validates :url, format: { with: /\A(http|https):\/\/.+/, message: "must start with http:// or https://" }, allow_blank: true
 
 	enum status: [ :draft, :ready, :given ]
 

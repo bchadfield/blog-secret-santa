@@ -1,0 +1,7 @@
+<h3>Santa has delivered the gifts. <%= Content.published.count %> of <%= Match.count %> gifts have been published.</h3>
+<% if gift %>
+	<%= link_to "Your gift", group_content_path(group, gift), class: "csw-button" %>
+	<%= link_to "Publish your gift", publish_group_content_path(group, gift), class: "csw-button", remote: true if gift.url.blank? %>
+<% else %>
+	<p>Your gift is still being worked on (hopefully).</p>
+<% end %>

@@ -47,7 +47,7 @@ Secretsanta::Application.routes.draw do
 
   resources :groups, path: "/", only: :show do
     # get "/signup", to: "devise/registrations#new", as: "signup"
-    resources :content, path: "gifts", only: [:new, :edit, :update, :index] do
+    resources :content, path: "gifts", only: [:show, :new, :edit, :update, :index] do
       member do
         put "edit", to: "content#update"
         put "send_gift"
@@ -55,6 +55,8 @@ Secretsanta::Application.routes.draw do
         get "upload"
         patch "import"
         get "export"
+        get "publish"
+        put "save_publish"
       end
     end
   end

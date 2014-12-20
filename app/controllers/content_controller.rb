@@ -1,8 +1,8 @@
 class ContentController < ApplicationController
-  before_action :find_group_by_slug, only: [:new, :edit, :index, :send_gift, :upload, :import, :export]
-  before_action :find_content_by_token, :authorize_giver, only: [:edit, :update, :send_gift, :upload, :import, :export]
+  before_action :find_group_by_slug, only: [:new, :edit, :index, :show, :send_gift, :upload, :import, :export, :publish, :save_publish]
+  before_action :find_content_by_token, :authorize_giver, only: [:edit, :show, :update, :send_gift, :upload, :import, :export, :publish, :save_publish]
   before_action :authorize_giver, only: [:edit, :send_gift, :upload, :import]
-  before_action :authorize_receiver, only: :show
+  before_action :authorize_receiver, only: [:show, :publish, :save_publish]
   skip_before_action :authenticate_user!, only: :index
 
   def new
@@ -18,7 +18,13 @@ class ContentController < ApplicationController
     @content = Content.where(group: @group).published
   end
 
+  def show
+    redirect_to @group, notice: "Your gift is not ready yet. Check back later." unless @content.given?
+    @content_preview = Kramdown::Document.new("# #{@content.title}\n#{@content.body}", auto_ids: false, smart_quotes: 'apos,apos,quot,quot').to_html
+  end
+
   def edit
+    redirect_to @content if @content.given?
   end
 
   def update
@@ -79,10 +85,36 @@ class ContentController < ApplicationController
     end
   end
 
+  def publish
+  end
+
+  def save_publish
+    @first_publish = @content.url.nil?
+    respond_to do |format|
+      if @content.update(publish_params)
+        format.html { 
+          flash[:success] = "Your gift has been published for the world to see."
+          redirect_to @group 
+        }
+        format.js
+      else
+        format.html do
+          flash_errors(@content)
+          render 'publish'
+        end
+        format.js
+      end
+    end
+  end
+
   private
 
     def content_params
-      params.require(:content).permit(:body, :title, :url)
+      params.require(:content).permit(:body, :title)
+    end
+
+    def publish_params
+      params.require(:content).permit(:url)
     end
 
     def find_content_by_token

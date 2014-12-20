@@ -22,6 +22,21 @@ $(document).ready(function() {
     $(this).val('Sending...');
   });
 
+  $('.csw-content-actions-menu .csw-html-toggle').on('click', function(e){
+    e.preventDefault();
+    var $preview = $('#mde-tab-formatted')
+    , $html = $('#mde-tab-html')
+    if($('#mde-tab-formatted').is(":visible")) {
+      $(this).html('<i class="csw-icon csw-icon-font"></i> Show preview');
+      $preview.removeClass("csw-tab-active");
+      $html.addClass("csw-tab-active");
+    } else {
+      $(this).html('<i class="csw-icon csw-icon-code"></i> Show HTML');
+      $html.removeClass("csw-tab-active");
+      $preview.addClass("csw-tab-active");
+    }
+  })
+
   // DOCUMENT IMPORT
   $(document).on('change', '.csw-button-file :file', function() {
     var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');

@@ -1,42 +1,37 @@
  <% title "#{@content.title}" %>
 
-        <% if @content.given? %>
-          <%= render 'content_actions_given', content: @content, group: @group %>
-          <%= render 'content_given', content: @content %>
-        <% else %>
-          <%= form_for [@group, @content], remote: true do |f| %>
-            <%= render 'content_actions_edit', content: @content, group: @group %>
-            <% if @group.closed? %>
-              <div class="row">
-                <div class="small-12 csw-form-group">
-                  You've missed being part of my delivery, but can send your gift when you're ready 
-                  <%= link_to "Send gift", send_gift_content_path(@content), method: :put, class: "csw-button" %>
-                </div>
-              </div>
-            <% end %>
-            <div class="markdown-editor">
-              <div class="mde-left-pane">
-                <div class="mde-content-wrapper">
-                  <%= f.text_field :title, class: "csw-form-input", placeholder: "Give your gift a title" %>
-                  <%= f.text_area :body, class: "mde-editor", placeholder: "Write your gift here. If you want to format it, use markdown. On the right hand side you'll see how it looks.\n\nNot familiar with markdown? It's really easy. Check out the 'Markdown reference' to the right." %>
-                </div>
-              </div>
-              <div class="mde-right-pane">
-                <div class="mde-content-wrapper csw-tab-content">
-                  <h1 class="mde-title"></h1>
-                  <div class="csw-tab-pane csw-tab-active" id="mde-tab-formatted">
-                    <div class="mde-preview-title"></div>
-                    <div class="mde-preview"></div>
-                  </div>
-                  <div class="csw-tab-pane" id="mde-tab-html">
-                    <xmp class="mde-html-title"></xmp>
-                    <xmp class="mde-html"></xmp>
-                  </div>
-                  <div class="mde-markdown-reference csw-tab-pane" id="mde-tab-markdown-reference">
-                    <%= render "markdown_reference" %>
-                  </div>
-                </div>
+        <%= form_for [@group, @content], remote: true do |f| %>
+          <%= render 'content_actions_edit', content: @content, group: @group %>
+          <% if @group.closed? %>
+            <div class="row">
+              <div class="small-12 csw-form-group">
+                You've missed being part of my delivery, but can send your gift when you're ready 
+                <%= link_to "Send gift", send_gift_content_path(@content), method: :put, class: "csw-button" %>
               </div>
             </div>
           <% end %>
-        <% end %>    
+          <div class="markdown-editor">
+            <div class="mde-left-pane">
+              <div class="mde-content-wrapper">
+                <%= f.text_field :title, class: "csw-form-input", placeholder: "Give your gift a title" %>
+                <%= f.text_area :body, class: "mde-editor", placeholder: "Write your gift here. If you want to format it, use markdown. On the right hand side you'll see how it looks.\n\nNot familiar with markdown? It's really easy. Check out the 'Markdown reference' to the right." %>
+              </div>
+            </div>
+            <div class="mde-right-pane">
+              <div class="mde-content-wrapper csw-tab-content">
+                <h1 class="mde-title"></h1>
+                <div class="csw-tab-pane csw-tab-active" id="mde-tab-formatted">
+                  <div class="mde-preview-title"></div>
+                  <div class="mde-preview"></div>
+                </div>
+                <div class="csw-tab-pane" id="mde-tab-html">
+                  <xmp class="mde-html-title"></xmp>
+                  <xmp class="mde-html"></xmp>
+                </div>
+                <div class="mde-markdown-reference csw-tab-pane" id="mde-tab-markdown-reference">
+                  <%= render "markdown_reference" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>   

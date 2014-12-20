@@ -73,7 +73,7 @@ iframe { border: 0; }
 }*/
 .csw-content-header .csw-content-previewed form .csw-submit:hover { color: #333; background-color: #ebebeb; border-color: #adadad; }
 .csw-content-header .csw-back-link { float: left; padding: 1.2rem 0; position: relative; z-index: 100; }
-.csw-content-sub-header { border-bottom: 1px solid #e9e9ea; background-color: #fff; font-size: 0.875rem; }
+.csw-content-sub-header { border-bottom: 1px solid #e9e9ea; background-color: #fff; font-size: 0.875rem; height: 2.8125rem; }
 .csw-content-actions-menu { list-style: none; margin: 0; padding: 0.6rem 0 0.6rem 20px; }
 .csw-content-actions-menu > li { position: relative; float: left; margin: 0 0.5rem; line-height: 1.5rem; }
 .csw-content-actions-menu > li:first-child { margin-left: 0; }
@@ -133,7 +133,7 @@ html.csw-left-nav-visible, body.csw-left-nav-visible { overflow-x: hidden; overf
   transition: transform 0.1s linear;
 }
 .csw-main-wrapper { background-color: #fff; z-index: 3; }
-body.csw-left-nav-visible .csw-main-wrapper, 
+/*body.csw-left-nav-visible .csw-main-wrapper, 
 body.csw-left-nav-visible .csw-content-header,
 body.csw-left-nav-visible  #csw-left-nav {
   -webkit-transform: translateX(100px);
@@ -142,7 +142,7 @@ body.csw-left-nav-visible  #csw-left-nav {
   -o-transform:      translateX(100px);
   transform:         translateX(100px);
 }
-.csw-left-nav-visible #csw-left-nav { z-index: 101; }
+.csw-left-nav-visible #csw-left-nav { z-index: 101; }*/
 #csw-content-counter { z-index: 100; float: right; position: relative; top: 10px; right: 10px; font-size: 0.875rem; }
 #csw-content-counter.csw-count-over,
 .red-alert { color: #dd0000;}
@@ -160,8 +160,7 @@ body.csw-left-nav-visible  #csw-left-nav {
 	/*.csw-content-sub-header.csw-content-actions { width: 66.67%; }*/
 	/*.csw-right-column .csw-content-sub-header { width: 33.34%; right: 0; }*/
 	.csw-footer { position: absolute; bottom: 0; }
-	.csw-content-plain-preview { padding: 30px 100px 50px 100px; }
-	.csw-content-sub-header { height: 2.8125rem; }
+	.csw-content-plain-preview { padding: 30px 20px 50px; width: 50rem; margin: 0 auto; }
 	.csw-content-actions-menu { float: left; }
 	.csw-content-sub-header .csw-assigned-users { float: right; max-width: 50%; width: auto; padding: 0; }
 }
