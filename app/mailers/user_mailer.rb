@@ -54,4 +54,11 @@ class UserMailer < ActionMailer::Base
     @group = group
     mail to: email, subject: "You're invited to be an elf for the #{@group.name} Blog Secret Santa group"
   end
+
+  def published_gift(user, receiver, group)
+    @user = user
+    @receiver = receiver
+    @group = group
+    mail to: @user.email, subject: "Your gift post is live!"
+  end
 end

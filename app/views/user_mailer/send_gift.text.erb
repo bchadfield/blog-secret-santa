@@ -2,9 +2,9 @@ Merry Christmas, <%= @user.name %>!
 
 It's time to unwrap and publish your Secret Santa gift post. I hope it's everything you ever wanted.
 
-A snippet of your post is at the bottom of this email, or you can log in and pick it from <%= edit_group_content_url(@group, @content) %>.
+A snippet of your post is at the bottom of this email, or you can log in to <%= group_url(@group) %> and pick it up there.
 
-Once you've published this post on your blog let me know by tweeting @blogsecretsanta (http://twitter.com/blogsecretsanta) or replying to this email. I'll keep an up-to-date list of all the secret posts as they go live (<%= group_content_index_url(@group) %>.
+Once you've published this post on your blog log back in and click the "List your gift" button to add the URL. I'll keep an up-to-date list of all the secret posts as they go live, at <%= group_content_index_url(@group) %>.
 
 Have a great Christmas day!
 
@@ -15,4 +15,4 @@ Blog Secret Santa.
 
 This post was anonymously written as part of Blog Secret Santa. There's a list of all Secret Santa posts, including one written by <%= @user.name %>, on Santa's list of 2014 gift posts (<%= group_content_index_url(@group) %>).
 
-<%= truncate(strip_tags(@content.body), length: 120, separator: " ") %>
+<%= truncate(@content.body, length: 120, separator: " ") %>

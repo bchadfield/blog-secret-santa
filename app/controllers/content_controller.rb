@@ -92,6 +92,7 @@ class ContentController < ApplicationController
     @first_publish = @content.url.nil?
     respond_to do |format|
       if @content.update(publish_params)
+        UserMailer.published_gift(current_user.giver, current_user, @group).deliver if @first_publish
         format.html { 
           flash[:success] = "Your gift has been published for the world to see."
           redirect_to @group 
