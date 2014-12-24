@@ -1,7 +1,16 @@
-<h3>Santa has delivered the gifts. <%= Content.published.count %> of <%= Match.count %> gifts have been published.</h3>
+<% if !current_user.receiver_match.content || (current_user.receiver_match.content && !current_user.receiver_match.content.given?) %>
+	<h3><strong><%= link_to current_user.receiver.name, current_user.receiver.blog, target: "_blank" %></strong> is still waiting on your gift</h3>
+	<%= link_to "Work on your content gift", new_group_content_path(group), class: "csw-button csw-contrast-button" %> <p>It's not too late. You can still send <%= current_user.receiver.first_name %> a gift.</p>
+	<p><br /></p>
+<% end %>
+
+<h2><%= Content.published.count %> of <%= Match.count %> gifts are online now.</h2>
 <% if gift %>
-	<%= link_to "Your gift", group_content_path(group, gift), class: "csw-button" %>
-	<%= link_to "Publish your gift", publish_group_content_path(group, gift), class: "csw-button", remote: true if gift.url.blank? %>
+	<%= link_to "Pick up your gift", group_content_path(group, gift), class: "csw-button" %>
+	<% if gift.url.blank? %>
+		<p>Once you've published your gift, you can add its link to the year's blog roll.</p>
+		<%= link_to "List your published gift", publish_group_content_path(group, gift), class: "csw-button", remote: true %>
+	<% end %>
 <% else %>
 	<p>Your gift is still being worked on (hopefully).</p>
 <% end %>

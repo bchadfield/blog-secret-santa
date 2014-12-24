@@ -25,6 +25,13 @@
                 <% end %>
               </li>
             <% end %>
+            <% if @group.gifted? %>
+              <li class="csw-pull-right">
+                <%= link_to send_gift_group_content_path(@group, @content), class: "csw-font-green",  method: :put do %>
+                  <i class="csw-icon csw-icon-paperplane"></i> Send gift
+                <% end %>
+              </li>
+          <% end %>
           </ul>
         </div>
 

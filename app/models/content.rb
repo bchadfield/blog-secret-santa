@@ -16,6 +16,10 @@ class Content < ActiveRecord::Base
     self.body = contents if self.errors.empty?
   end
 
+  def not_delivered?
+    blank? || (present? && !given?)
+  end
+
   private
 
   	def read_file(file)

@@ -1,8 +1,8 @@
       <%= form_for @content, url: save_publish_group_content_path(@group, @content), method: :put, remote: true do |f| %>
         <div class="csw-modal-body">
           <div class="csw-form-group">
-            <%= f.label :url, "URL to your blog post", class: "csw-input-label" %>
-            <%= f.text_field :url, class: "csw-form-input", placeholder: "Enter the URL for the gift post on your blog" %>
+            <%= f.label :url, "URL to your gift post", class: "csw-input-label" %>
+            <%= f.text_field :url, class: "csw-form-input", placeholder: "Enter the URL for your published gift post" %>
           </div>
         </div>
         <div class="csw-modal-footer">

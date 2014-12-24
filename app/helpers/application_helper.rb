@@ -30,4 +30,13 @@ module ApplicationHelper
     stripped_body = strip_tags(body)
     truncate(stripped_body.sub(/This post was anonymously.*Santa's list of 2013 gift posts\./, ''), length: 150, separator: ' ')
   end
+
+  def group_title(group)
+    case group.status
+    when "gifted"
+      "Gifts are ready for the #{@group.name} group"
+    else
+      "Welcome to the #{@group.name} group"
+    end
+  end
 end

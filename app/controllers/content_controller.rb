@@ -6,7 +6,7 @@ class ContentController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
 
   def new
-    if @group.matched? || (@group.given? && current_user.receiver_match.content.exists?)
+    if @group.matched? || (@group.gifted? && current_user.receiver_match.content.not_delivered?)
       @content = Content.find_or_create_by(group_id: @group.id, match_id: current_user.receiver_match.id)
       redirect_to edit_group_content_path(@group, @content)
     else
@@ -24,7 +24,7 @@ class ContentController < ApplicationController
   end
 
   def edit
-    redirect_to @content if @content.given?
+    render 'show' if @content.given?
   end
 
   def update
@@ -46,19 +46,19 @@ class ContentController < ApplicationController
   end
 
   def send_gift
-    @receiver = User.joins("INNER JOIN matches ON matches.receiver_id = users.id").where("matches.giver_id = ?", current_user.id).first
+    @receiver = current_user.receiver
     if @group && @receiver && @content && @content.body
-      @content.update(user_id: @receiver.id, status: "given")
       UserMailer.send_gift(@receiver, @content, @group).deliver
-      flash[:sucess] = "You're gift has been sent! Welcome back to the list of good children."
-      redirect_to root_path
+      @content.given!
+      flash[:success] = "You're gift has been sent! Welcome back to the list of good children."
+      redirect_to @group
     else
       puts "Starting..."
       puts @group
       puts @receiver
       puts @content
       flash[:error] = "That didn't work out. If your gift is ready and you're still seeing this message then get in touch with Santa."
-      redirect_to edit_content_path(@content)
+      redirect_to edit_group_content_path(@group, @content)
     end
   end
 

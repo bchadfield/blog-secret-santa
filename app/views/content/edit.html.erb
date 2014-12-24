@@ -2,14 +2,6 @@
 
         <%= form_for [@group, @content], remote: true do |f| %>
           <%= render 'content_actions_edit', content: @content, group: @group %>
-          <% if @group.closed? %>
-            <div class="row">
-              <div class="small-12 csw-form-group">
-                You've missed being part of my delivery, but can send your gift when you're ready 
-                <%= link_to "Send gift", send_gift_content_path(@content), method: :put, class: "csw-button" %>
-              </div>
-            </div>
-          <% end %>
           <div class="markdown-editor">
             <div class="mde-left-pane">
               <div class="mde-content-wrapper">
@@ -35,3 +27,12 @@
             </div>
           </div>
         <% end %>   
+
+<% if @group.gifted? %>
+  <script type="text/javascript">
+    $('body').append('<%=j render 'layouts/modal' %>');
+    $('#csw-modal-window').modal('show');
+    $('.csw-modal-main-wrapper').append('<%=j render "content/late_delivery" %>');
+    $('.csw-modal-title').html("You've missed being part of my delivery");
+  </script>
+<% end %>

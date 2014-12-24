@@ -1,4 +1,4 @@
-<% title "Welcome to the #{@group.name} group" %>
+<% title group_title(@group) %>
 
 <div class="row">
 	<div class="small-12 columns">
@@ -17,9 +17,7 @@
 	    	<% end %>
 	    </div>
 	  <% else %>
-	  	<h3>Here are this year's published gifts</h3>
-	  	<p>Once you've published your gift add the URL so it can appear on the blogroll</p>
-	  	<p>Here is the link to the public blogroll to share with your friends: <%= link_to group_content_index_url(@group), group_content_index_url(@group), target: "_blank" %></p>
+	  	<p>The blog roll is below. To share it publicly, use this link: <%= link_to group_content_index_url(@group), group_content_index_url(@group), target: "_blank" %></p>
 	  	<% if @content.present? %>
         <ul class="all_content">
           <% @content.each do |content| %>
