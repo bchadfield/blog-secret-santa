@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
 	scope :unavailable, -> { where("available != true OR email IS NULL OR blog IS NULL OR name IS NULL") }
 	scope :playing, -> { available.joins(:receiver_match) }
 	scope :waiting_list, -> { available.joins("LEFT OUTER JOIN matches ON users.id = matches.receiver_id OR users.id = matches.giver_id").where("matches.receiver_id IS NULL OR matches.giver_id IS NULL") }
+  scope :gave_gift, -> { playing.joins("INNER JOIN content ON matches.id = content.match_id").where("content.body is not null AND content.status = ?", Content.statuses["given"]) }
+  scope :no_gift_given, -> { playing.joins("LEFT OUTER JOIN content on matches.id = content.match_id").where("content.id IS NULL OR content.status != ?", Content.statuses["given"]) }
+  scope :waiting_for_gift, -> { available.joins(:giver_match).joins("LEFT OUTER JOIN content on matches.id = content.match_id").where("content.id IS NULL OR content.status != ?", Content.statuses["given"]) }
 
 	before_create :set_defaults
 
@@ -48,14 +51,17 @@ class User < ActiveRecord::Base
 	end
 
 	def self.valid_scope?(scope)
-		["all", "available", "unavailable", "playing", "waiting_list"].include?(scope)
+		["all", "available", "unavailable", "playing", "waiting_list", "gave_gift", "no_gift_given", "waiting_for_gift"].include?(scope)
 	end
 
 	def self.statuses(group_status)
-		if group_status == "open"
+		case group_status
+		when "open"
 			%w(available unavailable)
-		elsif group_status == "matched"
+		when "matched"
 			%w(playing waiting_list unavailable)
+		when "gifted"
+			%w(gave_gift no_gift_given waiting_for_gift)
 		end
 	end
 
@@ -71,20 +77,38 @@ class User < ActiveRecord::Base
 		!giver_match && available?
 	end
 
+	def gave_gift?
+		receiver_match.content && receiver_match.content.given?
+	end
+
+	def no_gift_given?
+		!gave_gift?
+	end
+
+	def waiting_for_gift?
+		giver_match.content.blank? || !giver_match.content.given?
+	end
+
 	def playing_status(group_status)
-		if group_status == "open"
-			if available?
-				"available"
+		if group_status == "matched"
+			if playing?
+				"playing"
+			elsif waiting?
+				"waiting"
 			elsif incomplete_profile?
 				"incomplete"
 			elsif !available?
 				"unavailable"
 			end
-		elsif group_status == "matched"
-			if playing?
-				"playing"
-			elsif waiting?
-				"waiting"
+		elsif group_status == "gifted"
+			if gave_gift?
+				"gave_gift"
+			elsif no_gift_given?
+				"no_gift_given"
+			end
+		else
+			if available?
+				"available"
 			elsif incomplete_profile?
 				"incomplete"
 			elsif !available?

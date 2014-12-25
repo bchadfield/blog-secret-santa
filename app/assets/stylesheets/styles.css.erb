@@ -12,13 +12,17 @@ body.csw-home .csw-content-header { background-color: #f3f3f4; }
 .csw-home-content { padding-top: 2rem; padding-bottom: 3rem; }
 .csw-item-row .user-name { font-weight: bold; }
 .user.playing .playing-status,
-.user.available .playing-status { color: #5cb85c; }
+.user.available .playing-status,
+.user.gave_gift .playing-status { color: #5cb85c; }
 .user.playing .csw-avatar,
-.user.available .csw-avatar { border-color: #5cb85c;}
+.user.available .csw-avatar,
+.user.gave_gift .csw-avatar { border-color: #5cb85c;}
 .user.waiting .playing-status { color: #5bc0de; }
 .user.waiting .csw-avatar { border-color: #5bc0de; }
-.user.unavailable .playing-status { color: #f0ad4e; }
-.user.unavailable .csw-avatar { border-color: #f0ad4e; }
+.user.unavailable .playing-status,
+.user.no_gift_given .playing-status { color: #f0ad4e; }
+.user.unavailable .csw-avatar,
+.user.no_gift_given .csw-avatar { border-color: #f0ad4e; }
 .user.incomplete .playing-status { color: #999; }
 .user.incomplete .csw-avatar { border-color: #999; }
 .user-summaries { padding-bottom: 2rem; }
@@ -26,9 +30,12 @@ body.csw-home .csw-content-header { background-color: #f3f3f4; }
 .user-summaries .user-summary.total, .label.total { color: #888; background-color: #fff; border: 1px solid #ccc; }
 .user-summaries .user-summary.total { padding: 10px 9px 8px 10px; }
 .user-summaries .user-summary.playing,
-.user-summaries .user-summary.available { background-color: #5cb85c; }
-.user-summaries .user-summary.waiting_list { background-color: #5bc0de; }
-.user-summaries .user-summary.unavailable { background-color: #f0ad4e; }
+.user-summaries .user-summary.available,
+.user-summaries .user-summary.gave_gift { background-color: #5cb85c; }
+.user-summaries .user-summary.waiting_list,
+.user-summaries .user-summary.waiting_for_gift { background-color: #5bc0de; }
+.user-summaries .user-summary.unavailable,
+.user-summaries .user-summary.no_gift_given { background-color: #f0ad4e; }
 .user-summaries .user-count { font-size: 2.5em; display: block; padding-bottom: 5px; line-height: 1em; }
 .user-summaries .user-playing-status { font-size: 1.25em; line-height: 1em; }
 .user-summaries .user-playing-status .csw-icon { font-size: 0.9em; top: 0; }

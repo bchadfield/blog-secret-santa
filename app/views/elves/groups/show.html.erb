@@ -19,7 +19,7 @@
           </div>
         <% end %>
       </div>
-      <% User.statuses(@group_status).each do |status| %>
+      <% User.statuses(@group.status).each do |status| %>
 	      <div class="small-6 medium-3 columns">
 	        <%= link_to elves_path(filter: status) do %>
 	          <div class="user-summary <%= status %>">
