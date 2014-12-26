@@ -78,15 +78,15 @@ class User < ActiveRecord::Base
 	end
 
 	def gave_gift?
-		receiver_match.content && receiver_match.content.given?
+		receiver_match && receiver_match.content && receiver_match.content.given?
 	end
 
 	def no_gift_given?
-		!gave_gift?
+		receiver_match && (!receiver_match.content || !receiver_match.content.given?)
 	end
 
 	def waiting_for_gift?
-		giver_match.content.blank? || !giver_match.content.given?
+		giver_match && (giver_match.content.blank? || !giver_match.content.given?)
 	end
 
 	def playing_status(group_status)
@@ -105,6 +105,8 @@ class User < ActiveRecord::Base
 				"gave_gift"
 			elsif no_gift_given?
 				"no_gift_given"
+			else
+				""
 			end
 		else
 			if available?
