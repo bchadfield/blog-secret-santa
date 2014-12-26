@@ -12,8 +12,8 @@
                 <%= link_to edit_santa_group_content_path(@group, content), class: "csw-pull-right", remote: true do %>
                   <i class="csw-icon csw-icon-pencil"></i> Edit
                 <% end %>
-                <h2><%= link_to content.title, santa_group_content_path(@group, content) %></h2>
-                <% if content.url %>
+                <h2><%= link_to content.title.present? ? content.title : "No title", santa_group_content_path(@group, content) %></h2>
+                <% if content.url.present? %>
                   <p>on <%= link_to host_only(content.url), "http://" << host_only(content.url), target: "_blank" %>
                 <% end %>
                 <p>

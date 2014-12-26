@@ -27,8 +27,10 @@ module ApplicationHelper
   end
 
   def prepare_snippet(body)
-    stripped_body = strip_tags(body)
-    truncate(stripped_body.sub(/This post was anonymously.*Santa's list of 2013 gift posts\./, ''), length: 150, separator: ' ')
+    unless body.blank?
+      stripped_body = strip_tags(body)
+      truncate(stripped_body.sub(/This post was anonymously.*Santa's list of 2013 gift posts\./, ''), length: 150, separator: ' ')
+    end
   end
 
   def group_title(group)
