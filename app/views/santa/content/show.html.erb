@@ -13,22 +13,15 @@
             </ul>
           </li>
           <li>
-          	<a class="csw-html-toggle" href="#">
-          		<i class="csw-icon csw-icon-code"></i> Show HTML
-          	</a>
-          </li>
-          <li>
-            <%= link_to publish_group_content_path(@group, @content), class: "csw-publish-url-button", remote: true do %>
-              <i class="csw-icon csw-icon-paperplane"></i> <%= @content.url.blank? ? "Publish your gift" : "Edit the published URL" %>
+            <%= link_to edit_santa_group_content_path(@group, @content), remote: true do %>
+              <i class="csw-icon csw-icon-pencil"></i> Edit
             <% end %>
           </li>
         </ul>
       </div>
-    	<div class="csw-content-plain-preview csw-tab-content">
-	      <div class="csw-tab-pane csw-tab-active" id="mde-tab-formatted">
-          <div class="mde-preview"><%= raw @content.preview %></div>
-        </div>
-        <div class="csw-tab-pane" id="mde-tab-html">
-          <xmp class="mde-html"><%= raw @content.preview %></xmp>
-        </div>
+    	<div class="csw-content-plain-preview">
+        <p>Status: <%= @content.status %><br>
+        URL: <%= @content.url %><br>
+        Published: <%= @content.published? ? "Yes" : "No" %></p>
+        <div class="mde-preview"><%= raw @content.preview %></div>
 	    </div>

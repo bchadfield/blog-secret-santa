@@ -1,0 +1,32 @@
+<% title "#{@group.name} content" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="content narrow">
+        <h1><%= yield :heading %></h1>
+        <% if @content.present? %>
+          <ul class="all_content">
+            <% @content.each do |content| %>
+              <li>
+                <%= link_to edit_santa_group_content_path(@group, content), class: "csw-pull-right", remote: true do %>
+                  <i class="csw-icon csw-icon-pencil"></i> Edit
+                <% end %>
+                <h2><%= link_to content.title, santa_group_content_path(@group, content) %></h2>
+                <% if content.url %>
+                  <p>on <%= link_to host_only(content.url), "http://" << host_only(content.url), target: "_blank" %>
+                <% end %>
+                <p>
+                  <%= prepare_snippet(content.body) %> 
+                  <%= link_to "Read post", content.url, target: "_blank" if content.url %>
+                </p>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>No content.</p>
+        <% end %>
+      </div>
+    </div>     
+  </div>
+</div>

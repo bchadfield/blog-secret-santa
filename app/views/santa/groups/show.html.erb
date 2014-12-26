@@ -3,7 +3,10 @@
 <div class="row">
 	<div class="small-12 columns">
 		<h1><%= yield :heading %></h1>
-		<%= link_to "Edit", edit_santa_group_path(@group), class: "csw-button csw-plain button" %>
+		<p>
+			<%= link_to "Edit", edit_santa_group_path(@group), class: "csw-button csw-plain-button" %>
+			<%= link_to "Content", santa_group_content_index_path(@group), class: "csw-button csw-plain-button" %>
+		</p>
 	</div>
 </div>
 <div class="row">

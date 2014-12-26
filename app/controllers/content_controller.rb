@@ -1,6 +1,6 @@
 class ContentController < ApplicationController
   before_action :find_group_by_slug, only: [:new, :edit, :index, :show, :send_gift, :upload, :import, :export, :publish, :save_publish]
-  before_action :find_content_by_token, :authorize_giver, only: [:edit, :show, :update, :send_gift, :upload, :import, :export, :publish, :save_publish]
+  before_action :find_content_by_token, only: [:edit, :show, :update, :send_gift, :upload, :import, :export, :publish, :save_publish]
   before_action :authorize_giver, only: [:edit, :send_gift, :upload, :import]
   before_action :authorize_receiver, only: [:show, :publish, :save_publish]
   skip_before_action :authenticate_user!, only: :index
@@ -20,7 +20,6 @@ class ContentController < ApplicationController
 
   def show
     redirect_to @group, notice: "Your gift is not ready yet. Check back later." unless @content.given?
-    @content_preview = Kramdown::Document.new("# #{@content.title}\n#{@content.body}", auto_ids: false, smart_quotes: 'apos,apos,quot,quot').to_html
   end
 
   def edit
@@ -33,7 +32,7 @@ class ContentController < ApplicationController
       if @content.save
         format.html { 
           flash[:success] = "You saved your content. Well, I saved it for you. All you did was click the button."
-          redirect_to edit_content_path(@content) 
+          redirect_to edit_group_content_path(@group, @content) 
         }
         format.js
         format.json { head :no_content }

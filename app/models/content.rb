@@ -20,6 +20,14 @@ class Content < ActiveRecord::Base
     blank? || (present? && !given?)
   end
 
+  def preview
+    Kramdown::Document.new("# #{self.title}\n#{self.body}", auto_ids: false, smart_quotes: 'apos,apos,quot,quot').to_html
+  end
+
+  def published?
+    given? && url.present?
+  end
+
   private
 
   	def read_file(file)
