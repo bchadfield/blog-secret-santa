@@ -6,7 +6,7 @@ class ContentController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
 
   def new
-    if @group.matched? || (@group.gifted? && current_user.receiver_match.content.not_delivered?)
+    if @group.matched? || (@group.gifted? && (current_user.receiver_match.content.nil? || !current_user.receiver_match.content.given?))
       @content = Content.find_or_create_by(group_id: @group.id, match_id: current_user.receiver_match.id)
       redirect_to edit_group_content_path(@group, @content)
     else

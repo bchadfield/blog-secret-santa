@@ -16,10 +16,6 @@ class Content < ActiveRecord::Base
     self.body = contents if self.errors.empty?
   end
 
-  def not_delivered?
-    blank? || (present? && !given?)
-  end
-
   def preview
     Kramdown::Document.new("# #{self.title}\n#{self.body}", auto_ids: false, smart_quotes: 'apos,apos,quot,quot').to_html
   end
