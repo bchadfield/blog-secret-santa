@@ -5,7 +5,7 @@ class Santa::MessagesController < Santa::SantaController
 	end
 
 	def create
-		@message = Message.new(message_params).deliver
+		@message = Message.new(message_params).deliver_later
 		if @message.errors.full_messages.present?
 			flash.now[:error] = @message.errors.full_messages.first
 			render 'new'

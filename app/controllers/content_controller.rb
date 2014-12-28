@@ -47,7 +47,7 @@ class ContentController < ApplicationController
   def send_gift
     @receiver = current_user.receiver
     if @group && @receiver && @content && @content.body
-      UserMailer.send_gift(@receiver, @content, @group).deliver
+      UserMailer.send_gift(@receiver, @content, @group).deliver_later
       @content.given!
       flash[:success] = "You're gift has been sent! Welcome back to the list of good children."
       redirect_to @group
@@ -91,7 +91,7 @@ class ContentController < ApplicationController
     @first_publish = @content.url.nil?
     respond_to do |format|
       if @content.update(publish_params)
-        UserMailer.published_gift(current_user.giver, current_user, @group).deliver if @first_publish
+        UserMailer.published_gift(current_user.giver, current_user, @group).deliver_later if @first_publish
         format.html { 
           flash[:success] = "Your gift has been published for the world to see."
           redirect_to @group 

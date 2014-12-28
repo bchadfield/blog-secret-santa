@@ -53,7 +53,7 @@ class Group < ActiveRecord::Base
 	    	giver = match[0]
 	    	receiver = match[1]
 	    	Match.create(group: self, giver: giver, receiver: receiver)
-				UserMailer.match_notification(giver, receiver).deliver
+				UserMailer.match_notification(giver, receiver).deliver_later
 				count += 1
 	    end
 	    self.matched!
@@ -82,11 +82,11 @@ class Group < ActiveRecord::Base
 			content = Content.find_by(match: match)
 			if match.receiver && content && content.body
 				content.given!
-				UserMailer.send_gift(match.receiver, content, self).deliver
+				UserMailer.send_gift(match.receiver, content, self).deliver_later
 				sent += 1
 			elsif match.receiver && match.giver
-				UserMailer.no_gift_from_you(match.giver, match.receiver).deliver
-				UserMailer.no_gift_for_you(match.receiver).deliver
+				UserMailer.no_gift_from_you(match.giver, match.receiver).deliver_later
+				UserMailer.no_gift_for_you(match.receiver).deliver_later
 				missed += 1
 			end
 		end

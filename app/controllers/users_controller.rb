@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   	if @user.update_attributes(user_params)
       if was_incomplete
         flash[:success] = "Great! Your profile is complete and you're ready for Blog Secret Santa"
-        UserMailer.welcome(@user).deliver
+        UserMailer.welcome(@user).deliver_later
         redirect_to group_path(@user.group)
       else
         flash[:success] = "Updated without a hitch!"

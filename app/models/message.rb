@@ -17,15 +17,15 @@ class Message
       end
       users.each do |user|
         puts user.name
-      	MessageMailer.send(@template, user.email, @subject, @body).deliver
+      	MessageMailer.send(@template, user.email, @subject, @body).deliver_later
       end
     elsif @to.include?(',')
     	@to.gsub(/\s+/, "").split(',').uniq.each do |email|
-    		MessageMailer.send(@template, email, @subject, @body).deliver
+    		MessageMailer.send(@template, email, @subject, @body).deliver_later
     	end
     else
     	user = User.find_by(email: @to)
-    	MessageMailer.send(@template, user.email, @subject, @body).deliver if user
+    	MessageMailer.send(@template, user.email, @subject, @body).deliver_later if user
     end
     self
   rescue Exception => e

@@ -1,19 +1,19 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.5'
+gem 'rails', '4.2.0'
 
 gem 'pg'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 4.0.3'
-  #gem 'coffee-rails', '~> 4.0.1'
+  gem 'sass-rails',   '~> 5.0.0'
+  #gem 'coffee-rails', '~> 4.1.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', platforms: :ruby
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '>= 1.3.0'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -55,8 +55,6 @@ group :development do
   gem 'capistrano-rails', '~> 1.1', require: false
   gem 'capistrano-bundler', '~> 1.1', require: false
   gem 'capistrano-rbenv', '~> 2.0', require: false
-  gem 'better_errors'
-  gem 'binding_of_caller', '~> 0.7.1'
-  gem 'meta_request', '0.3.4'
-  gem "letter_opener"
+  gem 'web-console', '~> 2.0'
+  gem 'letter_opener'
 end

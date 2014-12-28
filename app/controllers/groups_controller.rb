@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
   end
 
   def enquiry
-    GroupMailer.enquiry(params[:group], params[:email]).deliver
+    GroupMailer.enquiry(params[:group], params[:email]).deliver_later
   end
 
   private
