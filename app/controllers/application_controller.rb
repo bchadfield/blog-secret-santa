@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  def incomplete_profile_redirect
+    flash[:notice] = "Please complete your profile before you continue."
+    redirect_to edit_user_path(current_user)
+  end
+
   private
   
     def current_tenant
@@ -46,11 +51,6 @@ class ApplicationController < ActionController::Base
   	def check_profile
   		incomplete_profile_redirect if current_user && current_user.incomplete_profile? && !current_user.santa?
   	end
-
-    def incomplete_profile_redirect
-      flash[:notice] = "Please complete your profile before you continue."
-      redirect_to edit_user_path(current_user)
-    end
 
     def deny_access
       flash[:error] = "You don't have access to see that page"
